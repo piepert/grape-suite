@@ -12,8 +12,8 @@
     docent: [Dr. phil. Berta Beispielprüferin],
     seminar: [Beispielseminar],
 
-    submitted-to: [Eingereicht bei],
-    submitted-by: [Eingereicht durch],
+    submit-to: [Eingereicht bei],
+    submit-by: [Eingereicht durch],
 
     semester: german-dates.semester(datetime.today()),
 
