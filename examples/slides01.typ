@@ -1,4 +1,4 @@
-#import "/src/template.typ": slides
+#import "/src/library.typ": slides
 #import slides: *
 
 #show: slides.with(

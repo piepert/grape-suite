@@ -1,4 +1,4 @@
-#import "/src/template.typ": seminar-paper, german-dates
+#import "/src/library.typ": seminar-paper, german-dates
 
 #set text(lang: "de")
 

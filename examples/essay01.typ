@@ -1,4 +1,4 @@
-#import "/src/template.typ": exercise
+#import "/src/library.typ": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(

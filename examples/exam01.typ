@@ -1,4 +1,4 @@
-#import "/src/template.typ": exercise, colors
+#import "/src/library.typ": exercise, colors
 #import exercise: project, task, subtask
 #import colors: *
 
