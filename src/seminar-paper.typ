@@ -83,15 +83,15 @@
             text(size: 1.5em, fill: purple.lighten(25%), subtitle)
         }
 
-        #if title-page-part == none {
-            if title-page-part-submit-date == none {
+        #if title-page-part == none [
+            #if title-page-part-submit-date == none {
                 ifnn-line(semester)
                 ifnn-line(date-format(date))
             } else {
                 title-page-part-submit-date
             }
 
-            if title-page-part-submit-to == none {
+            #if title-page-part-submit-to == none {
                 ifnn-line(text(size: 0.6em, upper(strong(submit-to))))
                 ifnn-line(university)
                 ifnn-line(faculty)
@@ -102,7 +102,7 @@
                 title-page-part-submit-to
             }
 
-            if title-page-part-submit-by == none {
+            #if title-page-part-submit-by == none {
                 ifnn-line(text(size: 0.6em, upper(strong(submit-by))))
                 ifnn-line(author + if student-number != none [ (#student-number)])
                 ifnn-line(email)
@@ -110,7 +110,7 @@
             } else {
                 title-page-part-submit-by
             }
-        } else {
+         ] else {
             title-page-part
         }
 
