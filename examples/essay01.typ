@@ -1,5 +1,5 @@
 #import "/src/library.typ": exercise
-#import exercise: project, task, subtask
+#import exercise: project, task, subtask, todo
 
 #show: project.with(
     title: "Lorem ipsum dolor sit",
@@ -32,6 +32,8 @@
 
 == Subheading 2
 #lorem(100)
+
+== #lorem(20)
 
 #lorem(200)
 

@@ -1,6 +1,7 @@
 #import "/src/library.typ": slides
 #import slides: *
 
+#set text(lang: "de")
 #show: slides.with(
     no: 1,
     series: [Logik-Tutorium],
@@ -12,6 +13,8 @@
     box-definition-title: [Definition],
     box-notice-title: [Achtung!],
     box-example-title: [Beispiel],
+
+    outline-title-text: "Ablauf",
 
     author: "Tristan Pieper",
     email: link("mailto:tristan.pieper@uni-rostock.de"),
@@ -71,7 +74,7 @@
 
     + *die Wiederholungsserien* -- für die Nachbereitung
 
-    + *die Lernevaluationen* (LEVs) -- für Reflexion des Selbstudiums
+    + *die Lernevaluationen* (LEVs) -- für Reflexion des Selbstudiums #todo[Rechtschreibfehler beheben]
 ]
 
 #slide[

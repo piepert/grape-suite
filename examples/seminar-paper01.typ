@@ -1,4 +1,5 @@
 #import "/src/library.typ": seminar-paper, german-dates
+#import seminar-paper: todo
 
 #set text(lang: "de")
 
@@ -27,7 +28,7 @@
 )
 
 = Einleitung
-#lorem(100)
+#lorem(100) #todo(lorem(20))
 
 
 #lorem(100)
@@ -41,7 +42,7 @@
 #lorem(200)
 
 == Antithese
-#lorem(100)
+#lorem(100) #todo(lorem(20))
 
 #lorem(200)
 
@@ -49,6 +50,8 @@
 #lorem(100)
 
 #lorem(200)
+
+== #lorem(20)
 
 = Fazit
 
