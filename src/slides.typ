@@ -101,7 +101,7 @@
 #let uncover = polylux.uncover
 #let only = polylux.uncover
 #let pause = polylux.pause
-#let slide(..args) = polylux.polylux-slide(..args) + counter("grape-suite-slide-counter").step()
+#let slide(..args) = polylux.polylux-slide(..args)
 
 #let slides(
     no: 0,
@@ -123,14 +123,23 @@
     box-notice-title: standard-box-translations.at("notice"),
     box-example-title: standard-box-translations.at("example"),
 
+    outline-title-text: "Outline",
+
     date: datetime.today(),
     body
 ) = {
+    let left-footer = text(size: 0.5em,[
+        #if show-semester [#semester(short: true, date) ---]
+        #series #if no != none [\##no] #if title != none [---
+        #title] ---
+        #author
+    ])
+
     show footnote.entry: set text(size: 0.5em)
 
     show heading: set text(fill: purple)
 
-    set text(size: 24pt, lang: "de", font: "Atkinson Hyperlegible")
+    set text(size: 24pt, font: "Atkinson Hyperlegible")
     set page(paper: "presentation-16-9",
         footer: {
                 (locate(loc => if (show-outline and loc.page() > 2) or loc.page() > 1 {
@@ -140,17 +149,12 @@
                         blue.lighten(25%)
                     })
 
-                    text(size: 0.5em,[
-                        #if show-semester [#semester(short: true, date) ---]
-                        #series #if no != none [\##no] #if title != none [---
-                        #title] ---
-                        #author
-                    ])
+                    left-footer
 
                     h(1fr)
 
                     text(size: 0.75em,
-                        strong(str(counter(page).at(loc).first() - if show-outline { 2 } else { 1 }))) + text(size: 0.5em, [ \/ #(counter(page).final(loc).first() - if show-outline { 2 } else { 1 })])
+                        strong(str(counter(page).at(loc).first()))) + text(size: 0.5em, [ \/ #(counter(page).final(loc).first())])
             }))
         }
     )
@@ -178,11 +182,20 @@
     ]))
 
     if show-outline {
-        set page(fill: purple)
+        set page(fill: purple, footer: locate(loc => {
+            set text(fill: if loc.page() > 2 or not show-outline {
+                purple.lighten(25%)
+            } else {
+                blue.lighten(25%)
+            })
+
+            left-footer
+        }))
+
         slide[
             #set text(fill: white)
 
-            #heading(outlined: false, text(fill: blue.lighten(25%), [Ablauf]))
+            #heading(outlined: false, text(fill: blue.lighten(25%), [#outline-title-text]))
 
             #locate(loc => {
                 let elems = query(selector(heading).after(loc), loc)
@@ -205,6 +218,8 @@
             }
         })
     }
+
+    counter(page).update(1)
 
     set page(fill: white)
     body
