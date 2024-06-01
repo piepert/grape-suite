@@ -1,6 +1,6 @@
 #import "@preview/polylux:0.3.1"
 
-#import "dates.typ": semester, weekday
+#import "german-dates.typ": semester, weekday
 #import "colors.typ": *
 
 #let unbreak(body) = {

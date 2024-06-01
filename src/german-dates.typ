@@ -28,7 +28,7 @@
     }
 }
 
-#let german-days = (
+#let days = (
     "Montag",
     "Dienstag",
     "Mittwoch",
@@ -39,7 +39,7 @@
 )
 
 #let weekday(short: false, daynr) = {
-    let day = german-days.at(daynr - 1)
+    let day = days.at(daynr - 1)
 
     if short {
         day = day.slice(0, 2)
