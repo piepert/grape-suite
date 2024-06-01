@@ -60,7 +60,6 @@
     show link: underline
     show link: set text(fill: purple)
 
-    // show heading: set text(fill: purple)
     show heading: it => locate(loc => style(s => {
         let num-style = it.numbering
 
@@ -69,8 +68,9 @@
         }
 
         let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(loc))+[ \u{200b}])
+        let x-offset = -1 * measure(num, s).width
 
-        [#move(text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body), dx: -1 * measure(num, s).width)]
+        par(first-line-indent: x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body))
     }))
 
     // title page
@@ -153,6 +153,7 @@
 
     pagebreak(weak: true)
 
+    // main body setup
     set page(
         footer: if footer != none {footer} else {
             set text(size: 0.75em)
@@ -178,8 +179,6 @@
 
     set heading(numbering: "1.")
     counter(page).update(1)
-
-    // main body
     body
 
     // backup page count, because last page should not be counted

@@ -135,7 +135,6 @@
     show link: underline
     show link: set text(fill: purple)
 
-    // show heading: set text(fill: purple)
     show heading: it => locate(loc => style(s => {
         let num-style = it.numbering
 
@@ -144,8 +143,9 @@
         }
 
         let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(loc))+[ \u{200b}])
+        let x-offset = -1 * measure(num, s).width
 
-        [#move(text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body), dx: -1 * measure(num, s).width)]
+        par(first-line-indent: x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body))
     }))
 
     let ufi = ()
