@@ -2,6 +2,7 @@
 
 #import "german-dates.typ": semester, weekday
 #import "colors.typ": *
+#import "todo.typ": todo, show-todos, todo-state
 
 #let unbreak(body) = {
     set text(hyphenate: false)
@@ -113,6 +114,7 @@
 
     show-semester: true,
     show-outline: true,
+    show-todolist: true,
 
     box-task-title: standard-box-translations.at("task"),
     box-hint-title: standard-box-translations.at("hint"),
@@ -192,6 +194,16 @@
                     }))
             })
         ]
+    }
+
+    if show-todolist {
+        locate(loc => {
+            if todo-state.final(loc).len() > 0 {
+                slide[
+                    #show-todos()
+                ]
+            }
+        })
     }
 
     set page(fill: white)
