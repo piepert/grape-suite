@@ -1,4 +1,5 @@
 #import "colors.typ" as colors: *
+#import "todo.typ": todo, show-todos
 
 #let project(
     title: none,
@@ -37,6 +38,7 @@
     footer-middle: none,
     footer-left: none,
 
+    show-todolist: true,
     show-declaration-of-independent-work: true,
 
     page-margins: none,
@@ -141,7 +143,14 @@
     )
 
     // outline
-    pad(x: 2em, outline(indent: true))
+    pad(x: 2em, {
+        outline(indent: true)
+
+        if show-todolist {
+            show-todos()
+        }
+    })
+
     pagebreak(weak: true)
 
     set page(
