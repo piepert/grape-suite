@@ -1,5 +1,6 @@
 #import "colors.typ" as colors: *
 #import "tasks.typ": *
+#import "todo.typ": todo, show-todos, todo-state
 
 #let standard-box-translations = (
     "task": [Task],
@@ -107,6 +108,8 @@
     page-margins: none,
 
     fontsize: 11pt,
+
+    show-todolist: true,
 
     body
 ) = {
@@ -245,6 +248,15 @@
         show outline.entry: it => h(1em) + it
         set text(size: 0.75em)
         pad(x: 1cm, top: if abstract != none {0.25cm} else {0cm}, outline(indent: 1.5em))
+    }
+
+    if show-todolist {
+        set text(size: 0.75em)
+        locate(loc => {
+            if todo-state.final(loc).len() > 0 {
+                pad(x: 1cm, top: if abstract != none or with-outline != none {0.25cm} else {0cm}, show-todos())
+            }
+        })
     }
 
     set heading(numbering: "1.")
