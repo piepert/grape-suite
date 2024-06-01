@@ -31,7 +31,7 @@
     make-element(if extra {extra-task-type} else {task-type},
         no,
         title + h(1fr) + if points != none and points > 0 { [#points P.] },
-        if instruction != none and instruction not in ([], [ ]) { block(emph(instruction)) } + if body != none { block(body) } +
+        if instruction != none and instruction not in ([], [ ]) { block(emph(instruction)) } + if body != none { block(width: 100%, body) } +
 
         locate(loc => {
             if state("grape-suite-show-lines").at(loc) == false {
