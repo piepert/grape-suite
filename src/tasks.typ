@@ -20,7 +20,7 @@
         stroke: (bottom: (paint: purple, dash: "dashed")),
         fill: blue.lighten(75%), {
 
-        text(fill: purple, strong[#type #no] + [ --- #title])
+        text(fill: purple, strong[#type #no] + title)
     })
 
     block(body)
@@ -30,19 +30,30 @@
 #let make-task(no, title, instruction, body, extra, points, lines, extra-task-type, task-type) = {
     make-element(if extra {extra-task-type} else {task-type},
         no,
-        title + h(1fr) + if points != none and points > 0 { [#points P.] },
-        if instruction != none and instruction not in ([], [ ]) { block(emph(instruction)) } + if body != none { block(width: 100%, body) } +
+        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
 
-        locate(loc => {
-            if state("grape-suite-show-lines").at(loc) == false {
-                return
+        block(width: 100%, {
+            state("grape-suite-subtask-indent").update((0,))
+
+            if instruction != none and instruction not in ([], [ ]) {
+                block(emph(instruction))
             }
 
-            for i in range(0, lines) {
-                v(0.75cm)
-                v(-1.2em)
-                line(length: 100%, stroke: black.lighten(50%))
-            }
+            state("grape-suite-subtask-indent").update((0,))
+
+            if body != none { block(body) }
+
+            locate(loc => {
+                if state("grape-suite-show-lines").at(loc) == false {
+                    return
+                }
+
+                for i in range(0, lines) {
+                    v(0.75cm)
+                    v(-1.2em)
+                    line(length: 100%, stroke: black.lighten(50%))
+                }
+            })
         }))
 }
 
@@ -50,14 +61,52 @@
     make-element(solution-type,
         no,
         title + h(1fr) + if points != none and points > 0 { [#points P.] },
-        if instruction != none { block(emph(instruction)) } + if body != none { block(body) } + state("grape-suite-subtask-indent").update((0,)) + slides-lib.solution(solution))
+
+        block(width: 100%, {
+            state("grape-suite-subtask-indent").update((0,))
+
+            if instruction != none {
+                block(emph(instruction))
+            }
+
+            state("grape-suite-subtask-indent").update((0,))
+
+            if body != none {
+                block(body)
+            }
+
+            state("grape-suite-subtask-indent").update((0,))
+
+            slides-lib.solution(solution)
+
+            state("grape-suite-subtask-indent").update((0,))
+        }))
 }
 
 #let make-hint(no, title, instruction, body, extra, points, hint, hint-type) = {
     make-element(hint-type,
         no,
         title + h(1fr) + if points != none and points > 0 { [#points P.] },
-        if instruction != none { block(emph(instruction)) } + if body != none { block(body) } + state("grape-suite-subtask-indent").update((0,)) + slides-lib.hint(hint))
+
+        block(width: 100%, {
+            state("grape-suite-subtask-indent").update((0,))
+
+            if instruction != none {
+                block(emph(instruction))
+            }
+
+            state("grape-suite-subtask-indent").update((0,))
+
+            if body != none {
+                block(body)
+            }
+
+            state("grape-suite-subtask-indent").update((0,))
+
+            slides-lib.hint(hint)
+
+            state("grape-suite-subtask-indent").update((0,))
+        }))
 }
 
 #let make-solutions(loc,
