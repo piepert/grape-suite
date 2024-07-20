@@ -24,7 +24,7 @@
     suffix-title: none,
 
     // disable/enable outline
-    with-outline: false,
+    show-outline: false,
 
     // abstract
     abstract: none,
@@ -155,7 +155,7 @@
 
     set page(
         margin: if page-margins != none {page-margins} else {
-            (top: if ufi.len() <= 2 or not show-namefields {
+            (top: if ufi.len() <= 2 or not show-namefield {
                 3.5cm
             } else {
                 4cm
@@ -244,7 +244,7 @@
         pad(x: 1cm, abstract)
     }
 
-    if with-outline {
+    if show-outline {
         show outline.entry: it => h(1em) + it
         set text(size: 0.75em)
         pad(x: 1cm, top: if abstract != none {0.25cm} else {0cm}, outline(indent: 1.5em))

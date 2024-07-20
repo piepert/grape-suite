@@ -41,8 +41,8 @@
     "example": [Example],
 )
 
-#let task(body) = {
-    important-box(locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("solution")),
+#let task(body, time: none) = {
+    important-box(locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("task") + h(1fr) + time),
         body,
         [A],
         blue,
