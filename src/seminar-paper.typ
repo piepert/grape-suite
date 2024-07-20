@@ -38,6 +38,7 @@
     footer-middle: none,
     footer-left: none,
 
+    show-outline: true,
     show-todolist: true,
     show-declaration-of-independent-work: true,
 
@@ -143,15 +144,20 @@
     )
 
     // outline
-    pad(x: 2em, {
-        outline(indent: true)
+    if show-outline or show-todolist {
+        pad(x: 2em, {
+            if show-outline {
+                outline(indent: true)
+                v(1fr)
+            }
 
-        if show-todolist {
+            if show-todolist {
                 list-todos()
             }
         })
 
-    pagebreak(weak: true)
+        pagebreak(weak: true)
+    }
 
     // main body setup
     set page(
