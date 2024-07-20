@@ -9,7 +9,13 @@
         str(todo-state.at(loc).len()))
 }
 
+#let hide-todos() = state("grape-suite-list-todos").update(false)
+
 #let todo(..content) = locate(loc => {
+    if state("grape-suite-list-todos", true).at(loc) == false {
+        return
+    }
+
     let label-name = make-todo-label(loc)
 
     highlight(fill: magenta.lighten(90%), text(fill: magenta,
@@ -28,15 +34,15 @@
 })
 
 #let list-todos() = locate(loc => {
+    let todo-list = todo-state.final(loc)
 
-        show link: text.with(fill: magenta)
-        set text(fill: magenta)
-        if type(todo-list) == "array" and todo-list.len() > 0 {
+    show link: text.with(fill: magenta)
+    set text(fill: magenta)
+    if type(todo-list) == "array" and todo-list.len() > 0 {
         strong([To do:])
 
         list(tight: false, ..todo-list.map(e =>
-            link(e.label, underline(strong[p. #e.page])) +
+            strong[p. #e.page] +
             if e.content != none { [: #e.content] }))
-        }
-    })
-}
+    }
+})
