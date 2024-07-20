@@ -165,26 +165,46 @@
     }
 }
 
-#let make-matrix-row(no, title, extra, points, solutions, task-type, extra-task-type) = (
-    table.hline(stroke: purple),
+#let make-matrix-row(show-comment-field: false,
+    comment-field-value: none,
+    no,
+    title,
+    extra,
+    points,
+    solutions,
+    task-type,
+    extra-task-type) = {
 
-    table.cell(fill: blue.lighten(75%),
-        strong(if extra [#extra-task-type ] else [#task-type ]) +
-        strong[#no --- #title]),
+    let e = (
+        table.hline(stroke: purple),
 
-    table.cell(fill: blue.lighten(75%),
-        align(center, strong[#box(line(length: 0.75cm)) / #points])),
+        table.cell(fill: blue.lighten(75%),
+            strong(if extra [#extra-task-type ] else [#task-type ]) +
+            strong(no) + if title != none [ --- #title]),
 
-    table.hline(stroke: purple),
+        table.cell(fill: blue.lighten(75%),
+            align(center, strong[#box(line(length: 0.75cm)) / #points])),
 
-    ..solutions.map(e => (
-        e.at(1),
-        align(center, box(line(length: 0.75cm)) + [ \/ #e.at(0)]),
-        table.hline(stroke: (paint: purple, dash: "dashed")),
-    )).flatten()
-)
+        table.hline(stroke: purple),
 
-#let make-solution-matrix(loc,
+        ..solutions.map(e => (
+            e.at(1),
+            align(center, box(line(length: 0.75cm)) + [ \/ #e.at(0)]),
+            table.hline(stroke: (paint: purple, dash: "dashed")),
+        )).flatten()
+    )
+
+    if show-comment-field {
+        e.push(table.cell(colspan: 2, comment-field-value))
+    }
+
+    return e
+}
+
+#let make-solution-matrix(
+    show-comment-field: false,
+    comment-field-value: none,
+    loc,
     matrix-task-header,
     task-type,
     extra-task-type,
@@ -222,13 +242,15 @@
                 type(task.solution) == array)
 
             .map(task => {
-                make-matrix-row(task.no,
+                make-matrix-row(show-comment-field: show-comment-field,
+                    comment-field-value: comment-field-value,
+                    task.no,
                     task.title,
                     task.extra,
                     task.points,
                     task.solution,
-                    task-type,
-                    extra-task-type)}).flatten(),
+                    task.task-type,
+                    task.extra-task-type)}).flatten(),
 
         table.cell(colspan: 2, fill: purple, v(-10pt)),
 
@@ -242,7 +264,9 @@
                     type(task.solution) == array)
 
                 .map(task => {
-                    make-matrix-row(task.no,
+                    make-matrix-row(show-comment-field: show-comment-field,
+                        comment-field-value: comment-field-value,
+                        task.no,
                         task.title,
                         task.extra,
                         task.points,
@@ -258,7 +282,7 @@
             #show: align.with(center)
 
             #box(line(length: 0.75cm)) /
-            #tasks.filter(e => not e.extra).map(e => e.points).sum(default: 0) + #tasks.filter(e => e.extra).map(e => e.points).sum(default: 0) P.
+            #tasks.filter(e => not e.extra and not e.ignore-points).map(e => e.points).sum(default: 0) + #tasks.filter(e => e.extra and not e.ignore-points).map(e => e.points).sum(default: 0) P.
 
             #v(-0.5em)
             #line(length: 100%)
@@ -276,8 +300,8 @@
     header-point-grade
 ) = {
     let points = state("grape-suite-tasks").at(loc)
-    let points-sum = points.filter(e => not e.extra).map(e => e.points).sum(default: 0)
-    let extrapoints-sum = points.filter(e => e.extra).map(e => e.points).sum(default: 0)
+    let points-sum = points.filter(e => not e.extra and not e.ignore-points).map(e => e.points).sum(default: 0)
+    let extrapoints-sum = points.filter(e => e.extra and not e.ignore-points).map(e => e.points).sum(default: 0)
     let points-sum-all = points-sum + extrapoints-sum
 
     if points-sum-all > 0 {
@@ -369,8 +393,14 @@
     // is extra task?
     extra: false,
 
+    // iff true, ignore points in final sum and solution matrix
+    ignore-points: false,
+
     // numbering of task
     numbering-format: none,
+
+    // type of task
+    type: none,
 
     // Titel der Aufgabe
     title,
@@ -402,7 +432,10 @@
         solution: args.at(1, default: none),
         hint: args.at(2, default: none),
         points: points,
-        extra: extra
+        extra: extra,
+        ignore-points: ignore-points,
+        extra-task-type: if type != none {type} else {extra-task-type},
+        task-type: if type != none {type} else {task-type}
     )
 
     if t.body == [] or t.body == [ ] {
@@ -425,19 +458,20 @@
             t.extra,
             t.points,
             lines,
-            extra-task-type,
-            task-type)
+            if type != none {type} else {extra-task-type},
+            if type != none {type} else {task-type})
     })
 })
 
 #let subtask(points: 0,
     tight: false,
+    ignore-points: false,
     markers: ("1.", "a)"),
     show-points: true,
     counter: none,
     content) = {
 
-    if points != none and type(points) == int {
+    if points != none and type(points) == int and not ignore-points {
         state("grape-suite-tasks", ()).update(k => {
             if k.len() == 0 {
                 return k
