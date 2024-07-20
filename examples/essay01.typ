@@ -9,7 +9,7 @@
     seminar: [Seminar],
 
     abstract: lorem(100),
-    with-outline: true,
+    show-outline: true,
 
     author: "John Doe",
 
@@ -21,6 +21,8 @@
 
 
 #lorem(100)
+
+= Long heading: #lorem(20)
 
 = Main Part
 #lorem(100)

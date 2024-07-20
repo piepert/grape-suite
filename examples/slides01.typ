@@ -15,10 +15,13 @@
     box-example-title: [Beispiel],
 
     outline-title-text: "Ablauf",
+    // show-todolist: false,
 
     author: "Tristan Pieper",
     email: link("mailto:tristan.pieper@uni-rostock.de"),
 )
+
+// #hide-todos()
 
 #slide[
     = Sie/Ihr und Ich
