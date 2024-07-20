@@ -54,6 +54,10 @@
     // show solution matrix; expected solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
     solutions-as-matrix: false,
 
+    // show comment field in solution matrix
+    show-solution-matrix-comment-field: false,
+    solution-matrix-comment-field-value: [*Note:* #v(0.5cm)],
+
     university: none,
     faculty: none,
     institute: none,
@@ -296,7 +300,10 @@
 
             if solutions-as-matrix {
                 set text(size: 0.75em)
-                make-solution-matrix(loc,
+                make-solution-matrix(
+                    show-comment-field: show-solution-matrix-comment-field,
+                    comment-field-value: solution-matrix-comment-field-value,
+                    loc,
                     solution-matrix-task-header,
                     task-type,
                     extra-task-type,
