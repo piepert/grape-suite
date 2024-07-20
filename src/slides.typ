@@ -109,12 +109,26 @@
     title: none,
     topics: (),
 
+    head-replacement: none,
+    title-replacement: none,
+    footer: none,
+
     author: none,
     email: none,
 
+    page-numbering: (n, total) => {
+        text(size: 0.75em, strong[#n.first()])
+        text(size: 0.5em, [ \/ #total.first()])
+    },
+
+    show-title-slide: true,
+    show-author: true,
     show-semester: true,
+    show-date: true,
     show-outline: true,
     show-todolist: true,
+    show-footer: true,
+    show-page-numbers: true,
 
     box-task-title: standard-box-translations.at("task"),
     box-hint-title: standard-box-translations.at("hint"),
@@ -128,12 +142,12 @@
     date: datetime.today(),
     body
 ) = {
-    let left-footer = text(size: 0.5em,[
+    let left-footer = if footer != none { footer } else { text(size: 0.5em,[
         #if show-semester [#semester(short: true, date) ---]
         #series #if no != none [\##no] #if title != none [---
         #title] ---
         #author
-    ])
+    ]) }
 
     show footnote.entry: set text(size: 0.5em)
 
@@ -153,8 +167,9 @@
 
                     h(1fr)
 
-                    text(size: 0.75em,
-                        strong(str(counter(page).at(loc).first()))) + text(size: 0.5em, [ \/ #(counter(page).final(loc).first())])
+                    if show-page-numbers {
+                        page-numbering(counter(page).at(loc), counter(page).final(loc))
+                    }
             }))
         }
     )
@@ -168,21 +183,27 @@
         "example": box-example-title,
     ))
 
-    slide(align(horizon, [
-        #block(inset: (left: 1cm, top: 3cm))[
-            #text(fill: purple, size: 2em, strong[#series ] + if no != none [\##no]) \
-            #text(fill: purple.lighten(25%), strong(title))
+    if show-title-slide {
+        slide(align(horizon, [
+            #block(inset: (left: 1cm, top: 3cm))[
+                #if head-replacement == none [
+                    #text(fill: purple, size: 2em, strong[#series ] + if no != none [\##no]) \
+                ] else { head-replacement }
+                //
+                #if title-replacement == none [
+                   #text(fill: purple.lighten(25%), strong(title))
+                ] else { title-replacement }
 
-            #set text(size: 0.75em)
-
-            #author #if email != none [--- #email \ ]
-            #if show-semester [#semester(date) \ ]
-            #weekday(date.weekday()), #date.display("[day].[month].[year]")
-        ]
-    ]))
+                #set text(size: 0.75em)
+                #if show-author [#author #if email != none [--- #email ] \ ]
+                #if show-semester [#semester(date) \ ]
+                #if show-date [#weekday(date.weekday()), #date.display("[day].[month].[year]")]
+            ]
+        ]))
+    }
 
     if show-outline {
-        set page(fill: purple, footer: locate(loc => {
+        set page(fill: purple, footer: locate(loc => if show-footer {
             set text(fill: if loc.page() > 2 or not show-outline {
                 purple.lighten(25%)
             } else {
