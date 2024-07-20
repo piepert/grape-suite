@@ -1,6 +1,6 @@
 #import "colors.typ" as colors: *
 #import "tasks.typ": *
-#import "todo.typ": todo, show-todos, todo-state
+#import "todo.typ": todo, list-todos, todo-state, hide-todos
 
 #let standard-box-translations = (
     "task": [Task],
@@ -254,7 +254,7 @@
         set text(size: 0.75em)
         locate(loc => {
             if todo-state.final(loc).len() > 0 {
-                pad(x: 1cm, top: if abstract != none or with-outline != none {0.25cm} else {0cm}, show-todos())
+                pad(x: 1cm, top: if abstract != none or show-outline != none {0.25cm} else {0cm}, list-todos())
             }
         })
     }

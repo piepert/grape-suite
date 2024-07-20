@@ -1,5 +1,5 @@
 #import "colors.typ" as colors: *
-#import "todo.typ": todo, show-todos
+#import "todo.typ": todo, list-todos, hide-todos
 
 #let project(
     title: none,
@@ -147,9 +147,9 @@
         outline(indent: true)
 
         if show-todolist {
-            show-todos()
-        }
-    })
+                list-todos()
+            }
+        })
 
     pagebreak(weak: true)
 

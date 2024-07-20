@@ -2,7 +2,7 @@
 
 #import "german-dates.typ": semester, weekday
 #import "colors.typ": *
-#import "todo.typ": todo, show-todos, todo-state
+#import "todo.typ": todo, list-todos, todo-state, hide-todos
 
 #let unbreak(body) = {
     set text(hyphenate: false)
@@ -213,7 +213,7 @@
         locate(loc => {
             if todo-state.final(loc).len() > 0 {
                 slide[
-                    #show-todos()
+                    #list-todos()
                 ]
             }
         })

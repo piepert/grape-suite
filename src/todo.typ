@@ -27,9 +27,7 @@
     })
 })
 
-#let show-todos() = {
-    locate(loc => {
-        let todo-list = todo-state.final(loc)
+#let list-todos() = locate(loc => {
 
         show link: text.with(fill: magenta)
         set text(fill: magenta)
