@@ -71,7 +71,7 @@
         let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(loc))+[ \u{200b}])
         let x-offset = -1 * measure(num, s).width
 
-        par(first-line-indent: x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body))
+        pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
     }))
 
     // title page
