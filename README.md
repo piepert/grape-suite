@@ -13,7 +13,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:0.1.0": exercise
+#import "@preview/grape-suite:1.0.0": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -124,7 +124,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:0.1.0": seminar-paper
+#import "@preview/grape-suite:1.0.0": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -197,7 +197,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:0.1.0": slides
+#import "@preview/grape-suite:1.0.0": slides
 #import slides: *
 
 #show: slides.with(
