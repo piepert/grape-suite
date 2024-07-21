@@ -88,6 +88,7 @@
     box-definition-title: standard-box-translations.at("definition"),
     box-notice-title: standard-box-translations.at("notice"),
     box-example-title: standard-box-translations.at("example"),
+    sentence-supplement: "Example",
 
     hint-type: [Hint],
     hints-title: [Hints],
@@ -241,6 +242,9 @@
         "example": box-example-title,
     ))
 
+    state("grape-suite-element-sentence-supplement").update(sentence-supplement)
+    show: sentence-logic
+
     big-heading(title)
 
     if abstract != none {
@@ -265,7 +269,6 @@
 
     set heading(numbering: "1.")
 
-    counter(figure).update(1)
     state("grape-suite-tasks").update(())
     state("grape-suite-show-lines").update(show-lines)
 
@@ -276,7 +279,7 @@
     }
 
     locate(loc => {
-        let tasks = state("grape-suite-tasks").at(loc)
+        let tasks = state("grape-suite-tasks", ()).at(loc)
 
         if show-hints and tasks.filter(e => e.hint != none).len() != 0 {
             pagebreak()

@@ -1,6 +1,6 @@
 #import "colors.typ" as colors: *
 #import "todo.typ": todo, list-todos, hide-todos
-#import "elements.typ": blockquote, example, definition, hint, solution, task, notice
+#import "elements.typ": *
 
 #let project(
     title: none,
@@ -25,6 +25,8 @@
     title-page-part-submit-date: none,
     title-page-part-submit-to: none,
     title-page-part-submit-by: none,
+
+    sentence-supplement: "Example",
 
     date: datetime.today(),
     date-format: (date) => date.display("[day].[month].[year]"),
@@ -144,6 +146,9 @@
         ] + v(-0.5em) + line(length: 100%, stroke: purple),
     )
 
+    state("grape-suite-element-sentence-supplement").update(sentence-supplement)
+    show: sentence-logic
+
     // outline
     if show-outline or show-todolist {
         pad(x: 2em, {
@@ -195,7 +200,6 @@
 
     set heading(numbering: "1.")
     counter(page).update(1)
-    counter(figure).update(1)
     body
 
     // backup page count, because last page should not be counted

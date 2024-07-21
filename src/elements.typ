@@ -42,7 +42,7 @@
 
         set par(justify: true)
         show: align.with(left)
-        
+
         block(width: 100%,
             inset: 1em,
             fill: secondary-color,
@@ -120,16 +120,19 @@
     figure-kind: "notice",
     counter: counter("grape-suite-element-notice"))
 
-#let example(body) = {
-    important-box(locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("example")),
-        body,
-        [B],
-        yellow,
-        yellow.lighten(90%),
-        brown,
-        dotted: true)
+#let sentence-logic(body) = {
+    show figure.where(kind: "example"): it => {
+        show: pad.with(0.25em)
+
+        grid(columns: (1cm, 1fr),
+            column-gutter: 0.5em,
+            counter(figure).display("(1)"),
+            it.body)
+    }
+
+    body
 }
 
-#let blockquote(body, source) = pad(x: 1em, y: 0.25em, body + block(text(size: 0.75em, source)))
+#let sentence = figure.with(kind: "example", supplement: context state("grape-suite-element-sentence-supplement", "Example").final())
 
-#let example(..a) = figure.with(kind: "example", a)
+#let blockquote(body, source) = pad(x: 1em, y: 0.25em, body + block(text(size: 0.75em, source)))

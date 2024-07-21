@@ -43,6 +43,7 @@
     box-definition-title: standard-box-translations.at("definition"),
     box-notice-title: standard-box-translations.at("notice"),
     box-example-title: standard-box-translations.at("example"),
+    sentence-supplement: "Example",
 
     outline-title-text: "Outline",
 
@@ -89,6 +90,9 @@
         "notice": box-notice-title,
         "example": box-example-title,
     ))
+
+    state("grape-suite-element-sentence-supplement").update(sentence-supplement)
+    show: sentence-logic
 
     if show-title-slide {
         slide(align(horizon, [
@@ -148,7 +152,6 @@
     }
 
     counter(page).update(1)
-    counter(figure).update(1)
 
     set page(fill: white)
     body
