@@ -284,7 +284,7 @@
 
         if show-hints and tasks.filter(e => e.hint != none).len() != 0 {
             pagebreak()
-            big-heading[#hints-title -- #type #no]
+            big-heading[#hints-title #if type != none or no != none [ -- ] #type #no]
             make-hints(here(), hint-type)
         }
     }
@@ -301,7 +301,7 @@
         let tasks = state("grape-suite-tasks", ()).at(here())
 
         if show-solutions and tasks.filter(e => e.solution != none).len() != 0 {
-            big-heading[#solutions-title -- #type #no]
+            big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
 
             if solutions-as-matrix {
                 set text(size: 0.75em)

@@ -50,12 +50,16 @@
     date: datetime.today(),
     body
 ) = {
-    let left-footer = if footer != none { footer } else { text(size: 0.5em,[
-        #if show-semester [#semester(short: true, date) ---]
-        #series #if no != none [\##no] #if title != none [---
-        #title] ---
-        #author
-    ]) }
+    let left-footer = if footer != none {
+        footer
+    } else {
+        text(size: 0.5em, (
+            if show-semester [#semester(short: true, date)],
+            [#series \##no],
+            title,
+            if show-author { author }).filter(e => e != none).join[ --- ]
+        )
+    }
 
     show footnote.entry: set text(size: 0.5em)
 

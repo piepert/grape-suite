@@ -367,8 +367,7 @@
                     }
 
                     if last-to == to [#to] else [#last-to#[--]#to]
-                }),//point-distribution,
-                    // [#calc.round(points-sum*0.5 - 1) -- 0],
+                }),
 
                 table.hline(stroke: 1pt + purple),
 
