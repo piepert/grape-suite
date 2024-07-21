@@ -1,5 +1,6 @@
 #import "colors.typ" as colors: *
 #import "todo.typ": todo, list-todos, hide-todos
+#import "elements.typ": blockquote, example, definition, hint, solution, task, notice
 
 #let project(
     title: none,

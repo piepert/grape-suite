@@ -1,5 +1,5 @@
 #import "colors.typ" as colors: *
-#import "slides.typ" as slides-lib
+#import "elements.typ" as elements: *
 
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
@@ -77,7 +77,7 @@
 
             state("grape-suite-subtask-indent").update((0,))
 
-            slides-lib.solution(solution)
+            elements.solution(solution)
 
             state("grape-suite-subtask-indent").update((0,))
         }))
@@ -103,7 +103,7 @@
 
             state("grape-suite-subtask-indent").update((0,))
 
-            slides-lib.hint(hint)
+            elements.hint(hint)
 
             state("grape-suite-subtask-indent").update((0,))
         }))
