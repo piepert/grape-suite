@@ -162,6 +162,15 @@
 
     // main body setup
     set page(
+        background: context state("grape-suite-seminar-paper-sidenotes", ())
+            .final()
+            .map(e => context {
+                if here().page() == e.loc.at(0) {
+                    place(top + right, align(left, par(justify: false, text(fill: purple, size: 0.75em, hyphenate: false, pad(x: 0.5cm, block(width: 3cm, strong(e.body)))))), dy: e.loc.at(1).y)
+                } else {
+                }
+            }).join[],
+
         footer: if footer != none {footer} else {
             set text(size: 0.75em)
             line(length: 100%, stroke: purple)
@@ -186,6 +195,7 @@
 
     set heading(numbering: "1.")
     counter(page).update(1)
+    counter(figure).update(1)
     body
 
     // backup page count, because last page should not be counted
@@ -212,4 +222,13 @@
             v(0.75cm) + strong([Datum:]) + h(0.5cm),
             v(0.75cm) + repeat("."+hide("'")),)
     }
+}
+
+#let sidenote(body) = context {
+    let pos = here()
+
+    state("grape-suite-seminar-paper-sidenotes", ()).update(k => {
+        k.push((loc: (pos.page(), pos.position()), body: body))
+        return k
+    })
 }
