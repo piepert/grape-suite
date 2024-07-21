@@ -1,5 +1,7 @@
 #import "/src/library.typ": seminar-paper, german-dates
-#import seminar-paper: todo
+#import seminar-paper: todo, blockquote, definition, sidenote
+
+#let definition = definition.with(figured: true)
 
 #set text(lang: "de")
 
@@ -30,13 +32,28 @@
 = Einleitung
 #lorem(100) #todo(lorem(20))
 
-
 #lorem(100)
+
+#blockquote[
+    #sidenote[Logischer Empirismus] Ich bin nämlich überzeugt, daß wir in einer durchaus endgültigen Wendung der Philosophie mitten darin stehen und daß wir sachlich berechtigt sind, den unfruchtbaren Streit der Systeme als beendigt anzusehen. Die Gegenwart ist, so behaupte ich, bereits im Besitz der Mittel, die jeden derartigen Streit im Prinzip unnötig machen; es kommt nur darauf an, sie entschlossen anzuwenden.
+
+    Diese Mittel sind in aller Stille, unbemerkt von der Mehrzahl der philosophischen Lehrer und Schriftsteller, geschaffen worden, und so hat sich eine Lage gebildet, die mit allen früheren unvergleichbar ist. Daß die Lage wirklich einzigartig und die eingetretene Wendung wirklich endgültig ist, kann nur eingesehen werden, indem man sich mit den neuen Wegen bekannt macht und von dem Standpunkte, zu dem sie führen, auf alle die Bestrebungen zurückschaut, die je als ”philosophische“ gegolten haben.
+
+    Die Wege gehen von der _Logik_ aus.
+][
+    Moritz Schlick: Die Wende der Philosophie. In: J. Friedl, H. Rutte, F. Stadler, H. J. Wendel (eds.): Moritz Schlick Gesamtausgabe. Abt. I, Bd. 6. Wien: Springer, 2008. S. 213 f. Hervorhebungen im Original.
+]
+
+#definition[
+    #lorem(30)
+]<important-definition>
+
+See @important-definition and @second-important-definition.
 
 = Hauptteil
 #lorem(100)
 
-#lorem(100)
+#sidenote[#lorem(5)] #lorem(100)
 
 == These
 #lorem(200)
@@ -48,6 +65,10 @@
 
 == Synthese
 #lorem(100)
+
+#definition[
+    #lorem(20)
+]<second-important-definition>
 
 #lorem(200)
 
