@@ -8,7 +8,6 @@
 #let important-box(body,
     title: none,
     time: none,
-    extra: false,
     primary-color: magenta,
     secondary-color: magenta.lighten(90%),
     tertiary-color: magenta,
@@ -53,7 +52,6 @@
 
 
             text(size: 0.75em, strong(text(fill: tertiary-color, smallcaps(title) + if show-numbering or figured { [ ] + locate(loc => numbering(numbering-format, ..counter.at(loc))) + h(1fr) + time})))
-            // + place(dx: 90%, dy: -0.5cm, text(size: 4em, fill: primary-color.lighten(75%), strong(extra)))
             + block(body))
     }
 
@@ -74,8 +72,7 @@
 )
 
 #let task = important-box.with(
-    title: locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("task")),
-    extra: [A],
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("task"),
     primary-color: blue,
     secondary-color: blue.lighten(90%),
     tertiary-color: purple,
@@ -83,8 +80,7 @@
     counter: counter("grape-suite-element-task"))
 
 #let hint = important-box.with(
-    title: locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("hint")),
-    extra: [H],
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("hint"),
     primary-color: yellow,
     secondary-color: yellow.lighten(90%),
     tertiary-color: brown,
@@ -92,8 +88,7 @@
     counter: counter("grape-suite-element-hint"))
 
 #let solution = important-box.with(
-    title: locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("solution")),
-    extra: [L],
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("solution"),
     primary-color: blue,
     secondary-color: blue.lighten(90%),
     tertiary-color: purple,
@@ -102,8 +97,7 @@
     counter: counter("grape-suite-element-solution"))
 
 #let definition = important-box.with(
-    title: locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("definition")),
-    extra: [D],
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("definition"),
     primary-color: magenta,
     secondary-color: magenta.lighten(90%),
     tertiary-color: magenta,
@@ -111,14 +105,22 @@
     counter: counter("grape-suite-element-definition"))
 
 #let notice = important-box.with(
-    title: locate(loc => state("grape-suite-box-translations", standard-box-translations).final(loc).at("notice")),
-    extra: [!],
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("notice"),
     primary-color: magenta,
     secondary-color: magenta.lighten(90%),
     tertiary-color: magenta,
     dotted: true,
     figure-kind: "notice",
     counter: counter("grape-suite-element-notice"))
+
+#let example = important-box.with(
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("example"),
+    primary-color: yellow,
+    secondary-color: yellow.lighten(90%),
+    tertiary-color: brown,
+    dotted: true,
+    figure-kind: "example",
+    counter: counter("grape-suite-element-example"))
 
 #let sentence-logic(body) = {
     show figure.where(kind: "example"): it => {

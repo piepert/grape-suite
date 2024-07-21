@@ -33,8 +33,8 @@
     })
 })
 
-#let list-todos() = locate(loc => {
-    let todo-list = todo-state.final(loc)
+#let list-todos() = context {
+    let todo-list = todo-state.final()
 
     show link: text.with(fill: magenta)
     set text(fill: magenta)
@@ -45,4 +45,4 @@
             strong[p. #e.page] +
             if e.content != none { [: #e.content] }))
     }
-})
+}

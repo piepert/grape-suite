@@ -181,29 +181,29 @@
                 #ifnn-line(seminar)
                 #ifnn-line(semester)
                 #ifnn-line(docent)
-                #locate(loc => {
-                    if state("grape-suite-namefields").at(loc) != 1 {
+                #context {
+                    if state("grape-suite-namefields").at(here()) != 1 {
                         if show-namefield {
                             namefield
                         }
 
                         state("grape-suite-namefields").update(1)
                     }
-                })
+                }
             ], align(center, if header-middle != none {header-middle} else []), if header-right != none {header-right} else [
                 #show: align.with(top + right)
                 #ifnn-line(document-title)
                 #ifnn-line(author)
                 #ifnn-line(date.display("[day].[month].[year]"))
-                #locate(loc => {
-                    if state("grape-suite-timefield").at(loc) != 1 {
+                #context {
+                    if state("grape-suite-timefield").at(here()) != 1 {
                         if show-timefield {
                             timefield(max-time)
                         }
 
                         state("grape-suite-timefield").update(1)
                     }
-                })
+                }
             ])
         ] + v(-0.5em) + line(length: 100%, stroke: purple),
 
@@ -218,10 +218,11 @@
 
                 if footer-left != none {footer-left},
 
-                align(center)[
-                    #counter(page).display() /
-                    #locate(loc => counter(page).final(loc).first())
-                ],
+                align(center, context {
+                    str(counter(page).display())
+                    [ \/ ]
+                    str(counter(page).final().first())
+                }),
 
                 if footer-left != none {footer-left}
             )
@@ -260,11 +261,11 @@
 
     if show-todolist {
         set text(size: 0.75em)
-        locate(loc => {
-            if todo-state.final(loc).len() > 0 {
+        context {
+            if todo-state.final().len() > 0 {
                 pad(x: 1cm, top: if abstract != none or show-outline != none {0.25cm} else {0cm}, list-todos())
             }
-        })
+        }
     }
 
     set heading(numbering: "1.")
@@ -278,15 +279,15 @@
         locate(loc => make-point-distribution(loc, message, grade-scale, distribution-header-point-value, distribution-header-point-grade))
     }
 
-    locate(loc => {
-        let tasks = state("grape-suite-tasks", ()).at(loc)
+    context {
+        let tasks = state("grape-suite-tasks", ()).at(here())
 
         if show-hints and tasks.filter(e => e.hint != none).len() != 0 {
             pagebreak()
             big-heading[#hints-title -- #type #no]
-            make-hints(loc, hint-type)
+            make-hints(here(), hint-type)
         }
-    })
+    }
 
     show: it => if show-solutions and solutions-as-matrix {
         set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
@@ -296,8 +297,8 @@
         it
     }
 
-    locate(loc => {
-        let tasks = state("grape-suite-tasks").at(loc)
+    context {
+        let tasks = state("grape-suite-tasks", ()).at(here())
 
         if show-solutions and tasks.filter(e => e.solution != none).len() != 0 {
             big-heading[#solutions-title -- #type #no]
@@ -318,8 +319,8 @@
                 }
 
             } else {
-                make-solutions(loc, solution-type)
+                make-solutions(here(), solution-type)
             }
         }
-    })
+    }
 }

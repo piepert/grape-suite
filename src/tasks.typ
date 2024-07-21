@@ -43,8 +43,8 @@
 
             if body != none { block(body) }
 
-            locate(loc => {
-                if state("grape-suite-show-lines").at(loc) == false {
+            context {
+                if state("grape-suite-show-lines").at(here()) == false {
                     return
                 }
 
@@ -53,7 +53,7 @@
                     v(-1.2em)
                     line(length: 100%, stroke: black.lighten(50%))
                 }
-            })
+            }
         }))
 }
 
@@ -109,10 +109,10 @@
         }))
 }
 
-#let make-solutions(loc,
+#let make-solutions(here,
     solution-type
 ) = {
-    let tasks = state("grape-suite-tasks").at(loc)
+    let tasks = state("grape-suite-tasks").at(here)
 
     if tasks == none {
         return
@@ -410,11 +410,11 @@
 
     // optional: body, solution (see exercise.project(show-solutions-as-matrix: ...) !), hint
     ..args
-    ) = counter(if extra { "tasks" } else { "extra-tasks" }).step() + locate(loc => {
+    ) = counter(if extra { "tasks" } else { "extra-tasks" }).step() + context {
 
     let task-translation-state = state("grape-suite-task-translations", (task-type: [Task], extra-task-type: [Extra task]))
-    let task-type = task-translation-state.final(loc).task-type
-    let extra-task-type = task-translation-state.final(loc).extra-task-type
+    let task-type = task-translation-state.final().task-type
+    let extra-task-type = task-translation-state.final().extra-task-type
 
     let numbering-format = numbering-format
     if numbering-format == none {
@@ -422,7 +422,7 @@
     }
 
     let args = args.pos()
-    let no = numbering-format(..counter(if extra { "tasks" } else { "extra-tasks" }).at(loc))
+    let no = numbering-format(..counter(if extra { "tasks" } else { "extra-tasks" }).at(here()))
 
     let t = (
         no: no,
@@ -449,19 +449,17 @@
 
     state("grape-suite-subtask-indent").update((0,))
 
-    locate(loc => {
-        let t = state("grape-suite-tasks").final(loc).at(state("grape-suite-tasks").at(loc).len() - 1)
-        make-task(no,
-            title,
-            instruction,
-            t.body,
-            t.extra,
-            t.points,
-            lines,
-            if type != none {type} else {extra-task-type},
-            if type != none {type} else {task-type})
-    })
-})
+    // let t = state("grape-suite-tasks", ()).final().last()
+    make-task(no,
+        title,
+        instruction,
+        t.body,
+        t.extra,
+        t.points,
+        lines,
+        if type != none {type} else {extra-task-type},
+        if type != none {type} else {task-type})
+}
 
 #let subtask(points: 0,
     tight: false,
@@ -492,8 +490,8 @@
         k
     })
 
-    locate(loc => {
-        let indent = state("grape-suite-subtask-indent").at(loc)
+    context {
+        let indent = state("grape-suite-subtask-indent").at(here())
 
         let num = if counter == none {
             indent.at(indent.len() - 2) + 1
@@ -513,7 +511,7 @@
         } else {
             content
         })
-    })
+    }
 
     state("grape-suite-subtask-indent", (0,)).update(k => {
         k = k.slice(0, k.len() - 1)
