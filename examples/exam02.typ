@@ -1,4 +1,4 @@
-#import "@preview/grape-suite:0.1.0": exercise, colors
+#import "/src/library.typ": exercise, colors
 #import exercise: project, task, subtask
 #import colors: *
 

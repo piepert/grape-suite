@@ -64,18 +64,18 @@
     show link: underline
     show link: set text(fill: purple)
 
-    show heading: it => locate(loc => style(s => {
+    show heading: it => context {
         let num-style = it.numbering
 
         if num-style == none {
             return it
         }
 
-        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(loc))+[ \u{200b}])
-        let x-offset = -1 * measure(num, s).width
+        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(here()))+[ \u{200b}])
+        let x-offset = -1 * measure(num).width
 
         pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
-    }))
+    }
 
     // title page
     [
@@ -188,10 +188,11 @@
 
                 if footer-left != none {footer-left},
 
-                align(center)[
-                    #counter(page).display() /
-                    #locate(loc => counter("grape-suite-last-page").final(loc).first())
-                ],
+                align(center, context {
+                    str(counter(page).display())
+                    [ \/ ]
+                    str(counter("grape-suite-last-page").final().first())
+                }),
 
                 if footer-left != none {footer-left}
             )
@@ -203,7 +204,7 @@
     body
 
     // backup page count, because last page should not be counted
-    locate(loc => counter("grape-suite-last-page").update(counter(page).at(loc)))
+    context counter("grape-suite-last-page").update(counter(page).at(here()))
 
     // declaration of independent work
     if show-declaration-of-independent-work {

@@ -140,18 +140,18 @@
     show link: underline
     show link: set text(fill: purple)
 
-    show heading: it => locate(loc => style(s => {
+    show heading: it => context {
         let num-style = it.numbering
 
         if num-style == none {
             return it
         }
 
-        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(loc))+[ \u{200b}])
-        let x-offset = -1 * measure(num, s).width
+        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(here()))+[ \u{200b}])
+        let x-offset = -1 * measure(num).width
 
         pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
-    }))
+    }
 
     let ufi = ()
     if university != none { ufi.push(university) }
@@ -276,7 +276,7 @@
     body
 
     if show-point-distribution-in-tasks {
-        locate(loc => make-point-distribution(loc, message, grade-scale, distribution-header-point-value, distribution-header-point-grade))
+        context make-point-distribution(here(), message, grade-scale, distribution-header-point-value, distribution-header-point-grade)
     }
 
     context {
@@ -308,7 +308,7 @@
                 make-solution-matrix(
                     show-comment-field: show-solution-matrix-comment-field,
                     comment-field-value: solution-matrix-comment-field-value,
-                    loc,
+                    here(),
                     solution-matrix-task-header,
                     task-type,
                     extra-task-type,

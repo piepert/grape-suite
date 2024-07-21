@@ -64,8 +64,8 @@
     set text(size: 24pt, font: "Atkinson Hyperlegible")
     set page(paper: "presentation-16-9",
         footer: {
-                (locate(loc => if (show-outline and loc.page() > 2) or loc.page() > 1 {
-                    set text(fill: if loc.page() > 2 or not show-outline {
+                (context if (show-outline and here().page() > 2) or here().page() > 1 {
+                    set text(fill: if here().page() > 2 or not show-outline {
                         purple.lighten(25%)
                     } else {
                         blue.lighten(25%)
@@ -76,9 +76,9 @@
                     h(1fr)
 
                     if show-page-numbers {
-                        page-numbering(counter(page).at(loc), counter(page).final(loc))
+                        page-numbering(counter(page).at(here()), counter(page).final())
                     }
-            }))
+            })
         }
     )
 
@@ -114,41 +114,41 @@
     }
 
     if show-outline {
-        set page(fill: purple, footer: locate(loc => if show-footer {
-            set text(fill: if loc.page() > 2 or not show-outline {
+        set page(fill: purple, footer: context if show-footer {
+            set text(fill: if here().page() > 2 or not show-outline {
                 purple.lighten(25%)
             } else {
                 blue.lighten(25%)
             })
 
             left-footer
-        }))
+        })
 
         slide[
             #set text(fill: white)
 
             #heading(outlined: false, text(fill: blue.lighten(25%), [#outline-title-text]))
 
-            #locate(loc => {
-                let elems = query(selector(heading).after(loc), loc)
+            #context {
+                let elems = query(selector(heading).after(here()))
 
                 enum(..elems
                     .filter(e => e.level == 1 and e.outlined)
                     .map(e => {
                         e.body
                     }))
-            })
+            }
         ]
     }
 
     if show-todolist {
-        locate(loc => {
-            if todo-state.final(loc).len() > 0 {
+        context {
+            if todo-state.final().len() > 0 {
                 slide[
                     #list-todos()
                 ]
             }
-        })
+        }
     }
 
     counter(page).update(1)

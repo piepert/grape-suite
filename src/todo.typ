@@ -11,12 +11,12 @@
 
 #let hide-todos() = state("grape-suite-list-todos").update(false)
 
-#let todo(..content) = locate(loc => {
-    if state("grape-suite-list-todos", true).at(loc) == false {
+#let todo(..content) = context {
+    if state("grape-suite-list-todos", true).at(here()) == false {
         return
     }
 
-    let label-name = make-todo-label(loc)
+    let label-name = make-todo-label(here())
 
     highlight(fill: magenta.lighten(90%), text(fill: magenta,
         if content.pos().len() > 0 {
@@ -28,10 +28,10 @@
     [#label(label-name)]
 
     todo-state.update(t => {
-        t.push((page: counter(page).at(loc).first(), label: label-name, content: content.pos().join[]))
+        t.push((page: counter(page).at(here()).first(), label: label-name, content: content.pos().join[]))
         t
     })
-})
+}
 
 #let list-todos() = context {
     let todo-list = todo-state.final()

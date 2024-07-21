@@ -51,8 +51,9 @@
                 dash: if dotted { "dotted" } else { "solid" })),
 
 
-            text(size: 0.75em, strong(text(fill: tertiary-color, smallcaps(title) + if show-numbering or figured { [ ] + locate(loc => numbering(numbering-format, ..counter.at(loc))) + h(1fr) + time})))
-            + block(body))
+            text(size: 0.75em, strong(text(fill: tertiary-color, smallcaps(title) + if show-numbering or figured {
+                [ ] + context numbering(numbering-format, ..counter.at(here())) + h(1fr) + time
+            }))) + block(body))
     }
 
     if figured {
