@@ -148,6 +148,7 @@
     }
 
     counter(page).update(1)
+    counter(figure).update(1)
 
     set page(fill: white)
     body

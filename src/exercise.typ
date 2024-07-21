@@ -265,6 +265,7 @@
 
     set heading(numbering: "1.")
 
+    counter(figure).update(1)
     state("grape-suite-tasks").update(())
     state("grape-suite-show-lines").update(show-lines)
 
