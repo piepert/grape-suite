@@ -112,6 +112,9 @@
 
     page-margins: none,
 
+    text-font: ("Atkinson Hyperlegible","Libertinus Serif"),
+    math-font: ("STIX Two Math", "New Computer Modern Math"),
+
     fontsize: 11pt,
 
     show-todolist: true,
@@ -128,9 +131,8 @@
         document-title = title
     }
 
-    set text(font: "Atkinson Hyperlegible", size: fontsize)
-    // show math.equation: set text(font: "Fira Math")
-    show math.equation: set text(font: "STIX Two Math")
+    set text(font: text-font, size: fontsize)
+    show math.equation: set text(font: math-font, size: fontsize)
 
     set par(justify: true)
 
