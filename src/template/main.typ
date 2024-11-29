@@ -1,4 +1,4 @@
-#import "@preview/grape-suite:1.0.0": seminar-paper, german-dates
+#import "@preview/grape-suite:1.0.1": seminar-paper, german-dates
 
 #set text(lang: "de")
 

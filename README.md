@@ -2,18 +2,18 @@
 
 The grape suite is a suite consisting of following templates:
 
-*   exercises (for exams, homework, etc.)
+- exercises (for exams, homework, etc.)
 
-*   seminar papers
+- seminar papers
 
-*   slides (using polylux)
+- slides (using polylux)
 
 ## Exercises
 
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:1.0.0": exercise
+#import "@preview/grape-suite:1.0.1": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -79,7 +79,7 @@ The grape suite is a suite consisting of following templates:
 | `box-definition-title`                   | optional, content, default: `[Definition]`, shown as the title of a definition box used by the `slides` library                                                                                                                                                                            |
 | `box-notice-title`                       | optional, content, default: `[Notice]`, shown as the title of a notice box used by the `slides` library                                                                                                                                                                                    |
 | `box-example-title`                      | optional, content, default: `[Example]`, shown as the title of a example box used by the `slides` library                                                                                                                                                                                  |
-| `hint-type`                              | optional, content, default: `[Hint]`,  title of a tasks hint version                                                                                                                                                                                                                       |
+| `hint-type`                              | optional, content, default: `[Hint]`, title of a tasks hint version                                                                                                                                                                                                                        |
 | `hints-title`                            | optional, content, default: `[Hints]`, title of the hints section                                                                                                                                                                                                                          |
 | `solution-type`                          | optional, content, default: `[Suggested solution]`, title of a tasks solution version                                                                                                                                                                                                      |
 | `solutions-title`                        | optional, content, default: `[Suggested solutions]`, title of the solutions section                                                                                                                                                                                                        |
@@ -108,7 +108,7 @@ The grape suite is a suite consisting of following templates:
 | `instruction`      | content, instruction of the task, highlighted                                                                                               |
 | `..args`           | 1: content, task body; 2: content, task solution, not highlighted (see `solution-as-matrix` of exercise's `project`), 3: content, task hint |
 
-`subtask` creates a part of a task. Its points are added to the parent task. ***Subtasks are to be use inside of the task's body or inside of another subtask's body.***
+`subtask` creates a part of a task. Its points are added to the parent task. **_Subtasks are to be use inside of the task's body or inside of another subtask's body._**
 
 | `subtask`     |                                                                                                                                         |
 | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------- |
@@ -119,13 +119,12 @@ The grape suite is a suite consisting of following templates:
 | `counter`     | optional, counter, default: `none`, change number styled by the numbering format; if `none`, each level has an incrementel auto counter |
 | `content`     | content, subtask body                                                                                                                   |
 
-
 ## Seminar paper
 
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:1.0.0": seminar-paper
+#import "@preview/grape-suite:1.0.1": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -198,7 +197,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:1.0.0": slides
+#import "@preview/grape-suite:1.0.1": slides
 #import slides: *
 
 #show: slides.with(
@@ -252,6 +251,7 @@ The grape suite is a suite consisting of following templates:
 ### Todos
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`:
+
 - `todo(content, ...)` - create a highlighted inline todo-note
 - `list-todos()` - create list of all todo-usages with page of usage and content
 - `hide-todos()` - hides all usages of `todo()` in the document
@@ -277,12 +277,13 @@ New:
 ## 1.0.0
 
 New:
+
 - `todo`, `list-todos`, `hide-todos` in `todo.typ`, importable from `slides`, `exercise.project` and `seminar-paper.project`
 - `show-todolist` attribute in above templates
 - `ignore-points` attribute in `task` and `subtask` of exercises, so that their points won't be shown in the solution matrix or point distribution
 - comment field and a standard-value for solution matrix via `show-solution-matrix-comment-field` and `solution-matrix-comment-field-value` options in `exercise.project`
 - optional parameter `type` in `slides.task`
-- new parameters in `sllides.slides`:
+- new parameters in `slides.slides`:
   - `head-replacement`
   - `title-replacement`
   - `footer`
@@ -295,13 +296,16 @@ New:
 - optional parameter `show-outline` in `seminar-paper.project`
 
 Changes:
+
 - `dates.typ` becomes `german-dates.typ`
 
 Fixes:
+
 - remove forced German from the slides template
 - long headings are now properly aligned
 - subtask counter now resets for each part of task
 
 **Breaking Changes:**
+
 - `dates` becomes `german-dates`
 - changed all `with-outline` to `show-outline`
