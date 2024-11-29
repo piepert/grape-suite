@@ -52,12 +52,12 @@
 
 
             text(size: 0.75em, strong(text(fill: tertiary-color, smallcaps(title) + if show-numbering or figured {
-                [ ] + context numbering(numbering-format, ..counter.at(here())) + h(1fr) + time
-            }))) + block(body))
+                [ ] + context numbering(numbering-format, ..counter.at(here()))
+            } + h(1fr) + time))) + block(body))
     }
 
     if figured {
-        figure(kind: figure-kind, supplement: figure-supplement, body)
+        figure(kind: figure-kind, supplement: figure-supplement, align(left, body))
     } else {
         body
     }
@@ -129,13 +129,16 @@
 
         grid(columns: (1cm, 1fr),
             column-gutter: 0.5em,
-            counter(figure).display("(1)"),
+            context [(#(counter("grape-suite-sentence-counter").at(here()).first()+1))],
             it.body)
     }
 
     body
 }
 
-#let sentence = figure.with(kind: "example", supplement: context state("grape-suite-element-sentence-supplement", "Example").final())
+#let sentence(body) = {
+    figure(kind: "example", supplement: context state("grape-suite-element-sentence-supplement", "Example").final(), align(left, body) +
+    counter("grape-suite-sentence-counter").step())
+}
 
 #let blockquote(body, source) = pad(x: 1em, y: 0.25em, body + block(text(size: 0.75em, source)))
