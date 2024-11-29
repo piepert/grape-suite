@@ -60,7 +60,7 @@
 #let make-solution(no, title, instruction, body, extra, points, solution, solution-type) = {
     make-element(solution-type,
         no,
-        title + h(1fr) + if points != none and points > 0 { [#points P.] },
+        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
 
         block(width: 100%, {
             state("grape-suite-subtask-indent").update((0,))
@@ -86,7 +86,7 @@
 #let make-hint(no, title, instruction, body, extra, points, hint, hint-type) = {
     make-element(hint-type,
         no,
-        title + h(1fr) + if points != none and points > 0 { [#points P.] },
+        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
 
         block(width: 100%, {
             state("grape-suite-subtask-indent").update((0,))

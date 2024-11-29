@@ -266,6 +266,7 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 
 Fixes:
 
+- titles of solutions and hints
 - generation of semester name in `german-dates.typ`
 
 New:
