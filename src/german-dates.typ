@@ -9,23 +9,23 @@
         short: "SoSe"
     ).at(if short { "short" } else { "long" })
 
-    let sem = wise
-
-    let year = if date.month() < 4 or date.month() > 9 {
-        date.year() - 1
+    let sem = if date.month() >= 4 and date.month() < 10 {
+        sose
     } else {
-        sem = sose
+        wise
+    }
+
+    let year = if date.month() < 4 {
+        [#(date.year() - 1)/#date.year()]
+
+    } else if date.month() >= 10 {
+        [#date.year()/#(date.year() + 1)]
+
+    } else if date.month() < 10 {
         date.year()
     }
 
-    [#sem ]
-
-    if sem == wise {
-        [#year/#(year+1)]
-
-    } else {
-        [#year]
-    }
+    [#sem #year]
 }
 
 #let days = (
