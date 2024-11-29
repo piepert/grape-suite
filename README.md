@@ -242,7 +242,11 @@ The grape suite is a suite consisting of following templates:
 | `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                    |
 | `body`                 | content, document content                                                                                                                         |
 
-* `slide`, `pause`, `only`, `uncover`: imported from polylux
+| `focus-slide` |                           |
+| :------------ | :------------------------ |
+| `body`        | content, document content |
+
+- `slide`, `pause`, `only`, `uncover`: imported from polylux
 
 ### Todos
 
@@ -256,6 +260,12 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`: `definition`
 
 # Changelog
+
+## 1.0.1
+
+New:
+
+- `focus-slide` in `slides`
 
 ## 1.0.0
 

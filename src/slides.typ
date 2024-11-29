@@ -8,7 +8,31 @@
 #let uncover = polylux.uncover
 #let only = polylux.uncover
 #let pause = polylux.pause
-#let slide(..args) = polylux.polylux-slide(..args)
+#let slide(..args) = {
+    state("grape-suite-slides", ()).update(k => {
+        k.push("normal")
+        k
+    })
+
+    polylux.polylux-slide(..args)
+}
+
+#let focus-slide(body) = {
+    set page(fill: purple)
+    set text(fill: white)
+
+    state("grape-suite-slides", ()).update(k => {
+        k.push("focus")
+        k
+    })
+
+    polylux.polylux-slide[
+        #set text(size: 1.5em, weight: "bold")
+        #show: align.with(center + horizon)
+        #v(-0.75em)
+        #body
+    ]
+}
 
 #let slides(
     no: 0,
@@ -68,20 +92,22 @@
     set text(size: 24pt, font: "Atkinson Hyperlegible")
     set page(paper: "presentation-16-9",
         footer: {
-                (context if (show-outline and here().page() > 2) or here().page() > 1 {
-                    set text(fill: if here().page() > 2 or not show-outline {
-                        purple.lighten(25%)
-                    } else {
-                        blue.lighten(25%)
-                    })
+            let fs = state("grape-suite-slides", ())
 
-                    left-footer
+            (context if show-footer and (not show-title-slide or here().page() > 1) {
+                set text(fill: if fs.at(here()).last() != none and fs.at(here()).last() == "normal" {
+                    purple.lighten(25%)
+                } else {
+                    blue.lighten(25%)
+                })
 
-                    h(1fr)
+                left-footer
 
-                    if show-page-numbers {
-                        page-numbering(counter(page).at(here()), counter(page).final())
-                    }
+                h(1fr)
+
+                if show-page-numbers {
+                    page-numbering(counter(page).at(here()), counter(page).final())
+                }
             })
         }
     )
