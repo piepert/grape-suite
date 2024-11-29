@@ -48,7 +48,7 @@
     #lorem(30)
 ]<important-definition>
 
-See @important-definition and @second-important-definition.
+Siehe @important-definition und @second-important-definition.
 
 = Hauptteil
 #lorem(100)
