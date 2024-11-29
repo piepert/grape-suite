@@ -69,6 +69,7 @@
 
     // if set, above attributes featuring automatic generation of the header are ignored
     header: none,
+    header-gutter: 20%,
     header-right: none,
     header-middle: none,
     header-left: none,
@@ -140,6 +141,8 @@
     show link: underline
     show link: set text(fill: purple)
 
+    show heading: set text(fill: purple)
+    show heading: set par(justify: false)
     show heading: it => context {
         let num-style = it.numbering
 
@@ -170,7 +173,8 @@
         header: if header != none {header} else [
             #set text(size: 0.75em)
 
-            #table(columns: (1fr, auto, 1fr), align: top, stroke: none, inset: 0pt, if header-left != none {header-left} else [
+            #let h-r = if header-left != none {header-left} else [
+                #let ufi = ufi.filter(e => e not in ("", none, []))
                 #if ufi.len() == 2 {
                     ufi.join(", ")
                     [\ ]
@@ -190,7 +194,11 @@
                         state("grape-suite-namefields").update(1)
                     }
                 }
-            ], align(center, if header-middle != none {header-middle} else []), if header-right != none {header-right} else [
+            ]
+
+            #let h-m = align(center, if header-middle != none {header-middle} else [])
+
+            #let h-l = if header-right != none {header-right} else [
                 #show: align.with(top + right)
                 #ifnn-line(document-title)
                 #ifnn-line(author)
@@ -204,7 +212,31 @@
                         state("grape-suite-timefield").update(1)
                     }
                 }
-            ])
+            ]
+
+            #set text(hyphenate: false)
+            #set par(justify: false)
+
+            #if header-middle != none {
+                grid(columns: (auto, 1fr, auto),
+                    align: top,
+                    column-gutter: header-gutter,
+                    inset: 0pt,
+
+                    h-r,
+                    h-m,
+                    h-l
+                )
+            } else {
+                grid(columns: (40%, 1fr, 40%),
+                    align: top,
+                    inset: 0pt,
+
+                    h-r,
+                    none,
+                    h-l
+                )
+            }
         ] + v(-0.5em) + line(length: 100%, stroke: purple),
 
         footer: if footer != none {footer} else {

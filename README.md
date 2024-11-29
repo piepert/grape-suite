@@ -62,6 +62,7 @@ The grape suite is a suite consisting of following templates:
 | `docent`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
 | `author`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
 | `date`                                   | optional, datetime, default: `datetime.today()`                                                                                                                                                                                                                                            |
+| `header-gutter`                          | optional, length, default: `20%`, overwrite header gutter                                                                                                                                                                                                                                  |
 | `header`                                 | optional, content, default: `none`, overwrite page header                                                                                                                                                                                                                                  |
 | `header-right`                           | optional, content, default: `none`, overwrite right header part                                                                                                                                                                                                                            |
 | `header-middle`                          | optional, content, default: `none`, overwrite middle header part                                                                                                                                                                                                                           |
@@ -263,9 +264,14 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 
 ## 1.0.1
 
+Fixes:
+
+- generation of semester name in `german-dates.typ`
+
 New:
 
 - `focus-slide` in `slides`
+- `header-gutter` option in `exercise.typ`
 
 ## 1.0.0
 
