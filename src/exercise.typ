@@ -67,6 +67,8 @@
     author: none,
     date: datetime.today(),
 
+    date-format: (date) => date.display("[day].[month].[year]"),
+
     // if set, above attributes featuring automatic generation of the header are ignored
     header: none,
     header-gutter: 20%,
@@ -204,7 +206,7 @@
                 #show: align.with(top + right)
                 #ifnn-line(document-title)
                 #ifnn-line(author)
-                #ifnn-line(date.display("[day].[month].[year]"))
+                #ifnn-line(date-format(date))
                 #context {
                     if state("grape-suite-timefield").at(here()) != 1 {
                         if show-timefield {
