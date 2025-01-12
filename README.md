@@ -92,6 +92,8 @@ The grape suite is a suite consisting of following templates:
 | `message`                                | optional, function, default: `(points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: purple, length: 1cm)) out of #points-sum points.]`, used to generate the message part above the point distribution                 |
 | `grade-scale`                            | optional, array, default: `(([excellent], 0.9), ([very good], 0.8), ([good], 0.7), ([pass], 0.6), ([fail], 0.49))`, list of grades and percentage of points to reach that grade                                                                                                            |
 | `page-margins`                           | optional, margins, default: `none`, overwrite page margins                                                                                                                                                                                                                                 |
+| `text-font`                              | optional, content, default: `("Atkinson Hyperlegible","Libertinus Serif")`, overwrite font family for text content                                                                                                                                                                         |
+| `math-font`                              | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                                                                                                                                                      |
 | `fontsize`                               | optional, size, default: `11pt`, overwrite font size                                                                                                                                                                                                                                       |
 | `show-todolist`                          | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                                                                                                                                                              |
 | `body`                                   | content, document content                                                                                                                                                                                                                                                                  |
@@ -184,6 +186,8 @@ The grape suite is a suite consisting of following templates:
 | `show-outline`                         | optional, bool, default: `true`, show outline                                                 |
 | `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                  |
 | `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                    |
+| `text-font`                            | optional, content, default: `"Atkinson Hyperlegible"`, overwrite font family for text content |
+| `math-font`                            | optional, content, default: `"STIX Two Math"`, overwrite font family for math equations       |
 | `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                           |
 | `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline |
 | `body`                                 | content, document content                                                                     |
@@ -240,6 +244,7 @@ The grape suite is a suite consisting of following templates:
 | `show-footer`          | optional, bool, default: `true`, show footer on slides                                                                                            |
 | `show-page-numbers`    | optional, bool, default: `true`, show page numbering                                                                                              |
 | `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                    |
+| `text-font`            | optional, content, default: `"Atkinson Hyperlegible"`, font family for text content                                                               |
 | `body`                 | content, document content                                                                                                                         |
 
 | `focus-slide` |                           |
