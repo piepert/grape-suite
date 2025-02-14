@@ -71,7 +71,9 @@
 
     outline-title-text: "Outline",
 
-    text-font: "Atkinson Hyperlegible",
+    fontsize: 24pt,
+    text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
+    math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     date: datetime.today(),
     body
@@ -91,7 +93,9 @@
 
     show heading: set text(fill: purple)
 
-    set text(size: 24pt, font: text-font)
+    set text(size: fontsize, font: text-font)
+    show math.equation: set text(font: math-font, size: fontsize)
+
     set page(paper: "presentation-16-9",
         footer: {
             let fs = state("grape-suite-slides", ())

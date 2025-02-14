@@ -47,8 +47,8 @@
 
     page-margins: none,
 
-    text-font: "Atkinson Hyperlegible",
-    math-font: "STIX Two Math",
+    text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
+    math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     fontsize: 11pt,
 
@@ -57,7 +57,6 @@
     let ifnn-line(e) = if e != none [#e \ ]
 
     set text(font: text-font, size: fontsize)
-    // show math.equation: set text(font: "Fira Math")
     show math.equation: set text(font: math-font)
 
     set par(justify: true)

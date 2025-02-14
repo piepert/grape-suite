@@ -115,7 +115,7 @@
 
     page-margins: none,
 
-    text-font: ("Atkinson Hyperlegible","Libertinus Serif"),
+    text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     fontsize: 11pt,
@@ -333,29 +333,31 @@
         it
     }
 
-    context {
-        let tasks = state("grape-suite-tasks", ()).at(here())
+    if show-solutions {
+        context {
+            let tasks = state("grape-suite-tasks", ()).at(here())
 
-        if show-solutions and tasks.filter(e => e.solution != none).len() != 0 {
-            big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
+            if tasks.filter(e => e.solution != none).len() != 0 {
+                big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
 
-            if solutions-as-matrix {
-                set text(size: 0.75em)
-                make-solution-matrix(
-                    show-comment-field: show-solution-matrix-comment-field,
-                    comment-field-value: solution-matrix-comment-field-value,
-                    here(),
-                    solution-matrix-task-header,
-                    task-type,
-                    extra-task-type,
-                    solution-matrix-achieved-points-header)
+                if solutions-as-matrix {
+                    set text(size: 0.75em)
+                    make-solution-matrix(
+                        show-comment-field: show-solution-matrix-comment-field,
+                        comment-field-value: solution-matrix-comment-field-value,
+                        here(),
+                        solution-matrix-task-header,
+                        task-type,
+                        extra-task-type,
+                        solution-matrix-achieved-points-header)
 
-                if show-point-distribution-in-solutions {
-                    make-point-distribution(loc)
+                    if show-point-distribution-in-solutions {
+                        make-point-distribution(loc)
+                    }
+
+                } else {
+                    make-solutions(here(), solution-type)
                 }
-
-            } else {
-                make-solutions(here(), solution-type)
             }
         }
     }
