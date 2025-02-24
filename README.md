@@ -10,6 +10,53 @@ The grape suite is a suite consisting of following templates:
 
 ## Exercises
 
+Usable as an exercise sheet:
+<table>
+    <tr>
+        <td>
+            <a href="examples/homework01.typ">
+                <img src="img/homework01-1.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/homework01.typ">
+                <img src="img/homework01-2.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/homework01.typ">
+                <img src="img/homework01-3.png" width="250px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>Tasks</td>
+        <td>Hints</td>
+        <td>Solutions</td>
+    </tr>
+</table>
+
+Or for short reports/essays:
+<table>
+    <tr>
+        <td>
+            <a href="examples/essay01.typ">
+                <img src="img/essay01-1.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/essay01.typ">
+                <img src="img/essay01-2.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/essay01.typ">
+                <img src="img/essay01-3.png" width="250px">
+            </a>
+        </td>
+    </tr>
+</table>
+
 ### Setup
 
 ```typ
@@ -123,6 +170,33 @@ The grape suite is a suite consisting of following templates:
 
 ## Seminar paper
 
+<table>
+    <tr>
+        <td>
+            <a href="examples/seminar-paper01.typ">
+                <img src="img/seminar-paper01-1.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/seminar-paper01.typ">
+                <img src="img/seminar-paper01-2.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/seminar-paper01.typ">
+                <img src="img/seminar-paper01-3.png" width="250px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>Title page</td>
+        <td>Outline</td>
+        <td>Body</td>
+    </tr>
+</table>
+
+_Note:_ The template generates a German statement of authorship as the last page by default. This behavior can be deactivated by using `show-declaration-of-independent-work`.
+
 ### Setup
 
 ```typ
@@ -197,6 +271,38 @@ The grape suite is a suite consisting of following templates:
 | `body`     | sidenote content, which is a block with 3cm width and will be displayed in the right margin of the page |
 
 ## Slides
+
+<table>
+    <tr>
+        <td>
+            <a href="examples/slides01.typ">
+                <img src="img/slides01-01.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/slides01.typ">
+                <img src="img/slides01-02.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/slides01.typ">
+                <img src="img/slides01-03.png" width="250px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="examples/slides01.typ">
+                <img src="img/slides01-04.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/slides01.typ">
+                <img src="img/slides01-12.png" width="250px">
+            </a>
+        </td>
+    </tr>
+</table>
 
 ### Setup
 
@@ -281,8 +387,7 @@ New:
 
 **Breaking Changes:**
 
-- updated polylux to 0.4.0
-- adjusting to polylux's update: replacing `#pause` in favor of `#show: later`
+- updated polylux to 0.4.0: replacing `#pause` in favor of `#show: later`
 
 ## 1.0.1
 
