@@ -12,7 +12,7 @@ license = "MIT"
 keywords = ["clean", "grape", "minimal", "paper"]
 description = "Library of templates for exams, seminar papers, homeworks, etc."
 categories = ["layout", "paper", "presentation"]
-exclude = ["/img/*"]
+exclude = ["/img/*", "/examples/*"]
 
 [template]
 path = "src/template"
