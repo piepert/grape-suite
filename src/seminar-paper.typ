@@ -156,7 +156,7 @@
     if show-outline or show-todolist {
         pad(x: 2em, {
             if show-outline {
-                outline(indent: true)
+                outline(indent: 1.5em)
                 v(1fr)
             }
 
