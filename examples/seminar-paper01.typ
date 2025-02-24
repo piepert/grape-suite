@@ -26,7 +26,7 @@
     address: [
         12345 Musterstadt \
         Musterstraße 67
-    ]
+    ],
 )
 
 = Einleitung
@@ -41,7 +41,7 @@
 
     Die Wege gehen von der _Logik_ aus.
 ][
-    Moritz Schlick: Die Wende der Philosophie. In: J. Friedl, H. Rutte, F. Stadler, H. J. Wendel (eds.): Moritz Schlick Gesamtausgabe. Abt. I, Bd. 6. Wien: Springer, 2008. S. 213 f. Hervorhebungen im Original.
+    @schlick_wende_2008[S. 213 ff.]
 ]
 
 #definition[
@@ -79,3 +79,6 @@ Siehe @important-definition und @second-important-definition.
 #lorem(100)
 
 #lorem(100)
+
+#pagebreak()
+#bibliography("seminar-paper01.bib", style: "chicago-author-date")
