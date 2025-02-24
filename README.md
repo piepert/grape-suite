@@ -11,6 +11,7 @@ The grape suite is a suite consisting of following templates:
 ## Exercises
 
 Usable as an exercise sheet:
+
 <table>
     <tr>
         <td>
@@ -37,6 +38,7 @@ Usable as an exercise sheet:
 </table>
 
 Or for short reports/essays:
+
 <table>
     <tr>
         <td>
@@ -228,43 +230,43 @@ _Note:_ The template generates a German statement of authorship as the last page
 
 ### Documentation
 
-| `project`                              |                                                                                               |
-| :------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| `title`                                | optional, content, default: `none`, title used on the title page                              |
-| `subtitle`                             | optional, content, default: `none`, subtitle used on title page                               |
-| `submit-to`                            | optional, content, default: `"Submitted to"`, title for the assignees's section               |
-| `submit-by`                            | optional, content, default: `"Submitted by"`, title for the assigned's section                |
-| `university`                           | optional, content, default: `"UNIVERSITY"`                                                    |
-| `faculty`                              | optional, content, default: `"FACULTY"`                                                       |
-| `institute`                            | optional, content, default: `"INSTITUTE"`                                                     |
-| `seminar`                              | optional, content, default: `"SEMINAR"`                                                       |
-| `semester`                             | optional, content, default: `"SEMESTER"`                                                      |
-| `docent`                               | optional, content, default: `"DOCENT"`                                                        |
-| `author`                               | optional, content, default: `"AUTHOR"`                                                        |
-| `email`                                | optional, content, default: `"EMAIL"`                                                         |
-| `address`                              | optional, content, default: `"ADDRESS"`                                                       |
-| `title-page-part`                      | optional, content, default: `none`, overwrite date, assignee and assigned section             |
-| `title-page-part-submit-date`          | optional, content, default: `none`, overwrite date section                                    |
-| `title-page-part-submit-to`            | optional, content, default: `none`, overwrite assignee section                                |
-| `title-page-part-submit-by`            | optional, content, default: `none`, overwrite assigned section                                |
-| `date`                                 | optional, datetime, default: `datetime.today()`                                               |
-| `date-format`                          | optional, function, default: `(date) => date.display("[day].[month].[year]")`                 |
-| `header`                               | optional, content, default: `none`, overwrite page header                                     |
-| `header-right`                         | optional, content, default: `none`, overwrite right header part                               |
-| `header-middle`                        | optional, content, default: `none`, overwrite middle header part                              |
-| `header-left`                          | optional, content, default: `none`, overwrite left header part                                |
-| `footer`                               | optional, content, default: `none`, overwrite footer part                                     |
-| `footer-right`                         | optional, content, default: `none`, overwrite right footer part                               |
-| `footer-middle`                        | optional, content, default: `none`, overwrite middle footer part                              |
-| `footer-left`                          | optional, content, default: `none`, overwrite left footer part                                |
-| `show-outline`                         | optional, bool, default: `true`, show outline                                                 |
-| `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                  |
-| `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                    |
-| `text-font`                            | optional, content, default: `"Atkinson Hyperlegible"`, overwrite font family for text content |
-| `math-font`                            | optional, content, default: `"STIX Two Math"`, overwrite font family for math equations       |
-| `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                           |
-| `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline |
-| `body`                                 | content, document content                                                                     |
+| `project`                              |                                                                                                                       |
+| :------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| `title`                                | optional, content, default: `none`, title used on the title page                                                      |
+| `subtitle`                             | optional, content, default: `none`, subtitle used on title page                                                       |
+| `submit-to`                            | optional, content, default: `"Submitted to"`, title for the assignees's section                                       |
+| `submit-by`                            | optional, content, default: `"Submitted by"`, title for the assigned's section                                        |
+| `university`                           | optional, content, default: `"UNIVERSITY"`                                                                            |
+| `faculty`                              | optional, content, default: `"FACULTY"`                                                                               |
+| `institute`                            | optional, content, default: `"INSTITUTE"`                                                                             |
+| `seminar`                              | optional, content, default: `"SEMINAR"`                                                                               |
+| `semester`                             | optional, content, default: `"SEMESTER"`                                                                              |
+| `docent`                               | optional, content, default: `"DOCENT"`                                                                                |
+| `author`                               | optional, content, default: `"AUTHOR"`                                                                                |
+| `email`                                | optional, content, default: `"EMAIL"`                                                                                 |
+| `address`                              | optional, content, default: `"ADDRESS"`                                                                               |
+| `title-page-part`                      | optional, content, default: `none`, overwrite date, assignee and assigned section                                     |
+| `title-page-part-submit-date`          | optional, content, default: `none`, overwrite date section                                                            |
+| `title-page-part-submit-to`            | optional, content, default: `none`, overwrite assignee section                                                        |
+| `title-page-part-submit-by`            | optional, content, default: `none`, overwrite assigned section                                                        |
+| `date`                                 | optional, datetime, default: `datetime.today()`                                                                       |
+| `date-format`                          | optional, function, default: `(date) => date.display("[day].[month].[year]")`                                         |
+| `header`                               | optional, content, default: `none`, overwrite page header                                                             |
+| `header-right`                         | optional, content, default: `none`, overwrite right header part                                                       |
+| `header-middle`                        | optional, content, default: `none`, overwrite middle header part                                                      |
+| `header-left`                          | optional, content, default: `none`, overwrite left header part                                                        |
+| `footer`                               | optional, content, default: `none`, overwrite footer part                                                             |
+| `footer-right`                         | optional, content, default: `none`, overwrite right footer part                                                       |
+| `footer-middle`                        | optional, content, default: `none`, overwrite middle footer part                                                      |
+| `footer-left`                          | optional, content, default: `none`, overwrite left footer part                                                        |
+| `show-outline`                         | optional, bool, default: `true`, show outline                                                                         |
+| `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                                          |
+| `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                                            |
+| `text-font`                            | optional, content, default: `("Atkinson Hyperlegible","Libertinus Serif")`, overwrite font family for text content    |
+| `math-font`                            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations |
+| `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                                                   |
+| `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                         |
+| `body`                                 | content, document content                                                                                             |
 
 | `sidenote` |                                                                                                         |
 | :--------- | :------------------------------------------------------------------------------------------------------ |
@@ -351,7 +353,8 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `show-footer`          | optional, bool, default: `true`, show footer on slides                                                                                            |
 | `show-page-numbers`    | optional, bool, default: `true`, show page numbering                                                                                              |
 | `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                    |
-| `text-font`            | optional, content, default: `"Atkinson Hyperlegible"`, font family for text content                                                               |
+| `text-font`            | optional, content, default: `("Atkinson Hyperlegible","Libertinus Serif")`, overwrite font family for text content                                |
+| `math-font`            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                             |
 | `body`                 | content, document content                                                                                                                         |
 
 | `focus-slide` |                           |
