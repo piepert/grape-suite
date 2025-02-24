@@ -76,6 +76,8 @@
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     date: datetime.today(),
+    date-format: (date) => [#weekday(date.weekday()), #date.display("[day].[month].[year]")],
+
     body
 ) = {
     let left-footer = if footer != none {
@@ -144,7 +146,7 @@
                 #set text(size: 0.75em)
                 #if show-author [#author #if email != none [--- #email ] \ ]
                 #if show-semester [#semester(date) \ ]
-                #if show-date [#weekday(date.weekday()), #date.display("[day].[month].[year]")]
+                #if show-date { date-format(date) }
             ]
         ]))
     }
