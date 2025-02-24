@@ -13,7 +13,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:1.0.1": exercise
+#import "@preview/grape-suite:2.0.0": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -49,7 +49,7 @@ The grape suite is a suite consisting of following templates:
 | `namefield`                              | optional, content, default: `[Name:]`, content shown iff `show-namefield`                                                                                                                                                                                                                  |
 | `show-timefield`                         | optional, bool, default: `false`, show timefield at the end of right header iff true                                                                                                                                                                                                       |
 | `timefield`                              | optional, function, default: `(time) => [Time: #time min.]`, to generate the content shown as the timefield iff `show-timefield` is true                                                                                                                                                   |
-| `max-time`                               | optional, number, default: `0`, time value used in the `timefield` function generator                                                                                                                                                                                                     |
+| `max-time`                               | optional, number, default: `0`, time value used in the `timefield` function generator                                                                                                                                                                                                      |
 | `show-lines`                             | optional, bool, default: `false`, draw automatic lines for each task, if `lines` parameter of `task` is set                                                                                                                                                                                |
 | `show-point-distribution-in-tasks`       | optional, bool, default: `false`, show point distribution after tasks iff true                                                                                                                                                                                                             |
 | `show-point-distribution-in-solutions`   | optional, bool, default: `false`, show point distributions after solutions iff true                                                                                                                                                                                                        |
@@ -126,7 +126,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:1.0.1": seminar-paper
+#import "@preview/grape-suite:2.0.0": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -201,7 +201,7 @@ The grape suite is a suite consisting of following templates:
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:1.0.1": slides
+#import "@preview/grape-suite:2.0.0": slides
 #import slides: *
 
 #show: slides.with(
@@ -238,6 +238,7 @@ The grape suite is a suite consisting of following templates:
 | `box-notice-title`     | optional, content, default: `[Notice]`, shown as the title of a slide's notice box                                                                |
 | `box-example-title`    | optional, content, default: `[Example]`, shown as the title of a slide's example box                                                              |
 | `date`                 | optional, datetime, default: `datetime.today()`                                                                                                   |
+| `date-format`          | optional, function, default: `(date) => [#weekday(date.weekday()), #date.display("[day].[month].[year]")]`                                        |
 | `show-todolist`        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                     |
 | `show-title-slide`     | optional, bool, default: `true`, show title slide                                                                                                 |
 | `show-author`          | optional, bool, default: `true`, show author name on title slide                                                                                  |
@@ -251,7 +252,7 @@ The grape suite is a suite consisting of following templates:
 | :------------ | :------------------------ |
 | `body`        | content, document content |
 
-- `slide`, `pause`, `only`, `uncover`: imported from polylux
+- `slide`, `later`, `only`, `uncover`: imported from polylux
 
 ### Todos
 
@@ -266,6 +267,22 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`: `definition`
 
 # Changelog
+
+## 2.0.0
+
+Fixes:
+
+- typos in Readme file
+
+New:
+
+- `math-font` and `text-font` options in `slides`, `exercise.project` and `seminar-paper.project`
+- `date-format` in `slides`
+
+**Breaking Changes:**
+
+- updated polylux to 0.4.0
+- adjusting to polylux's update: replacing `#pause` in favor of `#show: later`
 
 ## 1.0.1
 
