@@ -1,4 +1,4 @@
-#import "@preview/polylux:0.3.1"
+#import "@preview/polylux:0.4.0"
 
 #import "german-dates.typ": semester, weekday
 #import "colors.typ": *
@@ -7,14 +7,14 @@
 
 #let uncover = polylux.uncover
 #let only = polylux.uncover
-#let pause = polylux.pause
+#let later = polylux.later
 #let slide(..args) = {
     state("grape-suite-slides", ()).update(k => {
         k.push("normal")
         k
     })
 
-    polylux.polylux-slide(..args)
+    polylux.slide(..args)
 }
 
 #let focus-slide(body) = {
