@@ -260,7 +260,7 @@
                     str(counter(page).final().first())
                 }),
 
-                if footer-left != none {footer-left}
+                if footer-right != none {footer-right}
             )
         },
     )
