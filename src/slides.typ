@@ -85,7 +85,7 @@
     } else {
         text(size: 0.5em, (
             if show-semester [#semester(short: true, date)],
-            [#series \##no],
+            [#series] + if no != none [\##no],
             title,
             if show-author { author }).filter(e => e != none).join[ --- ]
         )
