@@ -290,6 +290,7 @@
     }
 
     if show-outline {
+        set par(spacing: 0em)
         show outline.entry: it => h(1em) + it
         set text(size: 0.75em)
         pad(x: 1cm, top: if abstract != none {0.25cm} else {0cm}, outline(indent: 1.5em))
