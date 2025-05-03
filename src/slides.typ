@@ -26,11 +26,12 @@
         k
     })
 
-    polylux.polylux-slide[
-        #set text(size: 1.5em, weight: "bold")
+    polylux.slide[
         #show: align.with(center + horizon)
-        #v(-0.75em)
-        #body
+        #text(size: 1.5em, weight: "bold")[
+            #v(-0.75em)
+            #body
+        ]
     ]
 }
 
