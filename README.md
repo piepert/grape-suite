@@ -243,6 +243,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `semester`                             | optional, content, default: `"SEMESTER"`                                                                              |
 | `docent`                               | optional, content, default: `"DOCENT"`                                                                                |
 | `author`                               | optional, content, default: `"AUTHOR"`                                                                                |
+| `student-number`                       | optional, content, default: `none`                                                                                    |
 | `email`                                | optional, content, default: `"EMAIL"`                                                                                 |
 | `address`                              | optional, content, default: `"ADDRESS"`                                                                               |
 | `title-page-part`                      | optional, content, default: `none`, overwrite date, assignee and assigned section                                     |
