@@ -373,6 +373,23 @@ The `subtypes` module contains templates for essays and protocols based on the `
             </a>
         </td>
     </tr>
+    <tr>
+        <td>
+            <a href="examples/protocol01.typ">
+                <img src="img/protocol01-1.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/protocol01.typ">
+                <img src="img/protocol01-2.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/protocol01.typ">
+                <img src="img/protocol01-3.png" width="250px">
+            </a>
+        </td>
+    </tr>
 </table>
 
 ### Setup
