@@ -35,10 +35,13 @@
     header-right: none,
     header-middle: none,
     header-left: none,
+    show-header-line: true,
 
     footer: none,
     footer-right: none,
     footer-middle: none,
+    footer-left: none,
+    show-footer-line: true,
     footer-left: none,
 
     show-outline: true,
@@ -146,7 +149,7 @@
                 #show: align.with(top + right)
                 #author, #date-format(date)
             ])
-        ] + v(-0.5em) + line(length: 100%, stroke: purple),
+        ] + if show-header-line { v(-0.5em) + line(length: 100%, stroke: purple) },
     )
 
     state("grape-suite-element-sentence-supplement").update(sentence-supplement)
@@ -181,8 +184,11 @@
 
         footer: if footer != none {footer} else {
             set text(size: 0.75em)
-            line(length: 100%, stroke: purple)
-            v(-0.5em)
+
+            if show-footer-line {
+                line(length: 100%, stroke: purple)
+                v(-0.5em)
+            }
 
             table(columns: (1fr, auto, 1fr),
                 align: top,
