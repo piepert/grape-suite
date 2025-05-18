@@ -1,7 +1,7 @@
 #import "/src/library.typ": subtype
 
-#show: subtype.essay.with(
-    title: "Lorem ipsum dolor sit",
+#show: subtype.protocol.with(
+    title: "Some session's title",
     university: [University],
     institute: [Institute],
     seminar: [Seminar],
@@ -14,8 +14,8 @@
 = Introduction
 #lorem(100)
 
-#quote(attribution: [Alfred North Whitehead])[
-    The safest general characterization of the European philosophical tradition is that it consists of a series of footnotes to Plato.
+#quote(attribution: [Someone])[
+    #lorem(20)
 ]
 
 #lorem(100)
