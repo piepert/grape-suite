@@ -77,7 +77,7 @@
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     date: datetime.today(),
-    date-format: (date) => [#weekday(date.weekday()), #date.display("[day].[month].[year]")],
+    date-format: (date) => if type(date) == type(datetime.today()) [#weekday(date.weekday()), #date.display("[day].[month].[year]")] else { date },
 
     body
 ) = {

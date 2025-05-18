@@ -67,7 +67,7 @@
     author: none,
     date: datetime.today(),
 
-    date-format: (date) => date.display("[day].[month].[year]"),
+    date-format: (date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date },
 
     // if set, above attributes featuring automatic generation of the header are ignored
     header: none,

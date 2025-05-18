@@ -29,7 +29,7 @@
     sentence-supplement: "Example",
 
     date: datetime.today(),
-    date-format: (date) => date.display("[day].[month].[year]"),
+    date-format: (date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date },
 
     header: none,
     header-right: none,
