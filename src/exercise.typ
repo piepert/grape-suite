@@ -75,11 +75,13 @@
     header-right: none,
     header-middle: none,
     header-left: none,
+    show-header-line: true,
 
     footer: none,
     footer-right: none,
     footer-middle: none,
     footer-left: none,
+    show-footer-line: true,
 
     // translations
     task-type: [Task],
@@ -147,18 +149,9 @@
 
     show heading: set text(fill: purple)
     show heading: set par(justify: false)
-    show heading: it => context {
-        let num-style = it.numbering
+    show: format-heading-numbering
 
-        if num-style == none {
-            return it
-        }
-
-        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(here()))+[ \u{200b}])
-        let x-offset = -1 * measure(num).width
-
-        pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
-    }
+    show: format-quotes
 
     let ufi = ()
     if university != none { ufi.push(university) }
@@ -241,11 +234,14 @@
                     h-l
                 )
             }
-        ] + v(-0.5em) + line(length: 100%, stroke: purple),
+        ] + if show-header-line {
+            v(-0.5em) + line(length: 100%, stroke: purple)
+        },
 
-        footer: if footer != none {footer} else {
-            set text(size: 0.75em)
+        footer: if show-footer-line {
             line(length: 100%, stroke: purple) + v(-0.5em)
+        } + if footer != none {footer} else {
+            set text(size: 0.75em)
 
             table(columns: (1fr, auto, 1fr),
                 align: top,
@@ -282,7 +278,9 @@
     state("grape-suite-element-sentence-supplement").update(sentence-supplement)
     show: sentence-logic
 
-    big-heading(title)
+    if title != none {
+        big-heading(title)
+    }
 
     if abstract != none {
         set text(size: 0.85em)
