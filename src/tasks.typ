@@ -4,17 +4,6 @@
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
 
-#let big-heading(title) = {
-    set par(justify: false)
-    set text(hyphenate: false)
-
-    pad(bottom: 0.5cm,
-        align(center,
-            text(fill: purple,
-                size: 1.75em,
-                strong(title))))
-}
-
 #let make-element(type, no, title, body) = {
     block(inset: 7pt,
         stroke: (bottom: (paint: purple, dash: "dashed")),

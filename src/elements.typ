@@ -1,5 +1,16 @@
 #import "colors.typ": *
 
+#let big-heading(title) = {
+    set par(justify: false)
+    set text(hyphenate: false)
+
+    pad(bottom: 0.25cm,
+        align(center,
+            text(fill: purple,
+                size: 1.75em,
+                strong(title))))
+}
+
 #let unbreak(body) = {
     set text(hyphenate: false)
     body
