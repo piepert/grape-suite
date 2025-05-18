@@ -141,4 +141,47 @@
     counter("grape-suite-sentence-counter").step())
 }
 
-#let blockquote(body, source) = pad(x: 1em, y: 0.25em, body + block(text(size: 0.75em, source)))
+#let format-heading-numbering(body) = {
+    show heading: it => context {
+        let num-style = it.numbering
+
+        if num-style == none {
+            return it
+        }
+
+        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(here()))+[ \u{200b}])
+        let x-offset = -1 * measure(num).width
+
+        pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
+    }
+
+    body
+}
+
+#let format-quotes(body) = {
+    set quote(block: true)
+
+    show quote.where(block: true): set par(spacing: 0.65em)
+    show quote.where(block: true): set block(above: 0.65em, below: 0.65em)
+
+    show quote.where(block: true): it => {
+        block[
+            #set text(size: 0.9em)
+            #set par(leading: 0.65em)
+            #it.body\
+        ]
+
+        block(text(size: 0.75em, (it.attribution)))
+    }
+
+    show quote.where(block: true): pad.with(left: 1.5em, y: 0.65em, rest: 0em)
+
+    show quote.where(block: false): it => {
+        ["] + h(0pt, weak: true) + it.body + h(0pt, weak: true) + ["]
+        if it.attribution != none [#footnote(it.attribution)]
+    }
+
+    body
+}
+
+#let blockquote(body, source) = quote(body, attribution: source)
