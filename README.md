@@ -430,7 +430,7 @@ Protocol:
 
 ### Documentation
 
-The base layout of these functions is provided by `exercise.project`. Other named arguments than the following are passed to `exercise.project`.
+The base layout of these functions is provided by `exercise.project`.
 
 | `essay`      |                                                   |
 | :----------- | :------------------------------------------------ |
@@ -490,6 +490,7 @@ Changes:
 - `blockquote` now just creates a `quote` element with attribution
 - `date` (in `seminar-paper`, `exercise` and `slides`) now accepts `content` too
 - `big-heading` moved from `tasks` module to `elements` module
+- layout of subtasks in `exercise` and `tasks` modules
 
 ## 2.0.0
 
