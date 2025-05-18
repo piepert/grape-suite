@@ -42,7 +42,6 @@
     footer-middle: none,
     footer-left: none,
     show-footer-line: true,
-    footer-left: none,
 
     show-outline: true,
     show-todolist: true,
@@ -165,7 +164,8 @@
             .final()
             .map(e => context {
                 if here().page() == e.loc.at(0) {
-                    place(top + right, align(left, par(justify: false, text(fill: purple, size: 0.75em, hyphenate: false, pad(x: 0.5cm, block(width: 3cm, strong(e.body)))))), dy: e.loc.at(1).y)
+                    set par(justify: false, leading: 0.65em)
+                    place(top + right, align(left, text(fill: purple, size: 0.75em, hyphenate: false, pad(x: 0.5cm, block(width: 3cm, strong(e.body))))), dy: e.loc.at(1).y)
                 } else {
                 }
             }).join[],
