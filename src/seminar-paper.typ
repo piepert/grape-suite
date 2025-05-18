@@ -62,26 +62,14 @@
     set text(font: text-font, size: fontsize)
     show math.equation: set text(font: math-font)
 
-    set par(justify: true)
-
     set enum(indent: 1em)
     set list(indent: 1em)
 
     show link: underline
     show link: set text(fill: purple)
 
-    show heading: it => context {
-        let num-style = it.numbering
-
-        if num-style == none {
-            return it
-        }
-
-        let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(here()))+[ \u{200b}])
-        let x-offset = -1 * measure(num).width
-
-        pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
-    }
+    show: format-heading-numbering
+    show: format-quotes
 
     // title page
     [
@@ -209,6 +197,10 @@
     )
 
     set heading(numbering: "1.")
+
+    show heading: set par(leading: 0.65em)
+    set par(justify: true, leading: 1em, spacing: 1em, first-line-indent: 1.5em)
+
     counter(page).update(1)
     body
 
