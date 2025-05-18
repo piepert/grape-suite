@@ -39,7 +39,7 @@
     #subtask[
         Analysieren Sie die Rolle des Pegasus im Mythos von Bellerophon. Welche Bedeutung hat Pegasus für den Verlauf und den Ausgang der Geschichte?
     ]
-][][ // Hints
+][][ // Solution
     #subtask[
         #lorem(20)
     ]
@@ -47,7 +47,7 @@
     #subtask[
         #lorem(20)
     ]
-][ // Solution
+][ // Hints
     #subtask(counter: 2)[
         #lorem(20)
     ]
