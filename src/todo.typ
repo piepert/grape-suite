@@ -11,12 +11,8 @@
 
 #let hide-todos() = state("grape-suite-list-todos").update(false)
 
-#let todo(..content) = context {
-    if state("grape-suite-list-todos", true).at(here()) == false {
-        return
-    }
-
-    let label-name = make-todo-label(here())
+#let todo(..content) = {
+    metadata(("type": "todo", content: content.pos().join[]))
 
     highlight(fill: magenta.lighten(90%), text(fill: magenta,
         if content.pos().len() > 0 {
@@ -25,16 +21,10 @@
             strong[To do]
         })
     )
-    [#label(label-name)]
-
-    todo-state.update(t => {
-        t.push((page: counter(page).at(here()).first(), label: label-name, content: content.pos().join[]))
-        t
-    })
 }
 
 #let list-todos() = context {
-    let todo-list = todo-state.final()
+    let todo-list = query(metadata).filter(e => if "type" in e.value { e.value.type == "todo" })
 
     show link: text.with(fill: magenta)
     set text(fill: magenta)
@@ -42,7 +32,7 @@
         strong([To do:])
 
         list(tight: false, ..todo-list.map(e =>
-            strong[p. #e.page] +
-            if e.content != none { [: #e.content] }))
+            strong[p. #e.location().page()] +
+            if e.value.content != none { [: #e.value.content] }))
     }
 }
