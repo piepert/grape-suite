@@ -4,6 +4,8 @@ The grape suite is a suite consisting of following templates:
 
 - exercises (for exams, homework, etc.)
 
+  - essays and protocols
+
 - seminar papers
 
 - slides (using polylux)
@@ -37,32 +39,12 @@ Usable as an exercise sheet:
     </tr>
 </table>
 
-Or for short reports/essays:
-
-<table>
-    <tr>
-        <td>
-            <a href="examples/essay01.typ">
-                <img src="img/essay01-1.png" width="250px">
-            </a>
-        </td>
-        <td>
-            <a href="examples/essay01.typ">
-                <img src="img/essay01-2.png" width="250px">
-            </a>
-        </td>
-        <td>
-            <a href="examples/essay01.typ">
-                <img src="img/essay01-3.png" width="250px">
-            </a>
-        </td>
-    </tr>
-</table>
+For protocols and essays see [subtypes module](#subtypes).
 
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:2.0.0": exercise
+#import "@preview/grape-suite:2.1.0": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -81,7 +63,7 @@ Or for short reports/essays:
 )
 ```
 
-### API-Documentation
+### Documentation
 
 | `project`                                |                                                                                                                                                                                                                                                                                            |
 | :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -110,16 +92,19 @@ Or for short reports/essays:
 | `semester`                               | optional, content, default: `none`                                                                                                                                                                                                                                                         |
 | `docent`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
 | `author`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `date`                                   | optional, datetime, default: `datetime.today()`                                                                                                                                                                                                                                            |
+| `date`                                   | optional, datetime or content, default: `datetime.today()`                                                                                                                                                                                                                                 |
+| `date-format`                            | optional, function, default: `(date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date }`                                                                                                                                                    |
 | `header-gutter`                          | optional, length, default: `20%`, overwrite header gutter                                                                                                                                                                                                                                  |
 | `header`                                 | optional, content, default: `none`, overwrite page header                                                                                                                                                                                                                                  |
 | `header-right`                           | optional, content, default: `none`, overwrite right header part                                                                                                                                                                                                                            |
 | `header-middle`                          | optional, content, default: `none`, overwrite middle header part                                                                                                                                                                                                                           |
 | `header-left`                            | optional, content, default: `none`, overwrite left header part                                                                                                                                                                                                                             |
+| `show-header-line`                       | optional, bool, default: `true`, show purple line in header                                                                                                                                                                                                                                |
 | `footer`                                 | optional, content, default: `none`, overwrite footer part                                                                                                                                                                                                                                  |
 | `footer-right`                           | optional, content, default: `none`, overwrite right footer part                                                                                                                                                                                                                            |
 | `footer-middle`                          | optional, content, default: `none`, overwrite middle footer part                                                                                                                                                                                                                           |
 | `footer-left`                            | optional, content, default: `none`, overwrite left footer part                                                                                                                                                                                                                             |
+| `show-footer-line`                       | optional, bool, default: `true`, show purple line in footer                                                                                                                                                                                                                                |
 | `task-type`                              | optional, content, default: `[Task]`, content shown in task title box before numbering                                                                                                                                                                                                     |
 | `extra-task-type`                        | optional, content, default: `[Extra task]`, for tasks where the `extra` parameter is true, content shown in title box before numbering                                                                                                                                                     |
 | `box-task-title`                         | optional, content, default: `[Task]`, shown as the title of a task box used by the `slides` library                                                                                                                                                                                        |
@@ -141,7 +126,7 @@ Or for short reports/essays:
 | `message`                                | optional, function, default: `(points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: purple, length: 1cm)) out of #points-sum points.]`, used to generate the message part above the point distribution                 |
 | `grade-scale`                            | optional, array, default: `(([excellent], 0.9), ([very good], 0.8), ([good], 0.7), ([pass], 0.6), ([fail], 0.49))`, list of grades and percentage of points to reach that grade                                                                                                            |
 | `page-margins`                           | optional, margins, default: `none`, overwrite page margins                                                                                                                                                                                                                                 |
-| `text-font`                              | optional, content, default: `("Atkinson Hyperlegible","Libertinus Serif")`, overwrite font family for text content                                                                                                                                                                         |
+| `text-font`                              | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                                                                                                                                          |
 | `math-font`                              | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                                                                                                                                                      |
 | `fontsize`                               | optional, size, default: `11pt`, overwrite font size                                                                                                                                                                                                                                       |
 | `show-todolist`                          | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                                                                                                                                                              |
@@ -202,7 +187,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:2.0.0": seminar-paper
+#import "@preview/grape-suite:2.1.0": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -230,44 +215,46 @@ _Note:_ The template generates a German statement of authorship as the last page
 
 ### Documentation
 
-| `project`                              |                                                                                                                       |
-| :------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-| `title`                                | optional, content, default: `none`, title used on the title page                                                      |
-| `subtitle`                             | optional, content, default: `none`, subtitle used on title page                                                       |
-| `submit-to`                            | optional, content, default: `"Submitted to"`, title for the assignees's section                                       |
-| `submit-by`                            | optional, content, default: `"Submitted by"`, title for the assigned's section                                        |
-| `university`                           | optional, content, default: `"UNIVERSITY"`                                                                            |
-| `faculty`                              | optional, content, default: `"FACULTY"`                                                                               |
-| `institute`                            | optional, content, default: `"INSTITUTE"`                                                                             |
-| `seminar`                              | optional, content, default: `"SEMINAR"`                                                                               |
-| `semester`                             | optional, content, default: `"SEMESTER"`                                                                              |
-| `docent`                               | optional, content, default: `"DOCENT"`                                                                                |
-| `author`                               | optional, content, default: `"AUTHOR"`                                                                                |
-| `student-number`                       | optional, content, default: `none`                                                                                    |
-| `email`                                | optional, content, default: `"EMAIL"`                                                                                 |
-| `address`                              | optional, content, default: `"ADDRESS"`                                                                               |
-| `title-page-part`                      | optional, content, default: `none`, overwrite date, assignee and assigned section                                     |
-| `title-page-part-submit-date`          | optional, content, default: `none`, overwrite date section                                                            |
-| `title-page-part-submit-to`            | optional, content, default: `none`, overwrite assignee section                                                        |
-| `title-page-part-submit-by`            | optional, content, default: `none`, overwrite assigned section                                                        |
-| `date`                                 | optional, datetime, default: `datetime.today()`                                                                       |
-| `date-format`                          | optional, function, default: `(date) => date.display("[day].[month].[year]")`                                         |
-| `header`                               | optional, content, default: `none`, overwrite page header                                                             |
-| `header-right`                         | optional, content, default: `none`, overwrite right header part                                                       |
-| `header-middle`                        | optional, content, default: `none`, overwrite middle header part                                                      |
-| `header-left`                          | optional, content, default: `none`, overwrite left header part                                                        |
-| `footer`                               | optional, content, default: `none`, overwrite footer part                                                             |
-| `footer-right`                         | optional, content, default: `none`, overwrite right footer part                                                       |
-| `footer-middle`                        | optional, content, default: `none`, overwrite middle footer part                                                      |
-| `footer-left`                          | optional, content, default: `none`, overwrite left footer part                                                        |
-| `show-outline`                         | optional, bool, default: `true`, show outline                                                                         |
-| `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                                          |
-| `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                                            |
-| `text-font`                            | optional, content, default: `("Atkinson Hyperlegible","Libertinus Serif")`, overwrite font family for text content    |
-| `math-font`                            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations |
-| `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                                                   |
-| `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                         |
-| `body`                                 | content, document content                                                                                             |
+| `project`                              |                                                                                                                                                   |
+| :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `title`                                | optional, content, default: `none`, title used on the title page                                                                                  |
+| `subtitle`                             | optional, content, default: `none`, subtitle used on title page                                                                                   |
+| `submit-to`                            | optional, content, default: `"Submitted to"`, title for the assignees's section                                                                   |
+| `submit-by`                            | optional, content, default: `"Submitted by"`, title for the assigned's section                                                                    |
+| `university`                           | optional, content, default: `"UNIVERSITY"`                                                                                                        |
+| `faculty`                              | optional, content, default: `"FACULTY"`                                                                                                           |
+| `institute`                            | optional, content, default: `"INSTITUTE"`                                                                                                         |
+| `seminar`                              | optional, content, default: `"SEMINAR"`                                                                                                           |
+| `semester`                             | optional, content, default: `"SEMESTER"`                                                                                                          |
+| `docent`                               | optional, content, default: `"DOCENT"`                                                                                                            |
+| `author`                               | optional, content, default: `"AUTHOR"`                                                                                                            |
+| `student-number`                       | optional, content, default: `none`                                                                                                                |
+| `email`                                | optional, content, default: `"EMAIL"`                                                                                                             |
+| `address`                              | optional, content, default: `"ADDRESS"`                                                                                                           |
+| `title-page-part`                      | optional, content, default: `none`, overwrite date, assignee and assigned section                                                                 |
+| `title-page-part-submit-date`          | optional, content, default: `none`, overwrite date section                                                                                        |
+| `title-page-part-submit-to`            | optional, content, default: `none`, overwrite assignee section                                                                                    |
+| `title-page-part-submit-by`            | optional, content, default: `none`, overwrite assigned section                                                                                    |
+| `date`                                 | optional, datetime or content, default: `datetime.today()`                                                                                        |
+| `date-format`                          | optional, function, default: `(date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date }`           |
+| `header`                               | optional, content, default: `none`, overwrite page header                                                                                         |
+| `header-right`                         | optional, content, default: `none`, overwrite right header part                                                                                   |
+| `header-middle`                        | optional, content, default: `none`, overwrite middle header part                                                                                  |
+| `header-left`                          | optional, content, default: `none`, overwrite left header part                                                                                    |
+| `show-header-line`                     | optional, bool, default: `true`, show purple line in header                                                                                       |
+| `footer`                               | optional, content, default: `none`, overwrite footer part                                                                                         |
+| `footer-right`                         | optional, content, default: `none`, overwrite right footer part                                                                                   |
+| `footer-middle`                        | optional, content, default: `none`, overwrite middle footer part                                                                                  |
+| `footer-left`                          | optional, content, default: `none`, overwrite left footer part                                                                                    |
+| `show-footer-line`                     | optional, bool, default: `true`, show purple line in footer                                                                                       |
+| `show-outline`                         | optional, bool, default: `true`, show outline                                                                                                     |
+| `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                                                                      |
+| `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                                                                        |
+| `text-font`                            | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content |
+| `math-font`                            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                             |
+| `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                                                                               |
+| `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                     |
+| `body`                                 | content, document content                                                                                                                         |
 
 | `sidenote` |                                                                                                         |
 | :--------- | :------------------------------------------------------------------------------------------------------ |
@@ -310,7 +297,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:2.0.0": slides
+#import "@preview/grape-suite:2.1.0": slides
 #import slides: *
 
 #show: slides.with(
@@ -325,38 +312,38 @@ _Note:_ The template generates a German statement of authorship as the last page
 
 ### Documentation
 
-| `slides`               |                                                                                                                                                   |
-| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `no`                   | optional, number, default: `0`, number in the series                                                                                              |
-| `series`               | optional, content, default: `none`, name of the series                                                                                            |
-| `title`                | optional, content, default: `none`, title of the presentation                                                                                     |
-| `topics`               | optional, array, default: `()`, topics of the presentation                                                                                        |
-| `author`               | optional, content, default: `none`, author                                                                                                        |
-| `email`                | optional, content, default: `none`, author's email                                                                                                |
-| `head-replacement`     | optional, content, default: `none`, replace head on title slide with given content                                                                |
-| `title-replacement`    | optional, content, default: `none`, replace title below head on title slide with given content                                                    |
-| `footer`               | optional, content, default: `none`, replace footer on slides with given content                                                                   |
-| `page-numbering`       | optional, function, default: `(n, total) => {...}`, function that creates the page numbering (where `n` is the current, `total` is the last page) |
-| `show-semester`        | optional, bool, default: `true`, show name of the semester (e.g. "SoSe 24")                                                                       |
-| `show-date`            | optional, bool, default: `true`, show date in german format                                                                                       |
-| `show-outline`         | optional, bool, default: `true`, show outline on the second slide                                                                                 |
-| `box-task-title`       | optional, content, default: `[Task]`, shown as the title of a slide's task box                                                                    |
-| `box-hint-title`       | optional, content, default: `[Hint]`, shown as the title of a slide's tasks colored                                                               |
-| `box-solution-title`   | optional, content, default: `[Solution]`, shown as the title of a slide's tasks colored                                                           |
-| `box-definition-title` | optional, content, default: `[Definition]`, shown as the title of a slide's definition box                                                        |
-| `box-notice-title`     | optional, content, default: `[Notice]`, shown as the title of a slide's notice box                                                                |
-| `box-example-title`    | optional, content, default: `[Example]`, shown as the title of a slide's example box                                                              |
-| `date`                 | optional, datetime, default: `datetime.today()`                                                                                                   |
-| `date-format`          | optional, function, default: `(date) => [#weekday(date.weekday()), #date.display("[day].[month].[year]")]`                                        |
-| `show-todolist`        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                     |
-| `show-title-slide`     | optional, bool, default: `true`, show title slide                                                                                                 |
-| `show-author`          | optional, bool, default: `true`, show author name on title slide                                                                                  |
-| `show-footer`          | optional, bool, default: `true`, show footer on slides                                                                                            |
-| `show-page-numbers`    | optional, bool, default: `true`, show page numbering                                                                                              |
-| `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                    |
-| `text-font`            | optional, content, default: `("Atkinson Hyperlegible","Libertinus Serif")`, overwrite font family for text content                                |
-| `math-font`            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                             |
-| `body`                 | content, document content                                                                                                                         |
+| `slides`               |                                                                                                                                                                  |
+| :--------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `no`                   | optional, number, default: `0`, number in the series                                                                                                             |
+| `series`               | optional, content, default: `none`, name of the series                                                                                                           |
+| `title`                | optional, content, default: `none`, title of the presentation                                                                                                    |
+| `topics`               | optional, array, default: `()`, topics of the presentation                                                                                                       |
+| `author`               | optional, content, default: `none`, author                                                                                                                       |
+| `email`                | optional, content, default: `none`, author's email                                                                                                               |
+| `head-replacement`     | optional, content, default: `none`, replace head on title slide with given content                                                                               |
+| `title-replacement`    | optional, content, default: `none`, replace title below head on title slide with given content                                                                   |
+| `footer`               | optional, content, default: `none`, replace footer on slides with given content                                                                                  |
+| `page-numbering`       | optional, function, default: `(n, total) => {...}`, function that creates the page numbering (where `n` is the current, `total` is the last page)                |
+| `show-semester`        | optional, bool, default: `true`, show name of the semester (e.g. "SoSe 24")                                                                                      |
+| `show-date`            | optional, bool, default: `true`, show date in german format                                                                                                      |
+| `show-outline`         | optional, bool, default: `true`, show outline on the second slide                                                                                                |
+| `box-task-title`       | optional, content, default: `[Task]`, shown as the title of a slide's task box                                                                                   |
+| `box-hint-title`       | optional, content, default: `[Hint]`, shown as the title of a slide's tasks colored                                                                              |
+| `box-solution-title`   | optional, content, default: `[Solution]`, shown as the title of a slide's tasks colored                                                                          |
+| `box-definition-title` | optional, content, default: `[Definition]`, shown as the title of a slide's definition box                                                                       |
+| `box-notice-title`     | optional, content, default: `[Notice]`, shown as the title of a slide's notice box                                                                               |
+| `box-example-title`    | optional, content, default: `[Example]`, shown as the title of a slide's example box                                                                             |
+| `date`                 | optional, datetime or content, default: `datetime.today()`                                                                                                       |
+| `date-format`          | optional, function, default: `(date) => if type(date) == type(datetime.today()) [#weekday(date.weekday()), #date.display("[day].[month].[year]")] else { date }` |
+| `show-todolist`        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                                    |
+| `show-title-slide`     | optional, bool, default: `true`, show title slide                                                                                                                |
+| `show-author`          | optional, bool, default: `true`, show author name on title slide                                                                                                 |
+| `show-footer`          | optional, bool, default: `true`, show footer on slides                                                                                                           |
+| `show-page-numbers`    | optional, bool, default: `true`, show page numbering                                                                                                             |
+| `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                                   |
+| `text-font`            | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                |
+| `math-font`            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                            |
+| `body`                 | content, document content                                                                                                                                        |
 
 | `focus-slide` |                           |
 | :------------ | :------------------------ |
@@ -364,7 +351,95 @@ _Note:_ The template generates a German statement of authorship as the last page
 
 - `slide`, `later`, `only`, `uncover`: imported from polylux
 
-### Todos
+## Subtypes
+
+The `subtypes` module contains templates for essays and protocols based on the `exercise` module.
+
+<table>
+    <tr>
+        <td>
+            <a href="examples/essay01.typ">
+                <img src="img/essay01-1.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/essay01.typ">
+                <img src="img/essay01-2.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/essay01.typ">
+                <img src="img/essay01-3.png" width="250px">
+            </a>
+        </td>
+    </tr>
+</table>
+
+### Setup
+
+Essay:
+
+```typ
+#import "@preview/grape-suite:2.1.0": subtype
+
+#show: subtype.essay.with(
+    title: "Lorem ipsum dolor sit",
+    university: [University],
+    institute: [Institute],
+    seminar: [Seminar],
+    semester: [Semester],
+    docent: [Docent],
+    author: [Author],
+    date: [1#super[st] January 1970],
+)
+```
+
+Protocol:
+
+```typ
+#import "@preview/grape-suite:2.1.0": subtype
+
+#show: subtype.protocol.with(
+    title: "Some session's title",
+    university: [University],
+    institute: [Institute],
+    seminar: [Seminar],
+    semester: [Semester],
+    docent: [Docent],
+    author: [Author],
+    date: [1#super[st] January 1970],
+)
+```
+
+### Documentation
+
+The base layout of these functions is provided by `exercise.project`. Other named arguments than the following are passed to `exercise.project`.
+
+| `essay`      |                                                   |
+| :----------- | :------------------------------------------------ |
+| `title`      | optional, content, default: `[#todo[Title]]`      |
+| `university` | optional, content, default: `[#todo[University]]` |
+| `institute`  | optional, content, default: `[#todo[Institute]]`  |
+| `seminar`    | optional, content, default: `[#todo[Seminar]]`    |
+| `semester`   | optional, content, default: `[#todo[Semester]]`   |
+| `docent`     | optional, content, default: `[#todo[Docent]]`     |
+| `author`     | optional, content, default: `[#todo[Author]]`     |
+| `date`       | optional, content, default: `[#todo[Date]]`       |
+| `body`       | content, document content                         |
+
+| `protocol`   |                                                   |
+| :----------- | :------------------------------------------------ |
+| `title`      | optional, content, default: `[#todo[Title]]`      |
+| `university` | optional, content, default: `[#todo[University]]` |
+| `institute`  | optional, content, default: `[#todo[Institute]]`  |
+| `seminar`    | optional, content, default: `[#todo[Seminar]]`    |
+| `semester`   | optional, content, default: `[#todo[Semester]]`   |
+| `docent`     | optional, content, default: `[#todo[Docent]]`     |
+| `author`     | optional, content, default: `[#todo[Author]]`     |
+| `date`       | optional, content, default: `[#todo[Date]]`       |
+| `body`       | content, document content                         |
+
+## Todos
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`:
 
@@ -372,11 +447,32 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 - `list-todos()` - create list of all todo-usages with page of usage and content
 - `hide-todos()` - hides all usages of `todo()` in the document
 
-### Elements
+## Elements
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`: `definition`
 
 # Changelog
+
+## 2.1.0
+
+Fixes:
+
+- `sidenote` in `seminar-paper`
+
+New:
+
+- `subtypes`:
+  - `subtypes.essay`
+  - `subtypes.protocol`
+- `show-header-line` and `show-footer-line` in `exercise.project` and `seminar-paper.project`
+- styling for Typst-native `quote` in favor of `blockquote`
+
+Changes:
+
+- `seminar-paper`: adjust `par.leading` to comply with internal requierments (in addition: `par.spacing` and `par.first-line-indent` for aesthetical purposes)
+- `blockquote` now just creates a `quote` element with attribution
+- `date` (in `seminar-paper`, `exercise` and `slides`) now accepts `content` too
+- `big-heading` moved from `tasks` module to `elements` module
 
 ## 2.0.0
 
