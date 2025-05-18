@@ -493,12 +493,23 @@
             markers.at(indent.len() - 2)
         }
 
-        enum(numbering: (_) => numbering(marker, num), tight: tight, if points != none and points > 0 and show-points {
-            place(dx: 100%, [#points P.])
-            block(width: 95%, content)
+        if not tight {
+            v(0.25em)
+        }
+
+        grid(columns: (2em, 1fr), column-gutter: 0.75em, {
+            set align(right)
+            numbering(marker, num)
+        }, if points != none and points > 0 and show-points {
+            metadata((type: "grape-suite-subtask-points", content: block(width: 7%, [#points P.])))
+            content
         } else {
             content
         })
+
+        if not tight {
+            v(0.25em)
+        }
     }
 
     state("grape-suite-subtask-indent", (0,)).update(k => {
