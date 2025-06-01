@@ -13,6 +13,7 @@
         date: [#todo[Date]],
         body) = {
 
+    let ifnn(b) = if b != none [#b\ ]
     show: exercise.project.with(
         page-margins: (right: 4cm),
 
@@ -37,15 +38,15 @@
         set text(size: 0.75em)
 
         grid(columns: (1fr, auto), column-gutter: 10%)[
-            #university \
-            #institute \
-            #seminar \
+            #ifnn(university)
+            #ifnn(institute)
+            #ifnn(seminar)
             #docent
         ][
             #set align(right)
-            #semester \
-            #author \
-            #date \
+            #ifnn(semester)
+            #ifnn(author)
+            #date
         ]
 
         v(-0.5em)
@@ -73,6 +74,7 @@
         date: [#todo[Date]],
         body) = {
 
+    let ifnn(b) = if b != none [#b\ ]
     show: exercise.project.with(
         title: none,
         type: none,
@@ -94,15 +96,15 @@
         set text(size: 0.75em)
 
         grid(columns: (1fr, auto), column-gutter: 10%)[
-            #university \
-            #institute \
-            #seminar \
+            #ifnn(university)
+            #ifnn(institute)
+            #ifnn(seminar)
             #docent
         ][
             #set align(right)
-            #semester \
-            #author \
-            #date \
+            #ifnn(semester)
+            #ifnn(author)
+            #date
         ]
 
         v(-0.5em)
