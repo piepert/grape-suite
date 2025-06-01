@@ -12,7 +12,7 @@
     "example": [Example],
 )
 
-#let otype = type // should have called the argument "type"...
+#let otype = type // should not have called the argument "type"...
 #let project(
     no: none,
 
