@@ -44,7 +44,7 @@ For protocols and essays see [subtypes module](#subtypes).
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:2.1.0": exercise
+#import "@preview/grape-suite:3.0.0": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -187,7 +187,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:2.1.0": seminar-paper
+#import "@preview/grape-suite:3.0.0": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -297,7 +297,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:2.1.0": slides
+#import "@preview/grape-suite:3.0.0": slides
 #import slides: *
 
 #show: slides.with(
@@ -397,7 +397,7 @@ The `subtypes` module contains templates for essays and protocols based on the `
 Essay:
 
 ```typ
-#import "@preview/grape-suite:2.1.0": subtype
+#import "@preview/grape-suite:3.0.0": subtype
 
 #show: subtype.essay.with(
     title: "Lorem ipsum dolor sit",
@@ -414,7 +414,7 @@ Essay:
 Protocol:
 
 ```typ
-#import "@preview/grape-suite:2.1.0": subtype
+#import "@preview/grape-suite:3.0.0": subtype
 
 #show: subtype.protocol.with(
     title: "Some session's title",
@@ -468,9 +468,13 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`: `definition`
 
+# Design choices
+
 # Changelog
 
-## 2.1.0
+With version 3.0.0, versioning of grape-suite is based on [Semantic Versioning](https://semver.org/) extended for template purposes. Taken into account (next to API-compatibility) are the visual result compared to the last version. Thus the major version of the package increases if either the changes of the API are incompatible (so a Typst document from a newer package version might not compile with code from an older package version) or if visual equivalence to the last version cannot be guaranteed.
+
+## 3.0.0
 
 Fixes:
 
