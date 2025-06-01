@@ -468,11 +468,9 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`: `definition`
 
-# Design choices
-
 # Changelog
 
-With version 3.0.0, versioning of grape-suite is based on [Semantic Versioning](https://semver.org/) extended for template purposes. Taken into account (next to API-compatibility) are the visual result compared to the last version. Thus the major version of the package increases if either the changes of the API are incompatible (so a Typst document from a newer package version might not compile with code from an older package version) or if visual equivalence to the last version cannot be guaranteed.
+With version 3.0.0, the versioning of grape-suite is based on [Semantic Versioning](https://semver.org/) extended for template purposes. Taken into account (next to API compatibility) are the visual results compared to the last version. Thus the major version of the package increases if either the changes of the API are incompatible (so a Typst document from a newer package version might not compile with code from an older package version) or if visual equivalence to the last version cannot be guaranteed.
 
 ## 3.0.0
 
