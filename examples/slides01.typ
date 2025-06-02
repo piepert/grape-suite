@@ -17,6 +17,12 @@
     outline-title-text: "Ablauf",
     // show-todolist: false,
 
+    // set to `none` (default) if you do not want to use a logo
+    logo: [#stack(dir: ltr, spacing: 5mm,
+            box("logo", height: 2cm),
+            box("Logo", height: 2cm))
+    ],
+
     author: "Tristan Pieper",
     email: link("mailto:tristan.pieper@uni-rostock.de"),
 )

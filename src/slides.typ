@@ -44,6 +44,7 @@
     head-replacement: none,
     title-replacement: none,
     footer: none,
+    logo: none,
 
     author: none,
     email: none,
@@ -84,11 +85,16 @@
     let left-footer = if footer != none {
         footer
     } else {
-        text(size: 0.5em, (
-            if show-semester [#semester(short: true, date)],
-            [#series] + if no != none [ \##no],
-            title,
-            if show-author { author }).filter(e => e != none).join[ --- ]
+        stack(dir: ltr,
+            box(fill: white, figure(logo)),
+            h(5mm),
+            text(size: 0.5em, (
+                if show-semester [#semester(short: true, date)],
+                [#series] + if no != none [ \##no],
+                if (logo == none) {title},
+                if (logo != none) {[\ #title ]},
+                if show-author { author }).filter(e => e != none).join[ --- ]
+            ),
         )
     }
 
@@ -110,13 +116,13 @@
                     blue.lighten(25%)
                 })
 
-                left-footer
-
-                h(1fr)
-
-                if show-page-numbers {
-                    page-numbering(counter(page).at(here()), counter(page).final())
-                }
+                stack(dir: ltr,
+                    left-footer,
+                    h(1fr),
+                    if show-page-numbers {
+                        page-numbering(counter(page).at(here()), counter(page).final())
+                    },
+                )
             })
         }
     )
@@ -149,6 +155,9 @@
                 #if show-semester [#semester(date) \ ]
                 #if show-date { date-format(date) }
             ]
+
+            #v(-10mm)
+            #stack(dir: ltr, spacing: 1fr, [], figure(logo))
         ]))
     }
 
