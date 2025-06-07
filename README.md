@@ -44,7 +44,7 @@ For protocols and essays see [subtypes module](#subtypes).
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:3.0.0": exercise
+#import "@preview/grape-suite:3.1.0": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -187,7 +187,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:3.0.0": seminar-paper
+#import "@preview/grape-suite:3.1.0": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -297,7 +297,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:3.0.0": slides
+#import "@preview/grape-suite:3.1.0": slides
 #import slides: *
 
 #show: slides.with(
@@ -397,7 +397,7 @@ The `subtypes` module contains templates for essays and protocols based on the `
 Essay:
 
 ```typ
-#import "@preview/grape-suite:3.0.0": subtype
+#import "@preview/grape-suite:3.1.0": subtype
 
 #show: subtype.essay.with(
     title: "Lorem ipsum dolor sit",
@@ -414,7 +414,7 @@ Essay:
 Protocol:
 
 ```typ
-#import "@preview/grape-suite:3.0.0": subtype
+#import "@preview/grape-suite:3.1.0": subtype
 
 #show: subtype.protocol.with(
     title: "Some session's title",
