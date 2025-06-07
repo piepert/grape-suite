@@ -24,7 +24,7 @@
 }
 
 #let list-todos() = context {
-    let todo-list = query(metadata).filter(e => if "type" in e.value { e.value.type == "todo" })
+    let todo-list = query(metadata).filter(e => if type(e.value) == dictionary and "type" in e.value { e.value.type == "todo" } else { false })
 
     show link: text.with(fill: magenta)
     set text(fill: magenta)

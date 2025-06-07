@@ -170,7 +170,7 @@
         },
 
         background: context {
-            let point-list = query(metadata).filter(e => if "type" in e.value { e.value.type == "grape-suite-subtask-points" })
+            let point-list = query(metadata).filter(e => if otype(e.value) == dictionary and "type" in e.value { e.value.type == "grape-suite-subtask-points" } else { false })
 
             if otype(point-list) == array and point-list.len() > 0 {
                 for p in point-list {
