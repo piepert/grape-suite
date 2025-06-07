@@ -468,9 +468,42 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`: `definition`
 
+## Citation
+
+This package offers an optional citation style made for internal use. If you're obliged to use the style, configure it like this:
+
+```typ
+#import "@preview/grape-suite:3.1.0": citation
+#import citation: *
+
+#show: grape-suite-citation
+
+...
+```
+
+This configures the new bibliography style. All citations are now fully printed like in bibliography, instead of `@entry` and `cite(<entry>)` use one of the following functions:
+
+- `ct(key, ..a)`: in a footnote, call `ct-full(key, ..a)`.
+- `cf(key, ..a)`: in a footnote, call `cf-full(key, ..a)`.
+- `ct-full(key, ..a)`: writes full citation, where the first optional positional parameter of `a` is the supplement of the citation, the last positional parameter is a prefix.
+- `cf-full(key, ..a)`: calls `ct-full` with a prefix that adds (depending on language) "Vgl." (German) or "Cf." (not German) to citations.
+
+For direct quotes use `ct(key)`, for indirect quotes use `cf(key)`.
+
 # Changelog
 
-With version 3.0.0, the versioning of grape-suite is based on [Semantic Versioning](https://semver.org/) extended for template purposes. Taken into account (next to API compatibility) are the visual results compared to the last version. Thus the major version of the package increases if either the changes of the API are incompatible (so a Typst document from a newer package version might not compile with code from an older package version) or if visual equivalence to the last version cannot be guaranteed.
+With version 3.0.0, the versioning of grape-suite is based on [Semantic Versioning](https://semver.org/) extended for template purposes. Taken into account (next to API compatibility) are the visual results compared to the last version. Thus the major version of the package increases if either the changes of the API are incompatible (so a Typst document from a previous package version might not compile with the new package version) or if visual equivalence to the last version cannot be guaranteed.
+
+## 3.1.0
+
+Fixes:
+
+- metadata querying in `todo` and `exercise` (todos and subtasks)
+- Readme versioning clarification
+
+New:
+
+- `citation` can be importet from package
 
 ## 3.0.0
 
