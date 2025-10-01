@@ -1,12 +1,13 @@
 #import "colors.typ": *
 
-#let big-heading(title) = {
+#let big-heading(title) = context {
     set par(justify: false)
     set text(hyphenate: false)
 
+    let c = get-colors()
     pad(bottom: 0.25cm,
         align(center,
-            text(fill: purple,
+            text(fill: c.primary,
                 size: 1.75em,
                 strong(title))))
 }
@@ -83,56 +84,86 @@
     "example": [Example],
 )
 
-#let task = important-box.with(
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("task"),
-    primary-color: blue,
-    secondary-color: blue.lighten(90%),
-    tertiary-color: purple,
-    figure-kind: "task",
-    counter: counter("grape-suite-element-task"))
+#let task(..args) = context {
+    let c = get-colors()
+    important-box(
+        title: state("grape-suite-box-translations", standard-box-translations).final().at("task"),
+        primary-color: c.accent,
+        secondary-color: c.accent-lighter,
+        tertiary-color: c.primary,
+        figure-kind: "task",
+        counter: counter("grape-suite-element-task"),
+        ..args
+    )
+}
 
-#let hint = important-box.with(
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("hint"),
-    primary-color: yellow,
-    secondary-color: yellow.lighten(90%),
-    tertiary-color: brown,
-    figure-kind: "hint",
-    counter: counter("grape-suite-element-hint"))
+#let hint(..args) = context {
+    let c = get-colors()
+    important-box(
+        title: state("grape-suite-box-translations", standard-box-translations).final().at("hint"),
+        primary-color: c.warning,
+        secondary-color: c.warning-light,
+        tertiary-color: c.warning-dark,
+        figure-kind: "hint",
+        counter: counter("grape-suite-element-hint"),
+        ..args
+    )
+}
 
-#let solution = important-box.with(
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("solution"),
-    primary-color: blue,
-    secondary-color: blue.lighten(90%),
-    tertiary-color: purple,
-    dotted: true,
-    figure-kind: "solution",
-    counter: counter("grape-suite-element-solution"))
+#let solution(..args) = context {
+    let c = get-colors()
+    important-box(
+        title: state("grape-suite-box-translations", standard-box-translations).final().at("solution"),
+        primary-color: c.accent,
+        secondary-color: c.accent-lighter,
+        tertiary-color: c.primary,
+        dotted: true,
+        figure-kind: "solution",
+        counter: counter("grape-suite-element-solution"),
+        ..args
+    )
+}
 
-#let definition = important-box.with(
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("definition"),
-    primary-color: magenta,
-    secondary-color: magenta.lighten(90%),
-    tertiary-color: magenta,
-    figure-kind: "definition",
-    counter: counter("grape-suite-element-definition"))
+#let definition(..args) = context {
+    let c = get-colors()
+    important-box(
+        title: state("grape-suite-box-translations", standard-box-translations).final().at("definition"),
+        primary-color: c.highlight,
+        secondary-color: c.highlight-light,
+        tertiary-color: c.highlight,
+        figure-kind: "definition",
+        counter: counter("grape-suite-element-definition"),
+        ..args
+    )
+}
 
-#let notice = important-box.with(
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("notice"),
-    primary-color: magenta,
-    secondary-color: magenta.lighten(90%),
-    tertiary-color: magenta,
-    dotted: true,
-    figure-kind: "notice",
-    counter: counter("grape-suite-element-notice"))
+#let notice(..args) = context {
+    let c = get-colors()
+    important-box(
+        title: state("grape-suite-box-translations", standard-box-translations).final().at("notice"),
+        primary-color: c.highlight,
+        secondary-color: c.highlight-light,
+        tertiary-color: c.highlight,
+        dotted: true,
+        figure-kind: "notice",
+        counter: counter("grape-suite-element-notice"),
+        ..args
+    )
+}
 
-#let example = important-box.with(
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("example"),
-    primary-color: yellow,
-    secondary-color: yellow.lighten(90%),
-    tertiary-color: brown,
-    dotted: true,
-    figure-kind: "example",
-    counter: counter("grape-suite-element-example"))
+#let example(..args) = context {
+    let c = get-colors()
+    important-box(
+        title: state("grape-suite-box-translations", standard-box-translations).final().at("example"),
+        primary-color: c.warning,
+        secondary-color: c.warning-light,
+        tertiary-color: c.warning-dark,
+        dotted: true,
+        figure-kind: "example",
+        counter: counter("grape-suite-element-example"),
+        ..args
+    )
+}
 
 #let sentence-logic(body) = {
     show figure.where(kind: "example"): it => {
@@ -160,10 +191,11 @@
             return it
         }
 
+        let c = get-colors()
         let num = text(weight: "thin", numbering(num-style, ..counter(heading).at(here()))+[ \u{200b}])
         let x-offset = -1 * measure(num).width
 
-        pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: purple.lighten(25%), num) + [] + text(fill: purple, it.body)))
+        pad(left: x-offset, par(hanging-indent: -1 * x-offset, text(fill: c.primary-light, num) + [] + text(fill: c.primary, it.body)))
     }
 
     body

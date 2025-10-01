@@ -12,11 +12,10 @@
     "example": [Example],
 )
 
-#let otype = type // should not have called the argument "type"...
+#let otype = type
 #let project(
     no: none,
 
-    // category of the document, eg. "Exam", "Handout", "Series"
     type: [Exam],
 
     // title of the document; if not set, type and suffix-title generate the title of the document
@@ -109,7 +108,7 @@
     distribution-header-point-value: [Point],
     distribution-header-point-grade: [Grade],
 
-    message: (points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: purple, length: 1cm)) out of #points-sum points.],
+    message: (points-sum, extrapoints-sum) => context [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: get-colors().primary, length: 1cm)) out of #points-sum points.],
     grade-scale: (
         ([excellent], 0.9),
         ([very good], 0.8),
@@ -126,8 +125,21 @@
 
     show-todolist: true,
 
+    colors-primary: purple,
+    colors-accent: blue,
+    colors-highlight: magenta,
+    colors-warning: yellow,
+    colors-warning-dark: brown,
+
     body
 ) = {
+    set-colors(
+        primary: colors-primary,
+        accent: colors-accent,
+        highlight: colors-highlight,
+        warning: colors-warning,
+        warning-dark: colors-warning-dark,
+    )
     let ifnn-line(e) = if e != none [#e \ ]
 
     if title == none {
@@ -147,9 +159,9 @@
     set list(indent: 1em)
 
     show link: underline
-    show link: set text(fill: purple)
+    show link: it => context { set text(fill: get-colors().primary); it }
 
-    show heading: set text(fill: purple)
+    show heading: it => context { set text(fill: get-colors().primary); it }
     show heading: set par(justify: false)
     show: format-heading-numbering
 
@@ -249,11 +261,11 @@
                 )
             }
         ] + if show-header-line {
-            v(-0.5em) + line(length: 100%, stroke: purple)
+            context v(-0.5em) + line(length: 100%, stroke: get-colors().primary)
         },
 
         footer: if show-footer-line {
-            line(length: 100%, stroke: purple) + v(-0.5em)
+            context line(length: 100%, stroke: get-colors().primary) + v(-0.5em)
         } + if footer != none {footer} else {
             set text(size: 0.75em)
 

@@ -1,4 +1,4 @@
-#import "colors.typ": magenta
+#import "colors.typ": magenta, get-colors
 #let todo-state = state("grape-suite-todos", ())
 
 #let make-todo-label(loc) = {
@@ -11,10 +11,11 @@
 
 #let hide-todos() = state("grape-suite-list-todos").update(false)
 
-#let todo(..content) = {
+#let todo(..content) = context {
+    let c = get-colors()
     metadata(("type": "todo", content: content.pos().join[]))
 
-    highlight(fill: magenta.lighten(90%), text(fill: magenta,
+    highlight(fill: c.highlight-light, text(fill: c.highlight,
         if content.pos().len() > 0 {
             strong[To do: ] + content.pos().join[]
         } else {
@@ -24,10 +25,11 @@
 }
 
 #let list-todos() = context {
+    let c = get-colors()
     let todo-list = query(metadata).filter(e => if type(e.value) == dictionary and "type" in e.value { e.value.type == "todo" } else { false })
 
-    show link: text.with(fill: magenta)
-    set text(fill: magenta)
+    show link: text.with(fill: c.highlight)
+    set text(fill: c.highlight)
     if type(todo-list) == array and todo-list.len() > 0 {
         strong([To do:])
 

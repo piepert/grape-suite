@@ -54,8 +54,21 @@
 
     fontsize: 11pt,
 
+    colors-primary: purple,
+    colors-accent: blue,
+    colors-highlight: magenta,
+    colors-warning: yellow,
+    colors-warning-dark: brown,
+
     body
 ) = {
+    set-colors(
+        primary: colors-primary,
+        accent: colors-accent,
+        highlight: colors-highlight,
+        warning: colors-warning,
+        warning-dark: colors-warning-dark,
+    )
     let ifnn-line(e) = if e != none [#e \ ]
 
     set text(font: text-font, size: fontsize)
@@ -65,7 +78,7 @@
     set list(indent: 1em)
 
     show link: underline
-    show link: set text(fill: purple)
+    show link: it => context { set text(fill: get-colors().primary); it }
 
     show: format-heading-numbering
     show: format-quotes
@@ -76,10 +89,10 @@
         #set par(justify: false)
 
         #v(0.9fr)
-        #text(size: 2.5em, fill: purple, strong(title)) \
+        #context text(size: 2.5em, fill: get-colors().primary, strong(title)) \
         #if subtitle != none {
             v(0em)
-            text(size: 1.5em, fill: purple.lighten(25%), subtitle)
+            context text(size: 1.5em, fill: get-colors().primary-light, subtitle)
         }
 
         #if title-page-part == none [
@@ -136,7 +149,7 @@
                 #show: align.with(top + right)
                 #author, #date-format(date)
             ])
-        ] + if show-header-line { v(-0.5em) + line(length: 100%, stroke: purple) },
+        ] + if show-header-line { context v(-0.5em) + line(length: 100%, stroke: get-colors().primary) },
     )
 
     state("grape-suite-element-sentence-supplement").update(sentence-supplement)
@@ -165,7 +178,7 @@
             .map(e => context {
                 if here().page() == e.loc.at(0) {
                     set par(justify: false, leading: 0.65em)
-                    place(top + right, align(left, text(fill: purple, size: 0.75em, hyphenate: false, pad(x: 0.5cm, block(width: 3cm, strong(e.body))))), dy: e.loc.at(1).y)
+                    place(top + right, align(left, text(fill: get-colors().primary, size: 0.75em, hyphenate: false, pad(x: 0.5cm, block(width: 3cm, strong(e.body))))), dy: e.loc.at(1).y)
                 } else {
                 }
             }).join[],
@@ -174,7 +187,7 @@
             set text(size: 0.75em)
 
             if show-footer-line {
-                line(length: 100%, stroke: purple)
+                context line(length: 100%, stroke: get-colors().primary)
                 v(-0.5em)
             }
 

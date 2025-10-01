@@ -1,4 +1,4 @@
-#import "colors.typ": purple
+#import "colors.typ": purple, get-colors
 #import "exercise.typ" as exercise
 #import "todo.typ": todo
 
@@ -26,7 +26,7 @@
             #set text(size: 0.75em)
             #title #h(1fr) #author
             #v(-0.5em)
-            #line(length: 100%, stroke: purple)
+            #line(length: 100%, stroke: get-colors().primary)
         ],
 
         show-header-line: false,
@@ -50,7 +50,7 @@
         ]
 
         v(-0.5em)
-        line(length: 100%, stroke: purple)
+        context line(length: 100%, stroke: get-colors().primary)
     }
 
     v(1em)
@@ -84,7 +84,7 @@
         header: context if counter(page).get().first() > 1 [
             #set text(size: 0.75em)
             #date: #title
-            #v(-0.5em) #line(length: 100%, stroke: purple)
+            #v(-0.5em) #line(length: 100%, stroke: get-colors().primary)
         ],
 
         show-header-line: false,
@@ -108,7 +108,7 @@
         ]
 
         v(-0.5em)
-        line(length: 100%, stroke: purple)
+        context line(length: 100%, stroke: get-colors().primary)
     }
 
     v(1em)
