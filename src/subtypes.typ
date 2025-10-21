@@ -1,4 +1,4 @@
-#import "colors.typ": purple, get-colors
+#import "colors.typ": get-colors
 #import "exercise.typ" as exercise
 #import "todo.typ": todo
 
