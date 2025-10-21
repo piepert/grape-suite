@@ -456,6 +456,92 @@ The base layout of these functions is provided by `exercise.project`.
 | `date`       | optional, content, default: `[#todo[Date]]`       |
 | `body`       | content, document content                         |
 
+## Color Customization
+
+All templates support customizable colors to match your institution's branding or personal preferences. You can override the default colors by passing color parameters to any template's setup function.
+
+### Available Color Parameters
+
+- `colors-primary`: Main color for headings, links, and separator lines (default: purple)
+- `colors-accent`: Color for task boxes and backgrounds (default: blue)
+- `colors-highlight`: Color for definitions, notices, and todos (default: magenta)
+- `colors-warning`: Color for hints and examples (default: yellow)
+- `colors-warning-dark`: Darker variant for warning text (default: brown)
+
+### Color Usage Map
+
+| Color | Used For |
+|-------|----------|
+| `primary` | Headings, links, header/footer lines, focus slides |
+| `primary-light` | Heading numbers, subtitle text |
+| `accent` | Task/solution boxes (border) |
+| `accent-light` | Task backgrounds, point distribution tables |
+| `accent-lighter` | Task/solution box backgrounds |
+| `highlight` | Definition/notice boxes, todo markers |
+| `highlight-light` | Definition/notice backgrounds, todo highlights |
+| `warning` | Hint/example boxes (border) |
+| `warning-light` | Hint/example backgrounds |
+| `warning-dark` | Hint/example title text |
+
+### Examples
+
+#### Exercise with Custom Colors
+```typ
+#import "@preview/grape-suite:3.1.0": exercise
+#import exercise: project, task
+
+#show: project.with(
+  type: [Exam],
+  title: [Mathematics Exam],
+
+  // Custom institutional colors
+  colors-primary: rgb("#003366"),    // Dark blue
+  colors-accent: rgb("#0066cc"),     // Medium blue
+  colors-highlight: rgb("#cc0000"),  // Red
+  colors-warning: rgb("#ff9900"),    // Orange
+  colors-warning-dark: rgb("#cc6600"),
+)
+
+= Problem Set
+#task(points: 10, title: [Derivatives])[
+  Calculate the derivative of $f(x) = x^2 + 3x + 2$.
+]
+```
+
+#### Seminar Paper with Custom Colors
+```typ
+#import "@preview/grape-suite:3.1.0": seminar-paper
+#import seminar-paper: project
+
+#show: project.with(
+  title: [Research on Color Theory],
+  author: [Student Name],
+
+  colors-primary: rgb("#2c3e50"),
+  colors-accent: rgb("#3498db"),
+  colors-highlight: rgb("#e74c3c"),
+)
+```
+
+#### Slides with Custom Colors
+```typ
+#import "@preview/grape-suite:3.1.0": slides
+#import slides: *
+
+#show: slides.with(
+  series: [Lecture],
+  no: 1,
+  title: [Introduction],
+
+  colors-primary: rgb("#8b0000"),    // Dark red
+  colors-accent: rgb("#4169e1"),     // Royal blue
+)
+```
+
+### Using Default Colors
+
+If you don't specify color parameters, the templates use the default grape-suite color scheme. All existing documents continue to work without any changes.
+
 ## Todos
 
 The following functions can be imported from `slides`, `exercise` and `seminar-paper`:
