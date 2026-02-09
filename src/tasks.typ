@@ -25,7 +25,7 @@
             state("grape-suite-subtask-indent").update((0,))
 
             if instruction != none and instruction not in ([], [ ]) {
-                block(emph(instruction))
+                block(instruction)
             }
 
             state("grape-suite-subtask-indent").update((0,))
@@ -55,7 +55,7 @@
             state("grape-suite-subtask-indent").update((0,))
 
             if instruction != none and instruction not in ([], [ ]) {
-                block(emph(instruction))
+                block(instruction)
             }
 
             state("grape-suite-subtask-indent").update((0,))
@@ -81,7 +81,7 @@
             state("grape-suite-subtask-indent").update((0,))
 
             if instruction != none and instruction not in ([], [ ]) {
-                block(emph(instruction))
+                block(instruction)
             }
 
             state("grape-suite-subtask-indent").update((0,))
@@ -387,13 +387,18 @@
     // numbering of task
     numbering-format: none,
 
+    // formatting of task title
+    instruction-format: none,
+
+    // formatting of task instruction - default: emph
+    title-format: none,
     // type of task
     type: none,
 
-    // Titel der Aufgabe
+    // Title of the task
     title,
 
-    // Aufgabenstellung
+    // Instructions for the task
     instruction,
 
     // optional: body, solution (see exercise.project(show-solutions-as-matrix: ...) !), hint
@@ -408,14 +413,23 @@
     if numbering-format == none {
         numbering-format = (..c) => numbering(if extra { "1" } else { "A" }, ..c)
     }
+    let title-format = title-format
+    if title-format == none {
+      title-format = it => it
+    }
+
+    let instruction-format = instruction-format
+    if instruction-format == none {
+      instruction-format = emph
+    }
 
     let args = args.pos()
     let no = numbering-format(..counter(if extra { "tasks" } else { "extra-tasks" }).at(here()))
 
     let t = (
         no: no,
-        title: title,
-        instruction: instruction,
+        title: title-format(title),
+        instruction: instruction-format(instruction),
         body: args.at(0, default: none),
         solution: args.at(1, default: none),
         hint: args.at(2, default: none),
@@ -439,8 +453,8 @@
 
     // let t = state("grape-suite-tasks", ()).final().last()
     make-task(no,
-        title,
-        instruction,
+        t.title,
+        t.instruction,
         t.body,
         t.extra,
         context {
