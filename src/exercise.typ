@@ -13,7 +13,10 @@
 )
 
 #let otype = type // should not have called the argument "type"...
-#let project(
+///
+/// - show-hints ("section","inline",none): how to show hints (none means don't show hints)
+/// - show-solutions ("section","inline",none): how to show solutions (none means don't show solutions)
+ #let project(
     no: none,
 
     // category of the document, eg. "Exam", "Handout", "Series"
@@ -34,8 +37,8 @@
     // used in header; if none, then is set to title
     document-title: none,
 
-    show-hints: false,
-    show-solutions: false,
+    show-hints: none,
+    show-solutions: none,
 
     // show name and time in header of first page
     show-namefield: false,
@@ -280,6 +283,15 @@
         "extra-task-type": extra-task-type
     ))
 
+    // backwards compatibility
+     let show-hints =  if show-hints == true { "section"} else {show-hints}
+     let show-solutions = if show-solutions == true { "section"} else {show-solutions}
+    
+    state("grape-suite-show").update((
+      hints: show-hints,
+      solutions: show-solutions,
+    ))
+
     state("grape-suite-box-translations").update((
         "task": box-task-title,
         "hint": box-hint-title,
@@ -331,22 +343,22 @@
     context {
         let tasks = state("grape-suite-tasks", ()).at(here())
 
-        if show-hints and tasks.filter(e => e.hint != none).len() != 0 {
+        if show-hints == "section" and tasks.filter(e => e.hint != none).len() != 0 {
             pagebreak()
             big-heading[#hints-title #if type != none or no != none [ -- ] #type #no]
             make-hints(here(), hint-type)
         }
     }
 
-    show: it => if show-solutions and solutions-as-matrix {
+    show: it => if show-solutions == "section" and solutions-as-matrix {
         set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
         it
-    } else if show-solutions {
+    } else if show-solutions == "section"{
         pagebreak()
         it
     }
 
-    if show-solutions {
+    if show-solutions == "section" {
         context {
             let tasks = state("grape-suite-tasks", ()).at(here())
 

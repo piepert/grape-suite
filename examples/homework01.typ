@@ -1,7 +1,7 @@
 #import "/src/library.typ": exercise
 #import exercise: project, task, subtask
 
-#let task = task.with(numbering-format: (..n) => numbering("1", ..n))
+#let task = task.with(numbering-format: (..n) => numbering("1", ..n), instruction-format: strong )
 #let subtask = subtask.with(markers: ("a)", "1)"))
 
 #show: project.with(no: 1,
@@ -9,7 +9,7 @@
     suffix-title: "Darstellungen des Pegasus in der antiken griechischen Literatur",
 
     show-solutions: true,
-    show-hints: true,
+    show-hints: "inline",
 
     task-type: [Aufgabe],
     extra-task-type: [Zusatzaufgabe],
@@ -28,7 +28,7 @@
     institute: [Historisches Institut],
     seminar: [Seminar: Antike Mythologie],
 
-    date: datetime(year: 2024, month: 12, day: 31)
+    date: datetime(year: 2024, month: 12, day: 31),
 )
 
 #task[Pegasus in der Mythologie][][

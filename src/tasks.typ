@@ -4,98 +4,55 @@
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
 
-#let make-element(type, no, title, body) = {
-    block(inset: 7pt,
-        stroke: (bottom: (paint: purple, dash: "dashed")),
-        fill: blue.lighten(75%), {
+#state("grape-suite-show", (
+  hints: none,
+  solutions: none,
+))
 
-        text(fill: purple, strong[#type #no] + title)
-    })
+#let make-element(no, title, instruction, body,  points, lines, element-type, solution, hint) = {
+  let title = if title != none [ --- #title] + h(1fr) + if points > 0 [#points P.]
+  block(inset: 7pt,
+  stroke: (bottom: (paint: purple, dash: "dashed")),
+  fill: blue.lighten(75%), {
 
-    block(body)
-    v(0.5cm)
-}
+    text(fill: purple, strong[#element-type #no] + title)
+  })
 
-#let make-task(no, title, instruction, body, extra, points, lines, extra-task-type, task-type) = {
-    make-element(if extra {extra-task-type} else {task-type},
-        no,
-        if title != none [ --- #title] + h(1fr) + points,
+  block(width: 100%, {
+    state("grape-suite-subtask-indent").update((0,))
 
-        block(width: 100%, {
-            state("grape-suite-subtask-indent").update((0,))
+    if instruction != none and instruction not in ([], [ ]) {
+      block(instruction)
+    }
 
-            if instruction != none and instruction not in ([], [ ]) {
-                block(instruction)
-            }
+    state("grape-suite-subtask-indent").update((0,))
 
-            state("grape-suite-subtask-indent").update((0,))
+    if body != none and body not in ([], [ ]) { block(body) }
 
-            if body != none and body not in ([], [ ]) { block(body) }
+    if hint != none or solution != none {
+      state("grape-suite-subtask-indent").update((0,))
+    }
+    if hint != none {
+      elements.hint(hint)
+      state("grape-suite-subtask-indent").update((0,))
+    }
+    if solution != none {
+      elements.solution(solution)
+      state("grape-suite-subtask-indent").update((0,))
+    }
+    context {
+      if state("grape-suite-show-lines").at(here()) == false {
+        return
+      }
 
-            context {
-                if state("grape-suite-show-lines").at(here()) == false {
-                    return
-                }
-
-                for i in range(0, lines) {
-                    v(0.75cm)
-                    v(-1.2em)
-                    line(length: 100%, stroke: black.lighten(50%))
-                }
-            }
-        }))
-}
-
-#let make-solution(no, title, instruction, body, extra, points, solution, solution-type) = {
-    make-element(solution-type,
-        no,
-        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
-
-        block(width: 100%, {
-            state("grape-suite-subtask-indent").update((0,))
-
-            if instruction != none and instruction not in ([], [ ]) {
-                block(instruction)
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            if body != none and body not in ([], [ ]) {
-                block(body)
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            elements.solution(solution)
-
-            state("grape-suite-subtask-indent").update((0,))
-        }))
-}
-
-#let make-hint(no, title, instruction, body, extra, points, hint, hint-type) = {
-    make-element(hint-type,
-        no,
-        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
-
-        block(width: 100%, {
-            state("grape-suite-subtask-indent").update((0,))
-
-            if instruction != none and instruction not in ([], [ ]) {
-                block(instruction)
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            if body != none and body not in ([], [ ]) {
-                block(body)
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            elements.hint(hint)
-
-            state("grape-suite-subtask-indent").update((0,))
-        }))
+      for i in range(0, lines) {
+        v(0.75cm)
+        v(-1.2em)
+        line(length: 100%, stroke: black.lighten(50%))
+      }
+    }
+  })
+  v(0.5cm)
 }
 
 #let make-solutions(here,
@@ -112,14 +69,17 @@
             continue
         }
 
-        make-solution(task.no,
-            task.title,
-            task.instruction,
-            task.body,
-            task.extra,
-            task.points,
-            task.solution,
-            solution-type)
+    context make-element(
+        task.no,
+        task.title,
+        task.instruction,
+        task.body,
+        task.points,
+        0,
+        solution-type,
+        if state("grape-suite-show").final().solutions == "section" { task.solution } else {none},
+        if state("grape-suite-show").final().hints == "inline" { task.hint } else {none},
+      )
     }
 }
 
@@ -142,15 +102,17 @@
         if task.hint == none {
             continue
         }
-
-        make-hint(task.no,
-            task.title,
-            task.instruction,
-            task.body,
-            task.extra,
-            task.points,
-            task.hint,
-            hint-type)
+    context make-element(
+        task.no,
+        task.title,
+        task.instruction,
+        task.body,
+        task.points,
+        0,
+        hint-type,
+        if state("grape-suite-show").final().solutions == "inline" { task.solution } else {none} ,
+        if state("grape-suite-show").final().hints == "section" { task.hint } else {none} ,
+      )
     }
 }
 
@@ -452,26 +414,16 @@
     state("grape-suite-subtask-indent").update((0,))
 
     // let t = state("grape-suite-tasks", ()).final().last()
-    make-task(no,
+    context make-element(no,
         t.title,
         t.instruction,
         t.body,
-        t.extra,
-        context {
-            let points = t.points
-
-            if points == 0 {
-                let s = state("grape-suite-tasks", ())
-                points = s.final().at(s.get().len()-1).points
-            }
-
-            if points != 0 {
-                [#points P.]
-            }
-        },
+        t.points,
         lines,
-        if type != none {type} else {extra-task-type},
-        if type != none {type} else {task-type})
+        if type != none {type} else if t.extra {extra-task-type} else {task-type},
+        if state("grape-suite-show").final().solutions == "inline" { t.solution } else {none},
+        if state("grape-suite-show").final().hints == "inline" { t.hint } else {none},
+      )
 }
 
 #let subtask(points: 0,
