@@ -2,6 +2,7 @@
 #import "elements.typ": big-heading
 #import "tasks.typ": *
 #import "todo.typ": todo, list-todos, todo-state, hide-todos
+#import "authors.typ": normalize-authors, authors-compact
 
 #let standard-box-translations = (
     "task": [Task],
@@ -67,6 +68,7 @@
     semester: none,
     docent: none,
     author: none,
+    authors: none,
     date: datetime.today(),
 
     date-format: (date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date },
@@ -129,6 +131,8 @@
     body
 ) = {
     let ifnn-line(e) = if e != none [#e \ ]
+    let normalized-authors = normalize-authors(authors, author: author)
+    let compact-author = authors-compact(normalized-authors)
 
     if title == none {
         title = if type != none or no != none [ #type #no ] + if (type != none or no != none) and suffix-title != none [ --- ] + if suffix-title != none [#suffix-title]
@@ -212,7 +216,7 @@
             #let h-l = if header-right != none {header-right} else [
                 #show: align.with(top + right)
                 #ifnn-line(document-title)
-                #ifnn-line(author)
+                #ifnn-line(compact-author)
                 #ifnn-line(date-format(date))
                 #context {
                     if state("grape-suite-timefield").at(here()) != 1 {
