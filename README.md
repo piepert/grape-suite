@@ -63,6 +63,18 @@ For protocols and essays see [subtypes module](#subtypes).
 )
 ```
 
+Multi-author example:
+
+```typ
+#show: project.with(
+    title: "Lorem ipsum dolor sit",
+    authors: (
+        (name: "John Doe", email: "john@example.org"),
+        (name: "Jane Doe", email: "jane@example.org"),
+    ),
+)
+```
+
 ### Documentation
 
 | `project`                                |                                                                                                                                                                                                                                                                                            |
@@ -92,6 +104,7 @@ For protocols and essays see [subtypes module](#subtypes).
 | `semester`                               | optional, content, default: `none`                                                                                                                                                                                                                                                         |
 | `docent`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
 | `author`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
+| `authors`                                | optional, array, default: `none`, multi-author input (items can be `name` content or dictionaries with `name`, optional `email`, `student-number`, `address`)                                                                                                                          |
 | `date`                                   | optional, datetime or content, default: `datetime.today()`                                                                                                                                                                                                                                 |
 | `date-format`                            | optional, function, default: `(date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date }`                                                                                                                                                    |
 | `header-gutter`                          | optional, length, default: `20%`, overwrite header gutter                                                                                                                                                                                                                                  |
@@ -213,6 +226,18 @@ _Note:_ The template generates a German statement of authorship as the last page
 )
 ```
 
+Multi-author example:
+
+```typ
+#show: seminar-paper.project.with(
+    title: "Die Intensionalität von dass-Sätzen",
+    authors: (
+        (name: "Max Muster", email: "max@uni-musterstadt.uni", student-number: "0123456789"),
+        (name: "Erika Muster", email: "erika@uni-musterstadt.uni", student-number: "1234567890"),
+    ),
+)
+```
+
 ### Documentation
 
 | `project`                              |                                                                                                                                                   |
@@ -228,6 +253,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `semester`                             | optional, content, default: `"SEMESTER"`                                                                                                          |
 | `docent`                               | optional, content, default: `"DOCENT"`                                                                                                            |
 | `author`                               | optional, content, default: `"AUTHOR"`                                                                                                            |
+| `authors`                              | optional, array, default: `none`, multi-author input (items can be `name` content or dictionaries with `name`, optional `email`, `student-number`, `address`) |
 | `student-number`                       | optional, content, default: `none`                                                                                                                |
 | `email`                                | optional, content, default: `"EMAIL"`                                                                                                             |
 | `address`                              | optional, content, default: `"ADDRESS"`                                                                                                           |
@@ -310,6 +336,18 @@ _Note:_ The template generates a German statement of authorship as the last page
 )
 ```
 
+Multi-author example:
+
+```typ
+#show: slides.with(
+    title: [Organisatorisches und Einführung in die Logik],
+    authors: (
+        (name: "Tristan Pieper", email: "tristan.pieper@uni-rostock.de"),
+        (name: "Juan Pablo Sierra Useche", email: "juan.pablo@niuitmo.ru"),
+    ),
+)
+```
+
 ### Documentation
 
 | `slides`               |                                                                                                                                                                  |
@@ -319,7 +357,8 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `title`                | optional, content, default: `none`, title of the presentation                                                                                                    |
 | `topics`               | optional, array, default: `()`, topics of the presentation                                                                                                       |
 | `author`               | optional, content, default: `none`, author                                                                                                                       |
-| `email`                | optional, content, default: `none`, author's email                                                                                                               |
+| `authors`              | optional, array, default: `none`, multi-author input (items can be `name` content or dictionaries with `name`, optional `email`, `student-number`, `address`) |
+| `email`                | optional, content, default: `none`, legacy single-author email                                                                                                   |
 | `head-replacement`     | optional, content, default: `none`, replace head on title slide with given content                                                                               |
 | `title-replacement`    | optional, content, default: `none`, replace title below head on title slide with given content                                                                   |
 | `footer`               | optional, content, default: `none`, replace footer on slides with given content                                                                                  |
@@ -408,7 +447,10 @@ Essay:
     seminar: [Seminar],
     semester: [Semester],
     docent: [Docent],
-    author: [Author],
+    authors: (
+        (name: [Author 1], email: "author1@example.org"),
+        (name: [Author 2], email: "author2@example.org"),
+    ),
     date: [1#super[st] January 1970],
 )
 ```
@@ -425,7 +467,10 @@ Protocol:
     seminar: [Seminar],
     semester: [Semester],
     docent: [Docent],
-    author: [Author],
+    authors: (
+        (name: [Author 1], email: "author1@example.org"),
+        (name: [Author 2], email: "author2@example.org"),
+    ),
     date: [1#super[st] January 1970],
 )
 ```
@@ -443,6 +488,7 @@ The base layout of these functions is provided by `exercise.project`.
 | `semester`   | optional, content, default: `[#todo[Semester]]`   |
 | `docent`     | optional, content, default: `[#todo[Docent]]`     |
 | `author`     | optional, content, default: `[#todo[Author]]`     |
+| `authors`    | optional, array, default: `none`, multi-author input (items can be `name` content or dictionaries with `name`, optional `email`, `student-number`, `address`) |
 | `date`       | optional, content, default: `[#todo[Date]]`       |
 | `body`       | content, document content                         |
 
@@ -455,6 +501,7 @@ The base layout of these functions is provided by `exercise.project`.
 | `semester`   | optional, content, default: `[#todo[Semester]]`   |
 | `docent`     | optional, content, default: `[#todo[Docent]]`     |
 | `author`     | optional, content, default: `[#todo[Author]]`     |
+| `authors`    | optional, array, default: `none`, multi-author input (items can be `name` content or dictionaries with `name`, optional `email`, `student-number`, `address`) |
 | `date`       | optional, content, default: `[#todo[Date]]`       |
 | `body`       | content, document content                         |
 
