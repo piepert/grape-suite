@@ -327,6 +327,8 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `show-semester`        | optional, bool, default: `true`, show name of the semester (e.g. "SoSe 24")                                                                                      |
 | `show-date`            | optional, bool, default: `true`, show date in german format                                                                                                      |
 | `show-outline`         | optional, bool, default: `true`, show outline on the second slide                                                                                                |
+| `outline-depth`        | optional, number, default: `1`, maximum heading depth shown in the outline                                                                                       |
+| `heading-numbering`    | optional, none/str/function (see [here](https://typst.app/docs/reference/model/heading/#parameters-numbering)), default: `none`, how to number headings          |
 | `box-task-title`       | optional, content, default: `[Task]`, shown as the title of a slide's task box                                                                                   |
 | `box-hint-title`       | optional, content, default: `[Hint]`, shown as the title of a slide's tasks colored                                                                              |
 | `box-solution-title`   | optional, content, default: `[Solution]`, shown as the title of a slide's tasks colored                                                                          |
