@@ -4,6 +4,7 @@
 #import "colors.typ": *
 #import "todo.typ": todo, list-todos, todo-state, hide-todos
 #import "elements.typ": *
+#import "authors.typ": normalize-authors, authors-compact, authors-full
 
 #let uncover = polylux.uncover
 #let only = polylux.uncover
@@ -46,6 +47,7 @@
     footer: none,
 
     author: none,
+    authors: none,
     email: none,
 
     page-numbering: (n, total) => {
@@ -83,6 +85,10 @@
 
     body
 ) = {
+    let normalized-authors = normalize-authors(authors, author: author, email: email)
+    let compact-author = authors-compact(normalized-authors)
+    let full-authors = authors-full(normalized-authors)
+
     let left-footer = if footer != none {
         footer
     } else {
@@ -90,7 +96,7 @@
             if show-semester [#semester(short: true, date)],
             [#series] + if no != none [ \##no],
             title,
-            if show-author { author }).filter(e => e != none).join[ --- ]
+            if show-author { compact-author }).filter(e => e != none).join[ --- ]
         )
     }
 
@@ -147,7 +153,13 @@
                 ] else { title-replacement }
 
                 #set text(size: 0.75em)
-                #if show-author [#author #if email != none [--- #email ] \ ]
+                #if show-author {
+                    if authors != none {
+                        if full-authors != none [#full-authors \ ]
+                    } else {
+                        [#author #if email != none [--- #email ] \ ]
+                    }
+                }
                 #if show-semester [#semester(date) \ ]
                 #if show-date { date-format(date) }
             ]
