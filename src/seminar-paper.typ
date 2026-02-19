@@ -1,6 +1,7 @@
 #import "colors.typ" as colors: *
 #import "todo.typ": todo, list-todos, hide-todos
 #import "elements.typ": *
+#import "authors.typ": normalize-authors, authors-compact, author-submit-block
 
 #let project(
     title: none,
@@ -17,6 +18,7 @@
     docent: "DOCENT",
 
     author: "AUTHOR",
+    authors: none,
     student-number: none,
     email: "EMAIL",
     address: "ADDRESS",
@@ -57,6 +59,14 @@
     body
 ) = {
     let ifnn-line(e) = if e != none [#e \ ]
+    let normalized-authors = normalize-authors(
+        authors,
+        author: author,
+        email: email,
+        student-number: student-number,
+        address: address,
+    )
+    let compact-author = authors-compact(normalized-authors)
 
     set text(font: text-font, size: fontsize)
     show math.equation: set text(font: math-font)
@@ -103,9 +113,13 @@
 
             #if title-page-part-submit-by == none {
                 ifnn-line(text(size: 0.6em, upper(strong(submit-by))))
-                ifnn-line(author + if student-number != none [ (#student-number)])
-                ifnn-line(email)
-                ifnn-line(address)
+                if authors != none {
+                    ifnn-line(author-submit-block(normalized-authors))
+                } else {
+                    ifnn-line(author + if student-number != none [ (#student-number)])
+                    ifnn-line(email)
+                    ifnn-line(address)
+                }
             } else {
                 title-page-part-submit-by
             }
@@ -134,7 +148,7 @@
                 #title
             ], align(center, if header-middle != none {header-middle} else []), if header-right != none {header-right} else [
                 #show: align.with(top + right)
-                #author, #date-format(date)
+                #compact-author, #date-format(date)
             ])
         ] + if show-header-line { v(-0.5em) + line(length: 100%, stroke: purple) },
     )
@@ -209,24 +223,55 @@
 
     // declaration of independent work
     if show-declaration-of-independent-work {
+        let is-multi-author = normalized-authors.len() > 1
         pagebreak(weak: true)
         set page(footer: [])
 
         heading(outlined: false, numbering: none, [Selbstständigkeitserklärung])
-        [Hiermit versichere ich, dass ich die vorliegende schriftliche Hausarbeit (Seminararbeit, Belegarbeit) selbstständig verfasst und keine anderen als die von mir angegebenen Quellen und Hilfsmittel benutzt habe. Die Stellen der Arbeit, die anderen Werken wörtlich oder sinngemäß entnommen sind, wurden in jedem Fall unter Angabe der Quellen (einschließlich des World Wide Web und anderer elektronischer Text- und Datensammlungen) kenntlich gemacht. Dies gilt auch für beigegebene Zeichnungen, bildliche Darstellungen, Skizzen und dergleichen. Ich versichere weiter, dass die Arbeit in gleicher oder ähnlicher Fassung noch nicht Bestandteil einer Prüfungsleistung oder einer schriftlichen Hausarbeit (Seminararbeit, Belegarbeit) war. Mir ist bewusst, dass jedes Zuwiderhandeln als Täuschungsversuch zu gelten hat, aufgrund dessen das Seminar oder die Übung als nicht bestanden bewertet und die Anerkennung der Hausarbeit als Leistungsnachweis/Modulprüfung (Scheinvergabe) ausgeschlossen wird. Ich bin mir weiter darüber im Klaren, dass das zuständige Lehrerprüfungsamt/Studienbüro über den Betrugsversuch informiert werden kann und Plagiate rechtlich als Straftatbestand gewertet werden.]
+        if is-multi-author {
+            [Hiermit versichern wir, dass wir die vorliegende schriftliche Hausarbeit (Seminararbeit, Belegarbeit) selbstständig verfasst und keine anderen als die von uns angegebenen Quellen und Hilfsmittel benutzt haben. Die Stellen der Arbeit, die anderen Werken wörtlich oder sinngemäß entnommen sind, wurden in jedem Fall unter Angabe der Quellen (einschließlich des World Wide Web und anderer elektronischer Text- und Datensammlungen) kenntlich gemacht. Dies gilt auch für beigegebene Zeichnungen, bildliche Darstellungen, Skizzen und dergleichen. Wir versichern weiter, dass die Arbeit in gleicher oder ähnlicher Fassung noch nicht Bestandteil einer Prüfungsleistung oder einer schriftlichen Hausarbeit (Seminararbeit, Belegarbeit) war. Uns ist bewusst, dass jedes Zuwiderhandeln als Täuschungsversuch zu gelten hat, aufgrund dessen das Seminar oder die Übung als nicht bestanden bewertet und die Anerkennung der Hausarbeit als Leistungsnachweis/Modulprüfung (Scheinvergabe) ausgeschlossen wird. Wir sind uns weiter darüber im Klaren, dass das zuständige Lehrerprüfungsamt/Studienbüro über den Betrugsversuch informiert werden kann und Plagiate rechtlich als Straftatbestand gewertet werden.]
+        } else {
+            [Hiermit versichere ich, dass ich die vorliegende schriftliche Hausarbeit (Seminararbeit, Belegarbeit) selbstständig verfasst und keine anderen als die von mir angegebenen Quellen und Hilfsmittel benutzt habe. Die Stellen der Arbeit, die anderen Werken wörtlich oder sinngemäß entnommen sind, wurden in jedem Fall unter Angabe der Quellen (einschließlich des World Wide Web und anderer elektronischer Text- und Datensammlungen) kenntlich gemacht. Dies gilt auch für beigegebene Zeichnungen, bildliche Darstellungen, Skizzen und dergleichen. Ich versichere weiter, dass die Arbeit in gleicher oder ähnlicher Fassung noch nicht Bestandteil einer Prüfungsleistung oder einer schriftlichen Hausarbeit (Seminararbeit, Belegarbeit) war. Mir ist bewusst, dass jedes Zuwiderhandeln als Täuschungsversuch zu gelten hat, aufgrund dessen das Seminar oder die Übung als nicht bestanden bewertet und die Anerkennung der Hausarbeit als Leistungsnachweis/Modulprüfung (Scheinvergabe) ausgeschlossen wird. Ich bin mir weiter darüber im Klaren, dass das zuständige Lehrerprüfungsamt/Studienbüro über den Betrugsversuch informiert werden kann und Plagiate rechtlich als Straftatbestand gewertet werden.]
+        }
 
         v(1cm)
 
-        table(columns: (auto, auto, auto, auto),
-            stroke: white,
-            inset: 0cm,
+        if is-multi-author {
+            table(columns: (auto, auto),
+                stroke: white,
+                inset: 0cm,
+                strong([Ort:]) + h(0.5cm),
+                repeat("."+hide("'")),
+            )
 
-            strong([Ort:]) + h(0.5cm),
-            repeat("."+hide("'")),
-            h(0.5cm) + strong([Unterschrift:]) + h(0.5cm),
-            repeat("."+hide("'")),
-            v(0.75cm) + strong([Datum:]) + h(0.5cm),
-            v(0.75cm) + repeat("."+hide("'")),)
+            for idx in range(normalized-authors.len()) {
+                table(columns: (auto, auto),
+                    stroke: white,
+                    inset: (x: 0cm, y: 0.25cm),
+                    strong([Unterschrift #str(idx + 1):]) + h(0.5cm),
+                    repeat("."+hide("'")),
+                )
+            }
+
+            table(columns: (auto, auto),
+                stroke: white,
+                inset: (top: 0.5cm),
+                strong([Datum:]) + h(0.5cm),
+                repeat("."+hide("'")),
+            )
+        } else {
+            table(columns: (auto, auto, auto, auto),
+                stroke: white,
+                inset: 0cm,
+
+                strong([Ort:]) + h(0.5cm),
+                repeat("."+hide("'")),
+                h(0.5cm) + strong([Unterschrift:]) + h(0.5cm),
+                repeat("."+hide("'")),
+                v(0.75cm) + strong([Datum:]) + h(0.5cm),
+                v(0.75cm) + repeat("."+hide("'")),
+            )
+        }
     }
 }
 

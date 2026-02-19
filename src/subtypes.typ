@@ -1,6 +1,7 @@
 #import "colors.typ": purple
 #import "exercise.typ" as exercise
 #import "todo.typ": todo
+#import "authors.typ": normalize-authors, authors-full, authors-compact
 
 #let essay(
         title: [#todo[Title]],
@@ -10,10 +11,14 @@
         semester: [#todo[Semester]],
         docent: [#todo[Docent]],
         author: [#todo[Author]],
+        authors: none,
         date: [#todo[Date]],
         body) = {
 
     let ifnn(b) = if b != none [#b\ ]
+    let normalized-authors = normalize-authors(authors, author: author)
+    let full-authors = authors-full(normalized-authors)
+    let compact-authors = authors-compact(normalized-authors)
     show: exercise.project.with(
         page-margins: (right: 4cm),
 
@@ -24,7 +29,7 @@
 
         header: context if counter(page).get().first() > 1 [
             #set text(size: 0.75em)
-            #title #h(1fr) #author
+            #title #h(1fr) #compact-authors
             #v(-0.5em)
             #line(length: 100%, stroke: purple)
         ],
@@ -45,7 +50,7 @@
         ][
             #set align(right)
             #ifnn(semester)
-            #ifnn(author)
+            #ifnn(full-authors)
             #date
         ]
 
@@ -71,10 +76,13 @@
         semester: [#todo[Semester]],
         docent: [#todo[Docent]],
         author: [#todo[Author]],
+        authors: none,
         date: [#todo[Date]],
         body) = {
 
     let ifnn(b) = if b != none [#b\ ]
+    let normalized-authors = normalize-authors(authors, author: author)
+    let full-authors = authors-full(normalized-authors)
     show: exercise.project.with(
         title: none,
         type: none,
@@ -103,7 +111,7 @@
         ][
             #set align(right)
             #ifnn(semester)
-            #ifnn(author)
+            #ifnn(full-authors)
             #date
         ]
 
