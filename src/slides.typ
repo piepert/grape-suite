@@ -72,6 +72,8 @@
     sentence-supplement: "Example",
 
     outline-title-text: "Outline",
+    outline-depth: 1,
+    heading-numbering: none,
 
     fontsize: 24pt,
     text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
@@ -185,18 +187,29 @@
 
                 #heading(outlined: false, text(fill: c.accent.lighten(25%), [#outline-title-text]))
 
-            #context {
-                let elems = query(selector(heading).after(here()))
+            #show outline.entry: it => link(
+                it.element.location(),
+                it.indented(it.prefix(), it.body())
+            )
 
-                enum(..elems
-                    .filter(e => e.level == 1 and e.outlined)
-                    .map(e => {
-                        e.body
-                    }))
-            }
+            #outline(
+                depth: outline-depth,
+                title: none
+            )
         ]
         }
     }
+
+    set heading(numbering:
+        if heading-numbering == none {
+            (..nums) => {
+                let number = numbering("1. a", ..nums)
+                if not number.contains(".") {number + "."} else {number}
+            }
+        }
+        else { heading-numbering }
+    )
+    show heading: it => if heading-numbering == none {text(it.body)} else {it}
 
     if show-todolist {
         context {
