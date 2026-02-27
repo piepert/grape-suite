@@ -12,10 +12,11 @@
     "example": [Example],
 )
 
-#let otype = type
+#let otype = type // should not have called the argument "type"...
 #let project(
     no: none,
 
+    // category of the document, eg. "Exam", "Handout", "Series"
     type: [Exam],
 
     // title of the document; if not set, type and suffix-title generate the title of the document

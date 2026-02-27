@@ -1,4 +1,4 @@
-#import "colors.typ": magenta, get-colors
+#import "colors.typ": get-colors
 #let todo-state = state("grape-suite-todos", ())
 
 #let make-todo-label(loc) = {
