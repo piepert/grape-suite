@@ -1,9 +1,10 @@
-#import "colors.typ" as colors: *
-#import "elements.typ": big-heading
-#import "tasks.typ": *
 #import "todo.typ": todo, list-todos, todo-state, hide-todos
+#let (project, hint, solution, task, subtask, definition) = {
+import "colors.typ" as colors: *
+import "elements.typ": big-heading
+import "tasks.typ": *
 
-#let standard-box-translations = (
+let standard-box-translations = (
     "task": [Task],
     "hint": [Hint],
     "solution": [Suggested solution],
@@ -12,11 +13,8 @@
     "example": [Example],
 )
 
-#let otype = type // should not have called the argument "type"...
-///
-/// - show-hints ("section","inline",none): how to show hints (none means don't show hints)
-/// - show-solutions ("section","inline",none): how to show solutions (none means don't show solutions)
- #let project(
+let otype = type // should not have called the argument "type"...
+ let project(
     no: none,
 
     // category of the document, eg. "Exam", "Handout", "Series"
@@ -279,7 +277,7 @@
         "task-type": task-type,
         "extra-task-type": extra-task-type
     ))
- 
+
     state("grape-suite-box-translations").update((
         "task": box-task-title,
         "hint": box-hint-title,
@@ -351,4 +349,6 @@
         }
       }
     }
+}
+  (project, hint, solution, task, subtask, definition)
 }

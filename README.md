@@ -138,6 +138,8 @@ For protocols and essays see [subtypes module](#subtypes).
 | `points`           | optional, number, default: `0`, number of points achievable                                                                                 |
 | `extra`            | optional, bool, default: `false`, determines if the task is obligatory (`false`) or additional (`true`)                                     |
 | `numbering-format` | optional, function, default: `none`,                                                                                                        |
+| `instruction-format` | optional, function, default: `emph`,                                                                                                        |
+| `title-format` | optional, function, default: `none`,                                                                                                        |
 | `title`            | content, title of the task                                                                                                                  |
 | `instruction`      | content, instruction of the task, highlighted                                                                                               |
 | `..args`           | 1: content, body of the task |
