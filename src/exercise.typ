@@ -37,9 +37,6 @@
     // used in header; if none, then is set to title
     document-title: none,
 
-    show-hints: none,
-    show-solutions: none,
-
     // show name and time in header of first page
     show-namefield: false,
     namefield: [Name:],
@@ -282,16 +279,7 @@
         "task-type": task-type,
         "extra-task-type": extra-task-type
     ))
-
-    // backwards compatibility
-     let show-hints =  if show-hints == true { "section"} else {show-hints}
-     let show-solutions = if show-solutions == true { "section"} else {show-solutions}
-    
-    state("grape-suite-show").update((
-      hints: show-hints,
-      solutions: show-solutions,
-    ))
-
+ 
     state("grape-suite-box-translations").update((
         "task": box-task-title,
         "hint": box-hint-title,
@@ -340,50 +328,27 @@
         context make-point-distribution(here(), message, grade-scale, distribution-header-point-value, distribution-header-point-grade)
     }
 
-    context {
+    if solutions-as-matrix {
+      set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
+      context {
         let tasks = state("grape-suite-tasks", ()).at(here())
+        if tasks.any(e => e.solution-parts != none) {
+          big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
+          set text(size: 0.75em)
+          make-solution-matrix(
+            show-comment-field: show-solution-matrix-comment-field,
+            comment-field-value: solution-matrix-comment-field-value,
+            here(),
+            solution-matrix-task-header,
+            task-type,
+            extra-task-type,
+            solution-matrix-achieved-points-header
+          )
 
-        if show-hints == "section" and tasks.filter(e => e.hint != none).len() != 0 {
-            pagebreak()
-            big-heading[#hints-title #if type != none or no != none [ -- ] #type #no]
-            make-hints(here(), hint-type)
+          if show-point-distribution-in-solutions {
+            make-point-distribution(loc)
+          }
         }
-    }
-
-    show: it => if show-solutions == "section" and solutions-as-matrix {
-        set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
-        it
-    } else if show-solutions == "section"{
-        pagebreak()
-        it
-    }
-
-    if show-solutions == "section" {
-        context {
-            let tasks = state("grape-suite-tasks", ()).at(here())
-
-            if tasks.filter(e => e.solution != none).len() != 0 {
-                big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
-
-                if solutions-as-matrix {
-                    set text(size: 0.75em)
-                    make-solution-matrix(
-                        show-comment-field: show-solution-matrix-comment-field,
-                        comment-field-value: solution-matrix-comment-field-value,
-                        here(),
-                        solution-matrix-task-header,
-                        task-type,
-                        extra-task-type,
-                        solution-matrix-achieved-points-header)
-
-                    if show-point-distribution-in-solutions {
-                        make-point-distribution(loc)
-                    }
-
-                } else {
-                    make-solutions(here(), solution-type)
-                }
-            }
-        }
+      }
     }
 }
