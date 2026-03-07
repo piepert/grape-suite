@@ -4,12 +4,13 @@
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
 
-#let make-element(type, no, title, body) = {
+#let make-element(type, no, title, body) = context {
+    let c = get-colors()
     block(inset: 7pt,
-        stroke: (bottom: (paint: purple, dash: "dashed")),
-        fill: blue.lighten(75%), {
+        stroke: (bottom: (paint: c.primary, dash: "dashed")),
+        fill: c.accent-light, {
 
-        text(fill: purple, strong[#type #no] + title)
+        text(fill: c.primary, strong[#type #no] + title)
     })
 
     block(body)
@@ -162,24 +163,25 @@
     points,
     solutions,
     task-type,
-    extra-task-type) = {
+    extra-task-type) = context {
+    let c = get-colors()
 
     let e = (
-        table.hline(stroke: purple),
+        table.hline(stroke: c.primary),
 
-        table.cell(fill: blue.lighten(75%),
+        table.cell(fill: c.accent-light,
             strong(if extra [#extra-task-type ] else [#task-type ]) +
             strong(no) + if title != none [ --- #title]),
 
-        table.cell(fill: blue.lighten(75%),
+        table.cell(fill: c.accent-light,
             align(center, strong[#box(line(length: 0.75cm)) / #points])),
 
-        table.hline(stroke: purple),
+        table.hline(stroke: c.primary),
 
         ..solutions.map(e => (
             e.at(1),
             align(center, box(line(length: 0.75cm)) + [ \/ #e.at(0)]),
-            table.hline(stroke: (paint: purple, dash: "dashed")),
+            table.hline(stroke: (paint: c.primary, dash: "dashed")),
         )).flatten()
     )
 
@@ -211,17 +213,18 @@
         return
     }
 
+    let c = get-colors()
     table(
         columns: (1fr, 3cm),
         stroke: none,
         inset: (x: 1em, y: 0.75em),
 
-        table.cell(fill: purple, text(fill: white,
+        table.cell(fill: c.primary, text(fill: white,
             align(horizon, strong(matrix-task-header)))),
 
-        table.vline(stroke: purple),
+        table.vline(stroke: c.primary),
 
-        table.cell(fill: purple, text(fill: white,
+        table.cell(fill: c.primary, text(fill: white,
             align(center, strong(achieved-points)))),
 
         ..tasks
@@ -241,7 +244,7 @@
                     task.task-type,
                     task.extra-task-type)}).flatten(),
 
-        table.cell(colspan: 2, fill: purple, v(-10pt)),
+        table.cell(colspan: 2, fill: c.primary, v(-10pt)),
 
         ..(if tasks.filter(task => task.extra and
                     task.solution != none and
@@ -263,7 +266,7 @@
                         task-type,
                         extra-task-type)}).flatten(),
 
-                table.cell(colspan: 2, fill: purple, v(-10pt))
+                table.cell(colspan: 2, fill: c.primary, v(-10pt))
             )
         } else { () }).flatten(),
 
@@ -295,10 +298,11 @@
 
     if points-sum-all > 0 {
         v(1fr)
-        set text(fill: purple)
-        block(fill: blue.lighten(75%),
+        let c = get-colors()
+        set text(fill: c.primary)
+        block(fill: c.accent-light,
             breakable: false,
-            stroke: purple,
+            stroke: c.primary,
             inset: 1em,
             width: 100%, {
 
@@ -358,12 +362,12 @@
                     if last-to == to [#to] else [#last-to#[--]#to]
                 }),
 
-                table.hline(stroke: 1pt + purple),
+                table.hline(stroke: 1pt + c.primary),
 
                 strong(header-point-grade),
                 ..grade-scale
                     .rev()
-                    .map(e => (table.vline(stroke: 1pt + purple), text(size: 0.95em, e.at(1).first())))
+                    .map(e => (table.vline(stroke: 1pt + c.primary), text(size: 0.95em, e.at(1).first())))
                     .rev()
                     .flatten(),
             ))

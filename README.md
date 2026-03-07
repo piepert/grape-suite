@@ -99,12 +99,12 @@ For protocols and essays see [subtypes module](#subtypes).
 | `header-right`                           | optional, content, default: `none`, overwrite right header part                                                                                                                                                                                                                            |
 | `header-middle`                          | optional, content, default: `none`, overwrite middle header part                                                                                                                                                                                                                           |
 | `header-left`                            | optional, content, default: `none`, overwrite left header part                                                                                                                                                                                                                             |
-| `show-header-line`                       | optional, bool, default: `true`, show purple line in header                                                                                                                                                                                                                                |
+| `show-header-line`                       | optional, bool, default: `true`, show `colors-primary` line in header                                                                                                                                                                                                                                |
 | `footer`                                 | optional, content, default: `none`, overwrite footer part                                                                                                                                                                                                                                  |
 | `footer-right`                           | optional, content, default: `none`, overwrite right footer part                                                                                                                                                                                                                            |
 | `footer-middle`                          | optional, content, default: `none`, overwrite middle footer part                                                                                                                                                                                                                           |
 | `footer-left`                            | optional, content, default: `none`, overwrite left footer part                                                                                                                                                                                                                             |
-| `show-footer-line`                       | optional, bool, default: `true`, show purple line in footer                                                                                                                                                                                                                                |
+| `show-footer-line`                       | optional, bool, default: `true`, show `colors-primary` line in footer                                                                                                                                                                                                                                |
 | `task-type`                              | optional, content, default: `[Task]`, content shown in task title box before numbering                                                                                                                                                                                                     |
 | `extra-task-type`                        | optional, content, default: `[Extra task]`, for tasks where the `extra` parameter is true, content shown in title box before numbering                                                                                                                                                     |
 | `box-task-title`                         | optional, content, default: `[Task]`, shown as the title of a task box used by the `slides` library                                                                                                                                                                                        |
@@ -123,7 +123,7 @@ For protocols and essays see [subtypes module](#subtypes).
 | `solution-matrix-comment-field-value`    | optional, content, default: `[*Note:* #v(0.5cm)]`, value of solution matrix comment fields                                                                                                                                                                                                 |
 | `distribution-header-point-value`        | optional, content, default: `[Point]`, first row of point distribution, used to indicate the points needed to get a specific grade                                                                                                                                                         |
 | `distribution-header-point-grade`        | optional, content, default: `[Grade]`, second row of point distribution                                                                                                                                                                                                                    |
-| `message`                                | optional, function, default: `(points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: purple, length: 1cm)) out of #points-sum points.]`, used to generate the message part above the point distribution                 |
+| `message`                                | optional, function, default: `(points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: colors-primary, length: 1cm)) out of #points-sum points.]`, used to generate the message part above the point distribution                 |
 | `grade-scale`                            | optional, array, default: `(([excellent], 0.9), ([very good], 0.8), ([good], 0.7), ([pass], 0.6), ([fail], 0.49))`, list of grades and percentage of points to reach that grade                                                                                                            |
 | `page-margins`                           | optional, margins, default: `none`, overwrite page margins                                                                                                                                                                                                                                 |
 | `text-font`                              | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                                                                                                                                          |
@@ -241,12 +241,12 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `header-right`                         | optional, content, default: `none`, overwrite right header part                                                                                   |
 | `header-middle`                        | optional, content, default: `none`, overwrite middle header part                                                                                  |
 | `header-left`                          | optional, content, default: `none`, overwrite left header part                                                                                    |
-| `show-header-line`                     | optional, bool, default: `true`, show purple line in header                                                                                       |
+| `show-header-line`                     | optional, bool, default: `true`, show `colors-primary` line in header                                                                                       |
 | `footer`                               | optional, content, default: `none`, overwrite footer part                                                                                         |
 | `footer-right`                         | optional, content, default: `none`, overwrite right footer part                                                                                   |
 | `footer-middle`                        | optional, content, default: `none`, overwrite middle footer part                                                                                  |
 | `footer-left`                          | optional, content, default: `none`, overwrite left footer part                                                                                    |
-| `show-footer-line`                     | optional, bool, default: `true`, show purple line in footer                                                                                       |
+| `show-footer-line`                     | optional, bool, default: `true`, show `colors-primary` line in footer                                                                                       |
 | `show-outline`                         | optional, bool, default: `true`, show outline                                                                                                     |
 | `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                                                                      |
 | `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                                                                        |
@@ -457,6 +457,92 @@ The base layout of these functions is provided by `exercise.project`.
 | `author`     | optional, content, default: `[#todo[Author]]`     |
 | `date`       | optional, content, default: `[#todo[Date]]`       |
 | `body`       | content, document content                         |
+
+## Color Customization
+
+All templates support customizable colors to match your institution's branding or personal preferences. You can override the default colors by passing color parameters to any template's setup function.
+
+### Available Color Parameters
+
+- `colors-primary`: Main color for headings, links, and separator lines (default: purple)
+- `colors-accent`: Color for task boxes and backgrounds (default: blue)
+- `colors-highlight`: Color for definitions, notices, and todos (default: magenta)
+- `colors-warning`: Color for hints and examples (default: yellow)
+- `colors-warning-dark`: Darker variant for warning text (default: brown)
+
+### Color Usage Map
+
+| Color | Used For |
+|-------|----------|
+| `primary` | Headings, links, header/footer lines, focus slides |
+| `primary-light` | Heading numbers, subtitle text |
+| `accent` | Task/solution boxes (border) |
+| `accent-light` | Task backgrounds, point distribution tables |
+| `accent-lighter` | Task/solution box backgrounds |
+| `highlight` | Definition/notice boxes, todo markers |
+| `highlight-light` | Definition/notice backgrounds, todo highlights |
+| `warning` | Hint/example boxes (border) |
+| `warning-light` | Hint/example backgrounds |
+| `warning-dark` | Hint/example title text |
+
+### Examples
+
+#### Exercise with Custom Colors
+```typ
+#import "@preview/grape-suite:3.1.0": exercise
+#import exercise: project, task
+
+#show: project.with(
+  type: [Exam],
+  title: [Mathematics Exam],
+
+  // Custom institutional colors
+  colors-primary: rgb("#003366"),    // Dark blue
+  colors-accent: rgb("#0066cc"),     // Medium blue
+  colors-highlight: rgb("#cc0000"),  // Red
+  colors-warning: rgb("#ff9900"),    // Orange
+  colors-warning-dark: rgb("#cc6600"),
+)
+
+= Problem Set
+#task(points: 10, title: [Derivatives])[
+  Calculate the derivative of $f(x) = x^2 + 3x + 2$.
+]
+```
+
+#### Seminar Paper with Custom Colors
+```typ
+#import "@preview/grape-suite:3.1.0": seminar-paper
+#import seminar-paper: project
+
+#show: project.with(
+  title: [Research on Color Theory],
+  author: [Student Name],
+
+  colors-primary: rgb("#2c3e50"),
+  colors-accent: rgb("#3498db"),
+  colors-highlight: rgb("#e74c3c"),
+)
+```
+
+#### Slides with Custom Colors
+```typ
+#import "@preview/grape-suite:3.1.0": slides
+#import slides: *
+
+#show: slides.with(
+  series: [Lecture],
+  no: 1,
+  title: [Introduction],
+
+  colors-primary: rgb("#8b0000"),    // Dark red
+  colors-accent: rgb("#4169e1"),     // Royal blue
+)
+```
+
+### Using Default Colors
+
+If you don't specify color parameters, the templates use the default grape-suite color scheme. 
 
 ## Todos
 
