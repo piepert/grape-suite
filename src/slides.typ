@@ -17,8 +17,9 @@
     polylux.slide(..args)
 }
 
-#let focus-slide(body) = {
-    set page(fill: purple)
+#let focus-slide(body) = context {
+    let c = get-colors()
+    set page(fill: c.primary)
     set text(fill: white)
 
     state("grape-suite-slides", ()).update(k => {
@@ -81,8 +82,21 @@
     date: datetime.today(),
     date-format: (date) => if type(date) == type(datetime.today()) [#weekday(date.weekday()), #date.display("[day].[month].[year]")] else { date },
 
+    colors-primary: purple,
+    colors-accent: blue,
+    colors-highlight: magenta,
+    colors-warning: yellow,
+    colors-warning-dark: brown,
+
     body
 ) = {
+    set-colors(
+        primary: colors-primary,
+        accent: colors-accent,
+        highlight: colors-highlight,
+        warning: colors-warning,
+        warning-dark: colors-warning-dark,
+    )
     let left-footer = if footer != none {
         footer
     } else {
@@ -96,7 +110,7 @@
 
     show footnote.entry: set text(size: 0.5em)
 
-    show heading: set text(fill: purple)
+    show heading: it => context { set text(fill: get-colors().primary); it }
 
     set text(size: fontsize, font: text-font)
     show math.equation: set text(font: math-font, size: fontsize)
@@ -106,10 +120,11 @@
             let fs = state("grape-suite-slides", ())
 
             (context if show-footer and (not show-title-slide or here().page() > 1) {
+                let c = get-colors()
                 set text(fill: if fs.at(here()).last() != none and fs.at(here()).last() == "normal" {
-                    purple.lighten(25%)
+                    c.primary-light
                 } else {
-                    blue.lighten(25%)
+                    c.accent.lighten(25%)
                 })
 
                 left-footer
@@ -139,11 +154,11 @@
         slide(align(horizon, [
             #block(inset: (left: 1cm, top: 3cm))[
                 #if head-replacement == none [
-                    #text(fill: purple, size: 2em, strong[#series ] + if no != none [\##no]) \
+                    #context text(fill: get-colors().primary, size: 2em, strong[#series ] + if no != none [\##no]) \
                 ] else { head-replacement }
                 //
                 #if title-replacement == none [
-                   #text(fill: purple.lighten(25%), strong(title))
+                   #context text(fill: get-colors().primary-light, strong(title))
                 ] else { title-replacement }
 
                 #set text(size: 0.75em)
@@ -155,20 +170,22 @@
     }
 
     if show-outline {
-        set page(fill: purple, footer: context if show-footer {
-            set text(fill: if here().page() > 2 or not show-outline {
-                purple.lighten(25%)
-            } else {
-                blue.lighten(25%)
+        context {
+            let c = get-colors()
+            set page(fill: c.primary, footer: context if show-footer {
+                set text(fill: if here().page() > 2 or not show-outline {
+                    c.primary-light
+                } else {
+                    c.accent.lighten(25%)
+                })
+
+                left-footer
             })
 
-            left-footer
-        })
+            slide[
+                #set text(fill: white)
 
-        slide[
-            #set text(fill: white)
-
-            #heading(outlined: false, text(fill: blue.lighten(25%), [#outline-title-text]))
+                #heading(outlined: false, text(fill: c.accent.lighten(25%), [#outline-title-text]))
 
             #show outline.entry: it => link(
                 it.element.location(),
@@ -180,6 +197,7 @@
                 title: none
             )
         ]
+        }
     }
 
     set heading(numbering:
