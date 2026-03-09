@@ -302,8 +302,8 @@
 
     let t = (
         no: no,
-        title: title-format(title),
-        instruction: instruction-format(instruction),
+        title: if title != none { title-format(title) },
+        instruction: if instruction != none { instruction-format(instruction) },
         body: body.at(0, default: none),
         solution-parts: solution-parts,
         points: points,
@@ -409,13 +409,22 @@
 }
 
 #let hint(body) = {
-  state("grape-suite-subtask-indent").update((0,))
-  let content = elements.hint(body);
-  content
+  context {
+    let (show-hints, ) = state("grape-suite-show-rules").at(here())
+    if (not show-hints) { return; }
+
+    state("grape-suite-subtask-indent").update((0,))
+    let content = elements.hint(body);
+    content
+  }
 };
 
 #let solution( body) = {
-  state("grape-suite-subtask-indent").update((0,))
-  let content = elements.solution(body)
-  content
+  context {
+    let (show-solutions, ) = state("grape-suite-show-rules").at(here())
+    if (not show-solutions) { return; }
+    state("grape-suite-subtask-indent").update((0,))
+    let content = elements.solution(body)
+    content
+  }
 }

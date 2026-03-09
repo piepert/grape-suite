@@ -7,8 +7,10 @@
 #show: project.with(no: 1,
     type: "Aufgabenblatt",
     suffix-title: "Darstellungen des Pegasus in der antiken griechischen Literatur",
+    show-hints: true,
+    show-solutions: true,
 
-    solutions-as-matrix: true,
+    show-solutions-matrix: true,
     task-type: [Aufgabe],
     extra-task-type: [Zusatzaufgabe],
 

@@ -1,10 +1,9 @@
 #import "todo.typ": todo, list-todos, todo-state, hide-todos
-#let (project, hint, solution, task, subtask, definition) = {
-import "colors.typ" as colors: *
-import "elements.typ": big-heading
-import "tasks.typ": *
+#import "colors.typ" as colors: *
+#import "elements.typ": big-heading
+#import "tasks.typ": *
 
-let standard-box-translations = (
+#let standard-box-translations = (
     "task": [Task],
     "hint": [Hint],
     "solution": [Suggested solution],
@@ -13,8 +12,8 @@ let standard-box-translations = (
     "example": [Example],
 )
 
-let otype = type // should not have called the argument "type"...
- let project(
+#let otype = type // should not have called the argument "type"...
+#let project(
     no: none,
 
     // category of the document, eg. "Exam", "Handout", "Series"
@@ -34,6 +33,8 @@ let otype = type // should not have called the argument "type"...
 
     // used in header; if none, then is set to title
     document-title: none,
+    show-hints: false,
+    show-solutions: false,
 
     // show name and time in header of first page
     show-namefield: false,
@@ -49,10 +50,9 @@ let otype = type // should not have called the argument "type"...
 
     // show point distributions after tasks/at the end of the solutions
     show-point-distribution-in-tasks: false,
-    show-point-distribution-in-solutions: false,
 
     // show solution matrix; expected solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
-    solutions-as-matrix: false,
+    show-solutions-matrix: false,
 
     // show comment field in solution matrix
     show-solution-matrix-comment-field: false,
@@ -152,6 +152,8 @@ let otype = type // should not have called the argument "type"...
     show: format-heading-numbering
 
     show: format-quotes
+
+    state("grape-suite-show-rules", ()).update(it => (show-solutions: show-solutions, show-hints: show-hints));
 
     let ufi = ()
     if university != none { ufi.push(university) }
@@ -326,7 +328,7 @@ let otype = type // should not have called the argument "type"...
         context make-point-distribution(here(), message, grade-scale, distribution-header-point-value, distribution-header-point-grade)
     }
 
-    if solutions-as-matrix {
+    if show-solutions-matrix {
       set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
       context {
         let tasks = state("grape-suite-tasks", ()).at(here())
@@ -342,13 +344,7 @@ let otype = type // should not have called the argument "type"...
             extra-task-type,
             solution-matrix-achieved-points-header
           )
-
-          if show-point-distribution-in-solutions {
-            make-point-distribution(loc)
-          }
         }
       }
     }
-}
-  (project, hint, solution, task, subtask, definition)
 }
