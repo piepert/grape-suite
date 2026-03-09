@@ -49,12 +49,10 @@
     points,
     solution-parts,
     task-type,
-    extra-task-type) = context {
-      let c = get-colors()
+    extra-task-type) = {
+    let c = get-colors()
     assert(solution-parts == none or points == solution-parts.fold(0, (sum, s) => sum + s.at(0)), message: "solution parts should have the same number of points as the whole task! (task no " + str(no) + ")")
-    if (solution-parts == none ) {
-      solution-parts = ()
-    }
+    let parts = if (solution-parts == none) { () } else {solution-parts}
     let e = (
         table.hline(stroke: c.primary),
 
@@ -65,12 +63,12 @@
         table.cell(fill: c.accent-light,
             align(center, strong[#box(line(length: 0.75cm)) / #points])),
 
-        table.hline(stroke: purple),
-        ..solution-parts.map(s => (
+        table.hline(stroke: c.primary),
+        ..parts.map(s => (
             s.at(1),
             align(center, box(line(length: 0.75cm)) + [ \/ #s.at(0)]),
         )).intersperse(
-        table.hline(stroke: (paint: c.primary, dash: "dashed")),
+        table.hline( stroke: (paint: c.primary, dash: "dashed")),
       ).flatten()
     )
 
@@ -89,7 +87,7 @@
     task-type,
     extra-task-type,
     achieved-points
-) = {
+) = context {
     let tasks = state("grape-suite-tasks").at(loc)
 
     if tasks == none {
@@ -99,7 +97,7 @@
         .filter(t => t.points > 0 and not t.ignore-points)
         .fold(((), ()), (acc, t) => {
           acc.at(if t.extra { 0 } else { 1 }).push(t)
-          acc
+          return acc
         })
     let c = get-colors()
     table(
@@ -112,10 +110,9 @@
 
         table.vline(stroke: c.primary),
 
-        table.cell(fill: c.primary, text(fill: white,
-            align(center, strong(achieved-points)))),
+        table.cell(fill: c.primary, text(fill: white, align(center, strong(achieved-points)))),
 
-        ..non-extra-tasks.map(task => {
+        ..(non-extra-tasks.map(task => 
                 make-matrix-row(show-comment-field: show-comment-field,
                     comment-field-value: comment-field-value,
                     task.no,
@@ -124,11 +121,11 @@
                     task.points,
                     task.solution-parts,
                     task.task-type,
-                    task.extra-task-type)}).flatten(),
+                    task.extra-task-type)).flatten()),
 
         table.cell(colspan: 2, fill: c.primary, v(-10pt)),
 
-         ..extra-tasks.map(task => {
+         ..(extra-tasks.map(task => 
                  make-matrix-row(show-comment-field: show-comment-field,
                      comment-field-value: comment-field-value,
                      task.no,
@@ -137,7 +134,7 @@
                      task.points,
                      task.solution-parts,
                      task-type,
-                     extra-task-type)}).flatten(),
+                     extra-task-type)).flatten()),
 
           ..(if extra-tasks.len() > 0 { (table.cell(colspan: 2, fill: c.primary, v(-10pt)),) } else { () }).flatten(),
 
