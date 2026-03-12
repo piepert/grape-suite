@@ -4,10 +4,6 @@
 #let brown = rgb("#fe6100").darken(50%)
 #let yellow = rgb("#ffb000")
 
-#let orange = none
-#let red = none
-#let green = none
-
 #let colors-state = state("grape-suite-colors", (
   primary: purple,
   primary-light: purple.lighten(25%),
