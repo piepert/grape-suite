@@ -110,8 +110,6 @@
 
     show footnote.entry: set text(size: 0.5em)
 
-    show heading: it => context { set text(fill: get-colors().primary); it }
-
     set text(size: fontsize, font: text-font)
     show math.equation: set text(font: math-font, size: fontsize)
 
@@ -209,7 +207,20 @@
         }
         else { heading-numbering }
     )
-    show heading: it => if heading-numbering == none {text(it.body)} else {it}
+
+    show heading: it => context {
+        if heading-numbering == none {text(it.body)} else {it}
+    }
+
+    show heading: it => context {
+        set text(get-colors().primary)
+
+        if heading-numbering == none {
+            block(sticky: true, text(it.body) + v(0.25em / it.level))
+        } else {
+            it
+        }
+    }
 
     if show-todolist {
         context {
