@@ -14,7 +14,7 @@
     show-lines: true,
 
     show-solutions: true,
-    solutions-as-matrix: true,
+    show-solutions-matrix: true,
 
     university: [],
     institute: [],
