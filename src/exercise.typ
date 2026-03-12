@@ -1,7 +1,7 @@
+#import "todo.typ": todo, list-todos, todo-state, hide-todos
 #import "colors.typ" as colors: *
 #import "elements.typ": big-heading
 #import "tasks.typ": *
-#import "todo.typ": todo, list-todos, todo-state, hide-todos
 
 #let standard-box-translations = (
     "task": [Task],
@@ -33,7 +33,6 @@
 
     // used in header; if none, then is set to title
     document-title: none,
-
     show-hints: false,
     show-solutions: false,
 
@@ -51,10 +50,9 @@
 
     // show point distributions after tasks/at the end of the solutions
     show-point-distribution-in-tasks: false,
-    show-point-distribution-in-solutions: false,
 
     // show solution matrix; expected solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
-    solutions-as-matrix: false,
+    show-solutions-matrix: false,
 
     // show comment field in solution matrix
     show-solution-matrix-comment-field: false,
@@ -167,6 +165,8 @@
     show: format-heading-numbering
 
     show: format-quotes
+
+    state("grape-suite-show-rules", ()).update(it => (show-solutions: show-solutions, show-hints: show-hints));
 
     let ufi = ()
     if university != none { ufi.push(university) }
@@ -341,50 +341,23 @@
         context make-point-distribution(here(), message, grade-scale, distribution-header-point-value, distribution-header-point-grade)
     }
 
-    context {
+    if show-solutions-matrix {
+      set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
+      context {
         let tasks = state("grape-suite-tasks", ()).at(here())
-
-        if show-hints and tasks.filter(e => e.hint != none).len() != 0 {
-            pagebreak()
-            big-heading[#hints-title #if type != none or no != none [ -- ] #type #no]
-            make-hints(here(), hint-type)
+        if tasks.any(e => e.solution-parts != none) {
+          big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
+          set text(size: 0.75em)
+          make-solution-matrix(
+            show-comment-field: show-solution-matrix-comment-field,
+            comment-field-value: solution-matrix-comment-field-value,
+            here(),
+            solution-matrix-task-header,
+            task-type,
+            extra-task-type,
+            solution-matrix-achieved-points-header
+          )
         }
-    }
-
-    show: it => if show-solutions and solutions-as-matrix {
-        set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
-        it
-    } else if show-solutions {
-        pagebreak()
-        it
-    }
-
-    if show-solutions {
-        context {
-            let tasks = state("grape-suite-tasks", ()).at(here())
-
-            if tasks.filter(e => e.solution != none).len() != 0 {
-                big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
-
-                if solutions-as-matrix {
-                    set text(size: 0.75em)
-                    make-solution-matrix(
-                        show-comment-field: show-solution-matrix-comment-field,
-                        comment-field-value: solution-matrix-comment-field-value,
-                        here(),
-                        solution-matrix-task-header,
-                        task-type,
-                        extra-task-type,
-                        solution-matrix-achieved-points-header)
-
-                    if show-point-distribution-in-solutions {
-                        make-point-distribution(loc)
-                    }
-
-                } else {
-                    make-solutions(here(), solution-type)
-                }
-            }
-        }
+      }
     }
 }

@@ -1,158 +1,44 @@
 #import "colors.typ" as colors: *
+
+
 #import "elements.typ" as elements: *
 
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
 
-#let make-element(type, no, title, body) = context {
-    let c = get-colors()
-    block(inset: 7pt,
-        stroke: (bottom: (paint: c.primary, dash: "dashed")),
-        fill: c.accent-light, {
+#let make-element(no, title, instruction, body,  points, lines, element-type) = {
+  let title = if title != none [ --- #title] + h(1fr) + if points > 0 [#points P.]
+  let c = get-colors()
+  block(inset: 7pt,
+  stroke: (bottom: (paint: c.primary, dash: "dashed")),
+  fill: c.accent-light, {
+    text(fill: purple, strong[#element-type #no] + title)
+  })
 
-        text(fill: c.primary, strong[#type #no] + title)
-    })
+  block(width: 100%, {
+    state("grape-suite-subtask-indent").update((0,))
 
-    block(body)
-    v(0.5cm)
-}
+    if instruction != none and instruction not in ([], [ ]) {
+      block(instruction)
+    }
 
-#let make-task(no, title, instruction, body, extra, points, lines, extra-task-type, task-type) = {
-    make-element(if extra {extra-task-type} else {task-type},
-        no,
-        if title != none [ --- #title] + h(1fr) + points,
+    state("grape-suite-subtask-indent").update((0,))
 
-        block(width: 100%, {
-            state("grape-suite-subtask-indent").update((0,))
+    if body != none and body not in ([], [ ]) { block(body) }
 
-            if instruction != none and instruction not in ([], [ ]) {
-                block(emph(instruction))
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            if body != none and body not in ([], [ ]) { block(body) }
-
-            context {
-                if state("grape-suite-show-lines").at(here()) == false {
-                    return
-                }
-
-                for i in range(0, lines) {
-                    v(0.75cm)
-                    v(-1.2em)
-                    line(length: 100%, stroke: black.lighten(50%))
-                }
-            }
-        }))
-}
-
-#let make-solution(no, title, instruction, body, extra, points, solution, solution-type) = {
-    make-element(solution-type,
-        no,
-        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
-
-        block(width: 100%, {
-            state("grape-suite-subtask-indent").update((0,))
-
-            if instruction != none and instruction not in ([], [ ]) {
-                block(emph(instruction))
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            if body != none and body not in ([], [ ]) {
-                block(body)
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            elements.solution(solution)
-
-            state("grape-suite-subtask-indent").update((0,))
-        }))
-}
-
-#let make-hint(no, title, instruction, body, extra, points, hint, hint-type) = {
-    make-element(hint-type,
-        no,
-        if title != none [ --- #title] + h(1fr) + if points != none and points > 0 { [#points P.] },
-
-        block(width: 100%, {
-            state("grape-suite-subtask-indent").update((0,))
-
-            if instruction != none and instruction not in ([], [ ]) {
-                block(emph(instruction))
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            if body != none and body not in ([], [ ]) {
-                block(body)
-            }
-
-            state("grape-suite-subtask-indent").update((0,))
-
-            elements.hint(hint)
-
-            state("grape-suite-subtask-indent").update((0,))
-        }))
-}
-
-#let make-solutions(here,
-    solution-type
-) = {
-    let tasks = state("grape-suite-tasks").at(here)
-
-    if tasks == none {
+    context {
+      if state("grape-suite-show-lines").at(here()) == false {
         return
+      }
+
+      for i in range(0, lines) {
+        v(0.75cm)
+        v(-1.2em)
+        line(length: 100%, stroke: black.lighten(50%))
+      }
     }
-
-    for task in tasks {
-        if task.solution == none {
-            continue
-        }
-
-        make-solution(task.no,
-            task.title,
-            task.instruction,
-            task.body,
-            task.extra,
-            task.points,
-            task.solution,
-            solution-type)
-    }
-}
-
-#let make-hints(loc,
-    hint-type,
-) = {
-    let tasks = state("grape-suite-tasks").at(loc)
-
-    if tasks == none {
-        return
-    }
-
-    let tasks = state("grape-suite-tasks").at(loc)
-
-    if tasks == none {
-        return
-    }
-
-    for task in tasks {
-        if task.hint == none {
-            continue
-        }
-
-        make-hint(task.no,
-            task.title,
-            task.instruction,
-            task.body,
-            task.extra,
-            task.points,
-            task.hint,
-            hint-type)
-    }
+  })
+  v(0.5cm)
 }
 
 #let make-matrix-row(show-comment-field: false,
@@ -161,11 +47,12 @@
     title,
     extra,
     points,
-    solutions,
+    solution-parts,
     task-type,
-    extra-task-type) = context {
+    extra-task-type) = {
     let c = get-colors()
-
+    assert(solution-parts == none or points == solution-parts.fold(0, (sum, s) => sum + s.at(0)), message: "solution parts should have the same number of points as the whole task! (task no " + str(no) + ")")
+    let parts = if (solution-parts == none) { () } else {solution-parts}
     let e = (
         table.hline(stroke: c.primary),
 
@@ -177,12 +64,12 @@
             align(center, strong[#box(line(length: 0.75cm)) / #points])),
 
         table.hline(stroke: c.primary),
-
-        ..solutions.map(e => (
-            e.at(1),
-            align(center, box(line(length: 0.75cm)) + [ \/ #e.at(0)]),
-            table.hline(stroke: (paint: c.primary, dash: "dashed")),
-        )).flatten()
+        ..parts.map(s => (
+            s.at(1),
+            align(center, box(line(length: 0.75cm)) + [ \/ #s.at(0)]),
+        )).intersperse(
+        table.hline( stroke: (paint: c.primary, dash: "dashed")),
+      ).flatten()
     )
 
     if show-comment-field {
@@ -200,19 +87,18 @@
     task-type,
     extra-task-type,
     achieved-points
-) = {
+) = context {
     let tasks = state("grape-suite-tasks").at(loc)
 
     if tasks == none {
         return
     }
-
-    let tasks = state("grape-suite-tasks").at(loc)
-
-    if tasks == none {
-        return
-    }
-
+    let (extra-tasks, non-extra-tasks) = tasks
+        .filter(t => t.points > 0 and not t.ignore-points)
+        .fold(((), ()), (acc, t) => {
+          acc.at(if t.extra { 0 } else { 1 }).push(t)
+          return acc
+        })
     let c = get-colors()
     table(
         columns: (1fr, 3cm),
@@ -224,51 +110,33 @@
 
         table.vline(stroke: c.primary),
 
-        table.cell(fill: c.primary, text(fill: white,
-            align(center, strong(achieved-points)))),
+        table.cell(fill: c.primary, text(fill: white, align(center, strong(achieved-points)))),
 
-        ..tasks
-            .filter(task =>
-                not task.extra and
-                task.solution != none and
-                type(task.solution) == array)
-
-            .map(task => {
+        ..(non-extra-tasks.map(task => 
                 make-matrix-row(show-comment-field: show-comment-field,
                     comment-field-value: comment-field-value,
                     task.no,
                     task.title,
                     task.extra,
                     task.points,
-                    task.solution,
+                    task.solution-parts,
                     task.task-type,
-                    task.extra-task-type)}).flatten(),
+                    task.extra-task-type)).flatten()),
 
         table.cell(colspan: 2, fill: c.primary, v(-10pt)),
 
-        ..(if tasks.filter(task => task.extra and
-                    task.solution != none and
-                    type(task.solution) == array).len() > 0 {
-            (
-                tasks.filter(task =>
-                    task.extra and
-                    task.solution != none and
-                    type(task.solution) == array)
+         ..(extra-tasks.map(task => 
+                 make-matrix-row(show-comment-field: show-comment-field,
+                     comment-field-value: comment-field-value,
+                     task.no,
+                     task.title,
+                     task.extra,
+                     task.points,
+                     task.solution-parts,
+                     task-type,
+                     extra-task-type)).flatten()),
 
-                .map(task => {
-                    make-matrix-row(show-comment-field: show-comment-field,
-                        comment-field-value: comment-field-value,
-                        task.no,
-                        task.title,
-                        task.extra,
-                        task.points,
-                        task.solution,
-                        task-type,
-                        extra-task-type)}).flatten(),
-
-                table.cell(colspan: 2, fill: c.primary, v(-10pt))
-            )
-        } else { () }).flatten(),
+          ..(if extra-tasks.len() > 0 { (table.cell(colspan: 2, fill: c.primary, v(-10pt)),) } else { () }).flatten(),
 
         [], [
             #show: align.with(center)
@@ -388,20 +256,28 @@
     // iff true, ignore points in final sum and solution matrix
     ignore-points: false,
 
+    // description of points awarded for the task: list of tuples of (point_number, description)
+    solution-parts: none,
+
     // numbering of task
     numbering-format: none,
 
+    // formatting of task title
+    instruction-format: none,
+
+    // formatting of task instruction - default: emph
+    title-format: none,
     // type of task
     type: none,
 
-    // Titel der Aufgabe
+    // Title of the task
     title,
 
-    // Aufgabenstellung
+    // Instructions for the task
     instruction,
 
-    // optional: body, solution (see exercise.project(show-solutions-as-matrix: ...) !), hint
-    ..args
+    // optional: body
+    ..body,
     ) = counter(if extra { "tasks" } else { "extra-tasks" }).step() + context {
 
     let task-translation-state = state("grape-suite-task-translations", (task-type: [Task], extra-task-type: [Extra task]))
@@ -412,17 +288,24 @@
     if numbering-format == none {
         numbering-format = (..c) => numbering(if extra { "1" } else { "A" }, ..c)
     }
+    let title-format = title-format
+    if title-format == none {
+      title-format = it => it
+    }
 
-    let args = args.pos()
+    let instruction-format = instruction-format
+    if instruction-format == none {
+      instruction-format = emph
+    }
+
     let no = numbering-format(..counter(if extra { "tasks" } else { "extra-tasks" }).at(here()))
 
     let t = (
         no: no,
-        title: title,
-        instruction: instruction,
-        body: args.at(0, default: none),
-        solution: args.at(1, default: none),
-        hint: args.at(2, default: none),
+        title: if title != none { title-format(title) },
+        instruction: if instruction != none { instruction-format(instruction) },
+        body: body.at(0, default: none),
+        solution-parts: solution-parts,
         points: points,
         extra: extra,
         ignore-points: ignore-points,
@@ -441,27 +324,14 @@
 
     state("grape-suite-subtask-indent").update((0,))
 
-    // let t = state("grape-suite-tasks", ()).final().last()
-    make-task(no,
-        title,
-        instruction,
+    context make-element(no,
+        t.title,
+        t.instruction,
         t.body,
-        t.extra,
-        context {
-            let points = t.points
-
-            if points == 0 {
-                let s = state("grape-suite-tasks", ())
-                points = s.final().at(s.get().len()-1).points
-            }
-
-            if points != 0 {
-                [#points P.]
-            }
-        },
+        t.points,
         lines,
-        if type != none {type} else {extra-task-type},
-        if type != none {type} else {task-type})
+        if type != none {type} else if t.extra {extra-task-type} else {task-type},
+      )
 }
 
 #let subtask(points: 0,
@@ -536,4 +406,25 @@
 
         k
     })
+}
+
+#let hint(body) = {
+  context {
+    let (show-hints, ) = state("grape-suite-show-rules").at(here())
+    if (not show-hints) { return; }
+
+    state("grape-suite-subtask-indent").update((0,))
+    let content = elements.hint(body);
+    content
+  }
+};
+
+#let solution( body) = {
+  context {
+    let (show-solutions, ) = state("grape-suite-show-rules").at(here())
+    if (not show-solutions) { return; }
+    state("grape-suite-subtask-indent").update((0,))
+    let content = elements.solution(body)
+    content
+  }
 }
