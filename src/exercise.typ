@@ -121,6 +121,7 @@
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     fontsize: 11pt,
+    format-links: true,
 
     show-todolist: true,
 
@@ -157,8 +158,8 @@
     set enum(indent: 1em)
     set list(indent: 1em)
 
-    show link: underline
-    show link: it => context { set text(fill: get-colors().primary); it }
+    show link: if format-links { (underline) } else { (e => e) }
+    show link: it => if format-links { context { set text(fill: get-colors().primary); it } } else { it }
 
     show heading: it => context { set text(fill: get-colors().primary); it }
     show heading: set par(justify: false)
