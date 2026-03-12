@@ -24,55 +24,47 @@
     secondary-color: magenta.lighten(90%),
     tertiary-color: magenta,
     dotted: false,
-    figured: false,
     counter: none,
     show-numbering: false,
     numbering-format: (..n) => numbering("1.1", ..n),
-    figure-supplement: none,
-    figure-kind: none) = {
+    figured: false) = {
 
-    if figured {
-        if figure-supplement == none {
-            figure-supplement = title
+    if show-numbering or figured {
+        if counter == none {
+            panic("parameter 'counter' must be set!")
         }
 
-        if figure-kind == none {
-            panic("once paramter 'figured' is true, parameter 'figure-kind' must be set!")
-        }
+        counter.step()
     }
 
+    set par(justify: true)
+    // show: align.with(left)
 
-    let body = {
-        if show-numbering or figured {
-            if counter == none {
-                panic("parameter 'counter' must be set!")
-            }
+    block(width: 100%,
+        inset: 1em,
+        fill: secondary-color,
 
-            counter.step()
-        }
+        stroke: (left: (thickness: 5pt,
+            paint: primary-color,
+            dash: if dotted { "dotted" } else { "solid" })),
 
-        set par(justify: true)
-        show: align.with(left)
+        {
+            block(sticky: true, {
+                set text(size: 0.75em, fill: tertiary-color)
+                show: strong
 
-        block(width: 100%,
-            inset: 1em,
-            fill: secondary-color,
+                title
 
-            stroke: (left: (thickness: 5pt,
-                paint: primary-color,
-                dash: if dotted { "dotted" } else { "solid" })),
+                if show-numbering or figured {
+                    [ ] + context numbering(numbering-format, ..counter.at(here()))
+                }
 
+                h(1fr)
+                time
+            })
 
-            text(size: 0.75em, strong(text(fill: tertiary-color, smallcaps(title) + if show-numbering or figured {
-                [ ] + context numbering(numbering-format, ..counter.at(here()))
-            } + h(1fr) + time))) + block(body))
-    }
-
-    if figured {
-        figure(kind: figure-kind, supplement: figure-supplement, align(left, body))
-    } else {
-        body
-    }
+            block(body)
+        })
 }
 
 #let standard-box-translations = (
@@ -84,85 +76,121 @@
     "example": [Example],
 )
 
-#let task(..args) = context {
-    let c = get-colors()
-    important-box(
-        title: state("grape-suite-box-translations", standard-box-translations).final().at("task"),
-        primary-color: c.accent,
-        secondary-color: c.accent-lighter,
-        tertiary-color: c.primary,
-        figure-kind: "task",
-        counter: counter("grape-suite-element-task"),
-        ..args
-    )
+#let wrap-figure(kind, supplement, counter, body) = {
+    figure(kind: kind, supplement: supplement, align(left, body))
 }
 
-#let hint(..args) = context {
-    let c = get-colors()
-    important-box(
-        title: state("grape-suite-box-translations", standard-box-translations).final().at("hint"),
-        primary-color: c.warning,
-        secondary-color: c.warning-light,
-        tertiary-color: c.warning-dark,
-        figure-kind: "hint",
-        counter: counter("grape-suite-element-hint"),
-        ..args
-    )
+#let wrap-figure-if(kind, supplement, counter, body, figured) = {
+    if figured {
+        wrap-figure(kind, supplement, counter, body)
+    } else {
+        body
+    }
 }
 
-#let solution(..args) = context {
-    let c = get-colors()
-    important-box(
-        title: state("grape-suite-box-translations", standard-box-translations).final().at("solution"),
-        primary-color: c.accent,
-        secondary-color: c.accent-lighter,
-        tertiary-color: c.primary,
-        dotted: true,
-        figure-kind: "solution",
-        counter: counter("grape-suite-element-solution"),
-        ..args
-    )
+#let task(..args,
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("task"),
+    element-counter: counter("grape-suite-element-task")
+) = {
+    wrap-figure-if("task", title, element-counter, context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.accent,
+            secondary-color: c.accent-lighter,
+            tertiary-color: c.primary,
+            counter: element-counter,
+            ..args
+        )
+    }, args.named().at("figured", default: false))
 }
 
-#let definition(..args) = context {
-    let c = get-colors()
-    important-box(
-        title: state("grape-suite-box-translations", standard-box-translations).final().at("definition"),
-        primary-color: c.highlight,
-        secondary-color: c.highlight-light,
-        tertiary-color: c.highlight,
-        figure-kind: "definition",
-        counter: counter("grape-suite-element-definition"),
-        ..args
-    )
+#let hint(..args,
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("hint"),
+    element-counter: counter("grape-suite-element-hint")
+) = context {
+    wrap-figure-if("hint", title, element-counter, context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.warning,
+            secondary-color: c.warning-light,
+            tertiary-color: c.warning-dark,
+            counter: element-counter,
+            ..args
+        )
+    }, args.named().at("figured", default: false))
 }
 
-#let notice(..args) = context {
-    let c = get-colors()
-    important-box(
-        title: state("grape-suite-box-translations", standard-box-translations).final().at("notice"),
-        primary-color: c.highlight,
-        secondary-color: c.highlight-light,
-        tertiary-color: c.highlight,
-        dotted: true,
-        figure-kind: "notice",
-        counter: counter("grape-suite-element-notice"),
-        ..args
-    )
+#let solution(..args,
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("solution"),
+    element-counter: counter("grape-suite-element-solution")
+) = context {
+    wrap-figure-if("solution", title, element-counter, context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.accent,
+            secondary-color: c.accent-lighter,
+            tertiary-color: c.primary,
+            counter: element-counter,
+            dotted: true,
+            ..args
+        )
+    }, args.named().at("figured", default: false))
 }
 
-#let example(..args) = context {
-    let c = get-colors()
-    important-box(
-        title: state("grape-suite-box-translations", standard-box-translations).final().at("example"),
-        primary-color: c.warning,
-        secondary-color: c.warning-light,
-        tertiary-color: c.warning-dark,
-        dotted: true,
-        figure-kind: "example",
-        counter: counter("grape-suite-element-example"),
-        ..args
-    )
+#let definition(..args,
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("definition"),
+    element-counter: counter("grape-suite-element-definition")
+) = {
+    wrap-figure-if("definition", title, element-counter, context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.highlight,
+            secondary-color: c.highlight-light,
+            tertiary-color: c.highlight,
+            counter: element-counter,
+            ..args
+        )
+    }, args.named().at("figured", default: false))
+}
+
+#let notice(..args,
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("notice"),
+    element-counter: counter("grape-suite-element-notice")
+) = context {
+    wrap-figure-if("notice", title, element-counter, context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.highlight,
+            secondary-color: c.highlight-light,
+            tertiary-color: c.highlight,
+            counter: element-counter,
+            dotted: true,
+            ..args
+        )
+    }, args.named().at("figured", default: false))
+}
+
+#let example(..args,
+    title: context state("grape-suite-box-translations", standard-box-translations).final().at("example"),
+    element-counter: counter("grape-suite-element-example")
+) = context {
+    wrap-figure-if("example", title, element-counter, context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.warning,
+            secondary-color: c.warning-light,
+            tertiary-color: c.warning-dark,
+            counter: element-counter,
+            dotted: true,
+            ..args
+        )
+    }, args.named().at("figured", default: false))
 }
 
 #let sentence-logic(body) = {
