@@ -1,6 +1,5 @@
 #import "colors.typ" as colors: *
 
-
 #import "elements.typ" as elements: *
 
 #let nobreak(body) = block(breakable: false, body)
@@ -12,7 +11,7 @@
   block(inset: 7pt,
   stroke: (bottom: (paint: c.primary, dash: "dashed")),
   fill: c.accent-light, {
-    text(fill: purple, strong[#element-type #no] + title)
+    text(fill: c.primary, strong[#element-type #no] + title)
   })
 
   block(width: 100%, {
@@ -112,7 +111,7 @@
 
         table.cell(fill: c.primary, text(fill: white, align(center, strong(achieved-points)))),
 
-        ..(non-extra-tasks.map(task => 
+        ..(non-extra-tasks.map(task =>
                 make-matrix-row(show-comment-field: show-comment-field,
                     comment-field-value: comment-field-value,
                     task.no,
@@ -125,7 +124,7 @@
 
         table.cell(colspan: 2, fill: c.primary, v(-10pt)),
 
-         ..(extra-tasks.map(task => 
+         ..(extra-tasks.map(task =>
                  make-matrix-row(show-comment-field: show-comment-field,
                      comment-field-value: comment-field-value,
                      task.no,
