@@ -26,6 +26,12 @@
     title-page-part-submit-to: none,
     title-page-part-submit-by: none,
 
+    box-task-title: standard-box-translations.at("task"),
+    box-hint-title: standard-box-translations.at("hint"),
+    box-solution-title: standard-box-translations.at("solution"),
+    box-definition-title: standard-box-translations.at("definition"),
+    box-notice-title: standard-box-translations.at("notice"),
+    box-example-title: standard-box-translations.at("example"),
     sentence-supplement: "Example",
 
     date: datetime.today(),
@@ -53,6 +59,7 @@
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     fontsize: 11pt,
+    format-links: true,
 
     colors-primary: purple,
     colors-accent: blue,
@@ -69,6 +76,16 @@
         warning: colors-warning,
         warning-dark: colors-warning-dark,
     )
+
+    state("grape-suite-box-translations").update((
+        "task": box-task-title,
+        "hint": box-hint-title,
+        "solution": box-solution-title,
+        "definition": box-definition-title,
+        "notice": box-notice-title,
+        "example": box-example-title,
+    ))
+
     let ifnn-line(e) = if e != none [#e \ ]
 
     set text(font: text-font, size: fontsize)
@@ -77,8 +94,8 @@
     set enum(indent: 1em)
     set list(indent: 1em)
 
-    show link: underline
-    show link: it => context { set text(fill: get-colors().primary); it }
+    show link: if format-links { (underline) } else { (e => e) }
+    show link: it => if format-links { context { set text(fill: get-colors().primary); it } } else { it }
 
     show: format-heading-numbering
     show: format-quotes
