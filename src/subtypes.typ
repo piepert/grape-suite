@@ -11,10 +11,15 @@
         docent: [#todo[Docent]],
         author: [#todo[Author]],
         date: [#todo[Date]],
+
+        ..args,
+
         body) = {
 
     let ifnn(b) = if b != none [#b\ ]
     show: exercise.project.with(
+        ..args,
+        
         page-margins: (right: 4cm),
 
         title: none,
@@ -72,10 +77,13 @@
         docent: [#todo[Docent]],
         author: [#todo[Author]],
         date: [#todo[Date]],
+        ..args,
         body) = {
 
     let ifnn(b) = if b != none [#b\ ]
     show: exercise.project.with(
+        ..args,
+
         title: none,
         type: none,
         no: none,
