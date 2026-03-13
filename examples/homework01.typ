@@ -31,7 +31,7 @@
     date: datetime(year: 2024, month: 12, day: 31),
 )
 
-#task(points:  4, solution-parts: ((1,lorem(20)), (3, lorem(23)), (4, lorem(30))), [Pegasus in der Mythologie], none, [
+#task(solution-parts: ((1,lorem(20)), (3, lorem(23))), [Pegasus in der Mythologie], none, [
     #subtask(points: 3)[
         Beschreiben Sie die Entstehungsgeschichte des Pegasus in der griechischen Mythologie. Gehen Sie dabei auf seine Herkunft und die wichtigsten Figuren ein, die mit ihm verbunden sind.
     ]

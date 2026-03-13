@@ -323,14 +323,18 @@
 
     state("grape-suite-subtask-indent").update((0,))
 
-    context make-element(no,
-        t.title,
-        t.instruction,
-        t.body,
-        t.points,
-        lines,
-        if type != none {type} else if t.extra {extra-task-type} else {task-type},
-      )
+    let t = state("grape-suite-tasks").final().filter(e => e.no == t.no and e.title == t.title).first(default: none)
+
+    if t != none {
+        make-element(no,
+            t.title,
+            t.instruction,
+            t.body,
+            t.points,
+            lines,
+            if type != none {type} else if t.extra {extra-task-type} else {task-type},
+        )
+    }
 }
 
 #let subtask(points: 0,
@@ -418,7 +422,7 @@
   }
 };
 
-#let solution( body) = {
+#let solution(body) = {
   context {
     let (show-solutions, ) = state("grape-suite-show-rules").at(here())
     if (not show-solutions) { return; }
