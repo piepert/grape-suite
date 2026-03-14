@@ -1,6 +1,6 @@
 #import "colors.typ" as colors: *
 
-#import "elements.typ" as elements: *
+#import "elements.typ" as elements
 
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
@@ -37,7 +37,6 @@
       }
     }
   })
-  v(0.5cm)
 }
 
 #let make-matrix-row(show-comment-field: false,
@@ -140,8 +139,11 @@
         [], [
             #show: align.with(center)
 
+            #let task-points = tasks.filter(e => not e.extra and not e.ignore-points).map(e => e.points).sum(default: 0)
+            #let extra-points = tasks.filter(e => e.extra and not e.ignore-points).map(e => e.points).sum(default: 0)
+
             #box(line(length: 0.75cm)) /
-            #tasks.filter(e => not e.extra and not e.ignore-points).map(e => e.points).sum(default: 0) + #tasks.filter(e => e.extra and not e.ignore-points).map(e => e.points).sum(default: 0) P.
+            #task-points #if extra-points > 0 [ \+ #extra-points]  P.
 
             #v(-0.5em)
             #line(length: 100%)
@@ -242,6 +244,27 @@
     }
 }
 
+#let hint(body) = {
+  context {
+    let (show-hints, ) = state("grape-suite-show-rules").at(here())
+    if (not show-hints) { return; }
+
+    state("grape-suite-subtask-indent").update((0,))
+    elements.hint(body);
+  }
+};
+
+#let solution(body) = {
+  context {
+    let (show-solutions, ) = state("grape-suite-show-rules").at(here())
+    if (not show-solutions) { return; }
+
+    state("grape-suite-subtask-indent").update((0,))
+    elements.solution(body)
+  }
+}
+
+#let _type = type
 #let task(
     // number of lines to draw if show-lines of exercise-template is enabled
     lines: 0,
@@ -275,7 +298,7 @@
     // Instructions for the task
     instruction,
 
-    // optional: body
+    // optional: body (and optional legacy arguments: solution, hint)
     ..body,
     ) = counter(if extra { "tasks" } else { "extra-tasks" }).step() + context {
 
@@ -304,7 +327,7 @@
         title: if title != none { title-format(title) },
         instruction: if instruction != none { instruction-format(instruction) },
         body: body.at(0, default: none),
-        solution-parts: solution-parts,
+        solution-parts: if body.pos().len() > 1 and _type(body.pos().at(1)) == array { body.pos().at(1) } else { solution-parts },
         points: points,
         extra: extra,
         ignore-points: ignore-points,
@@ -335,7 +358,15 @@
             if type != none {type} else if t.extra {extra-task-type} else {task-type},
         )
     }
-}
+} + if body.pos().len() > 1 {
+    if body.pos().len() > 2 {
+        hint(body.at(2))
+    }
+
+    if body.pos().at(1) != none and _type(body.pos().at(1)) != array {
+        solution(body.at(1))
+    }
+} + v(0.5cm)
 
 #let subtask(points: 0,
     tight: false,
@@ -409,25 +440,4 @@
 
         k
     })
-}
-
-#let hint(body) = {
-  context {
-    let (show-hints, ) = state("grape-suite-show-rules").at(here())
-    if (not show-hints) { return; }
-
-    state("grape-suite-subtask-indent").update((0,))
-    let content = elements.hint(body);
-    content
-  }
-};
-
-#let solution(body) = {
-  context {
-    let (show-solutions, ) = state("grape-suite-show-rules").at(here())
-    if (not show-solutions) { return; }
-    state("grape-suite-subtask-indent").update((0,))
-    let content = elements.solution(body)
-    content
-  }
 }
