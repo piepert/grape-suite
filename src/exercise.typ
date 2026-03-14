@@ -1,6 +1,6 @@
 #import "todo.typ": todo, list-todos, todo-state, hide-todos
 #import "colors.typ" as colors: *
-#import "elements.typ": big-heading
+#import "elements.typ": big-heading, format-heading-numbering, format-quotes, sentence-logic
 #import "tasks.typ": *
 
 #let standard-box-translations = (
@@ -51,8 +51,8 @@
     // show point distributions after tasks/at the end of the solutions
     show-point-distribution-in-tasks: false,
 
-    // show solution matrix; expected solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
-    show-solutions-matrix: false,
+    // show solution matrix; expects solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
+    show-solution-matrix: false,
 
     // show comment field in solution matrix
     show-solution-matrix-comment-field: false,
@@ -107,7 +107,7 @@
     distribution-header-point-value: [Point],
     distribution-header-point-grade: [Grade],
 
-    message: (points-sum, extrapoints-sum) => context [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: get-colors().primary, length: 1cm)) out of #points-sum points.],
+    message: (points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #context box(line(stroke: get-colors().primary, length: 1cm)) out of #points-sum points.],
     grade-scale: (
         ([excellent], 0.9),
         ([very good], 0.8),
@@ -342,7 +342,7 @@
         context make-point-distribution(here(), message, grade-scale, distribution-header-point-value, distribution-header-point-grade)
     }
 
-    if show-solutions-matrix {
+    if show-solution-matrix {
       set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
       context {
         let tasks = state("grape-suite-tasks", ()).at(here())
