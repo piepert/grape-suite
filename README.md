@@ -44,7 +44,7 @@ For protocols and essays see [subtypes module](#subtypes).
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:3.1.0": exercise
+#import "@preview/grape-suite:4.0.0": exercise
 #import exercise: project, task, subtask
 
 #show: project.with(
@@ -129,6 +129,12 @@ For protocols and essays see [subtypes module](#subtypes).
 | `math-font`                              | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                                                                                                                                                      |
 | `fontsize`                               | optional, size, default: `11pt`, overwrite font size                                                                                                                                                                                                                                       |
 | `show-todolist`                          | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                                                                                                                                                              |
+| `format-links` | optional, bool, default: `true`, links are underlined and in primary color iff true |
+| `colors-primary` | optional, color, default: `purple`, primary color of the document |
+| `colors-accent` | optional, color, default: `blue`, accent color of the document |
+| `colors-highlight` | optional, color, default: `magenta`, highlight color of the document |
+| `colors-warning` | optional, color, default: `yellow`, warning color of the document |
+| `colors-warning-dark` | optional, color, default: `brown`, dark version of the warning color of the document |
 | `body`                                   | content, document content                                                                                                                                                                                                                                                                  |
 
 `task` creates a task element in an exercise project.
@@ -145,6 +151,16 @@ For protocols and essays see [subtypes module](#subtypes).
 | `title`              | content, title of the task                                                                                                                                                                              |
 | `instruction`        | content, instruction of the task, highlighted                                                                                                                                                           |
 | `..args`             | 1: content, body of the task |
+
+`solution` and `hint` create elements that can be toggled via `exercise`'s `show-solutions` and `show-hints` arguments.
+
+| `solution` | |
+| :--- | :---- |
+| `body` | content, body of the solution |
+
+| `hint` | |
+| :--- | :---- |
+| `hint` | content, body of the hint |
 
 `subtask` creates a part of a task. Its points are added to the parent task. **_Subtasks are to be use inside of the task's body or inside of another subtask's body._**
 
@@ -189,7 +205,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:3.1.0": seminar-paper
+#import "@preview/grape-suite:4.0.0": seminar-paper
 
 #show: seminar-paper.project.with(
     title: "Die Intensionalität von dass-Sätzen",
@@ -256,6 +272,18 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `math-font`                            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                             |
 | `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                                                                               |
 | `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                     |
+| `box-task-title`       | optional, content, default: `[Task]`, shown as the title of a slide's task box                                                                                   |
+| `box-hint-title`       | optional, content, default: `[Hint]`, shown as the title of a slide's tasks colored                                                                              |
+| `box-solution-title`   | optional, content, default: `[Solution]`, shown as the title of a slide's tasks colored                                                                          |
+| `box-definition-title` | optional, content, default: `[Definition]`, shown as the title of a slide's definition box                                                                       |
+| `box-notice-title`     | optional, content, default: `[Notice]`, shown as the title of a slide's notice box                                                                               |
+| `box-example-title`    | optional, content, default: `[Example]`, shown as the title of a slide's example box                                                                             |
+| `format-links` | optional, bool, default: `true`, links are underlined and in primary color iff true |
+| `colors-primary` | optional, color, default: `purple`, primary color of the document |
+| `colors-accent` | optional, color, default: `blue`, accent color of the document |
+| `colors-highlight` | optional, color, default: `magenta`, highlight color of the document |
+| `colors-warning` | optional, color, default: `yellow`, warning color of the document |
+| `colors-warning-dark` | optional, color, default: `brown`, dark version of the warning color of the document |
 | `body`                                 | content, document content                                                                                                                         |
 
 | `sidenote` |                                                                                                         |
@@ -299,7 +327,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 ### Setup
 
 ```typ
-#import "@preview/grape-suite:3.1.0": slides
+#import "@preview/grape-suite:4.0.0": slides
 #import slides: *
 
 #show: slides.with(
@@ -347,6 +375,11 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                                   |
 | `text-font`            | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                |
 | `math-font`            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                            |
+| `colors-primary` | optional, color, default: `purple`, primary color of the document |
+| `colors-accent` | optional, color, default: `blue`, accent color of the document |
+| `colors-highlight` | optional, color, default: `magenta`, highlight color of the document |
+| `colors-warning` | optional, color, default: `yellow`, warning color of the document |
+| `colors-warning-dark` | optional, color, default: `brown`, dark version of the warning color of the document |
 | `body`                 | content, document content                                                                                                                                        |
 
 | `focus-slide` |                           |
@@ -401,7 +434,7 @@ The `subtypes` module contains templates for essays and protocols based on the `
 Essay:
 
 ```typ
-#import "@preview/grape-suite:3.1.0": subtype
+#import "@preview/grape-suite:4.0.0": subtype
 
 #show: subtype.essay.with(
     title: "Lorem ipsum dolor sit",
@@ -418,7 +451,7 @@ Essay:
 Protocol:
 
 ```typ
-#import "@preview/grape-suite:3.1.0": subtype
+#import "@preview/grape-suite:4.0.0": subtype
 
 #show: subtype.protocol.with(
     title: "Some session's title",
@@ -491,7 +524,7 @@ All templates support customizable colors to match your institution's branding o
 
 #### Exercise with Custom Colors
 ```typ
-#import "@preview/grape-suite:3.1.0": exercise
+#import "@preview/grape-suite:4.0.0": exercise
 #import exercise: project, task
 
 #show: project.with(
@@ -514,7 +547,7 @@ All templates support customizable colors to match your institution's branding o
 
 #### Seminar Paper with Custom Colors
 ```typ
-#import "@preview/grape-suite:3.1.0": seminar-paper
+#import "@preview/grape-suite:4.0.0": seminar-paper
 #import seminar-paper: project
 
 #show: project.with(
@@ -529,7 +562,7 @@ All templates support customizable colors to match your institution's branding o
 
 #### Slides with Custom Colors
 ```typ
-#import "@preview/grape-suite:3.1.0": slides
+#import "@preview/grape-suite:4.0.0": slides
 #import slides: *
 
 #show: slides.with(
@@ -544,7 +577,7 @@ All templates support customizable colors to match your institution's branding o
 
 ### Using Default Colors
 
-If you don't specify color parameters, the templates use the default grape-suite color scheme. 
+If you don't specify color parameters, the templates use the default grape-suite color scheme.
 
 ## Todos
 
@@ -563,7 +596,7 @@ The following functions can be imported from `slides`, `exercise` and `seminar-p
 This package offers an optional citation style made for internal use. If you're obliged to use the style, configure it like this:
 
 ```typ
-#import "@preview/grape-suite:3.1.0": citation
+#import "@preview/grape-suite:4.0.0": citation
 #import citation: *
 
 #show: grape-suite-citation
@@ -583,6 +616,20 @@ For direct quotes use `ct(key)`, for indirect quotes use `cf(key)`.
 # Changelog
 
 With version 3.0.0, the versioning of grape-suite is based on [Semantic Versioning](https://semver.org/) extended for template purposes. Taken into account (next to API compatibility) are the visual results compared to the last version. Thus the major version of the package increases if either the changes of the API are incompatible (so a Typst document from a previous package version might not compile with the new package version) or if visual equivalence to the last version cannot be guaranteed.
+
+## 4.0.0
+
+Fixes:
+- the `colors` module does not set `orange`, `red` and `green` to `none`
+
+New:
+- supports color themes via the `colors-*` parameters in `exercise`, `seminar-paper` and `slides`
+- `slides` now supports the arguments `outline-depth` and `heading-numbering`
+- `tasks` now has the arguments `instruction-format`, `title-format` and `solution-parts`
+
+Changes:
+- **(breaking)** `task`s and their solutions are now decoupled: the `task` syntax is different, hints and solutions are not generated separately but in place
+- **(breaking)** points for solution matrices is now provided by `task`'s `solution-parts` argument
 
 ## 3.1.0
 
