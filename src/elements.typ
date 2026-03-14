@@ -80,7 +80,46 @@
     figure(kind: kind, supplement: supplement, align(left, body))
 }
 
-#let wrap-figure-if(kind, supplement, counter, body, figured) = {
+// abstraction to build important box
+#let make-important-box(
+    color-keys: (
+        primary: "accent",
+        secondary: "accent-lighter",
+        tertiary: "primary"
+    ),
+
+    figured: false,
+    title: none,
+    supplement: none,
+    kind,
+    body,
+
+    ..args
+) = {
+    let element-counter = counter("grape-suite-element-"+kind)
+
+    if title == none {
+        title = context state("grape-suite-box-translations", standard-box-translations).final().at(kind)
+    }
+
+    if supplement == none {
+        supplement = title
+    }
+
+    let body = context {
+        let c = get-colors()
+        important-box(
+            title: title,
+            primary-color: c.at(color-keys.primary),
+            secondary-color: c.at(color-keys.secondary),
+            tertiary-color: c.at(color-keys.tertiary),
+            counter: element-counter,
+            figured: figured,
+            body,
+            ..args
+        )
+    }
+
     if figured {
         wrap-figure(kind, supplement, counter, body)
     } else {
@@ -88,110 +127,12 @@
     }
 }
 
-#let task(..args,
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("task"),
-    element-counter: counter("grape-suite-element-task")
-) = {
-    wrap-figure-if("task", title, element-counter, context {
-        let c = get-colors()
-        important-box(
-            title: title,
-            primary-color: c.accent,
-            secondary-color: c.accent-lighter,
-            tertiary-color: c.primary,
-            counter: element-counter,
-            ..args
-        )
-    }, args.named().at("figured", default: false))
-}
-
-#let hint(..args,
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("hint"),
-    element-counter: counter("grape-suite-element-hint")
-) = context {
-    wrap-figure-if("hint", title, element-counter, context {
-        let c = get-colors()
-        important-box(
-            title: title,
-            primary-color: c.warning,
-            secondary-color: c.warning-light,
-            tertiary-color: c.warning-dark,
-            counter: element-counter,
-            ..args
-        )
-    }, args.named().at("figured", default: false))
-}
-
-#let solution(..args,
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("solution"),
-    element-counter: counter("grape-suite-element-solution")
-) = context {
-    wrap-figure-if("solution", title, element-counter, context {
-        let c = get-colors()
-        important-box(
-            title: title,
-            primary-color: c.accent,
-            secondary-color: c.accent-lighter,
-            tertiary-color: c.primary,
-            counter: element-counter,
-            dotted: true,
-            ..args
-        )
-    }, args.named().at("figured", default: false))
-}
-
-#let definition(..args,
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("definition"),
-    element-counter: counter("grape-suite-element-definition")
-) = {
-    wrap-figure-if("definition", title, element-counter, context {
-        let c = get-colors()
-        important-box(
-            title: title,
-            primary-color: c.highlight,
-            secondary-color: c.highlight-light,
-            tertiary-color: c.highlight,
-            counter: element-counter,
-            ..args
-        )
-    }, args.named().at("figured", default: false))
-}
-
-#let notice(..args,
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("notice"),
-    element-counter: counter("grape-suite-element-notice")
-) = context {
-    wrap-figure-if("notice", title, element-counter, context {
-        let c = get-colors()
-        important-box(
-            title: title,
-            primary-color: c.highlight,
-            secondary-color: c.highlight-light,
-            tertiary-color: c.highlight,
-            counter: element-counter,
-            dotted: true,
-            ..args
-        )
-    }, args.named().at("figured", default: false))
-}
-
-#let example(..args,
-    title: context state("grape-suite-box-translations", standard-box-translations).final().at("example"),
-    element-counter: counter("grape-suite-element-example")
-) = context {
-    wrap-figure-if("example", title, element-counter, context {
-        let c = get-colors()
-        important-box(
-            title: title,
-            primary-color: c.warning,
-            secondary-color: c.warning-light,
-            tertiary-color: c.warning-dark,
-            counter: element-counter,
-            dotted: true,
-            ..args
-        )
-    }, args.named().at("figured", default: false))
-}
+#let task(..args) = make-important-box("task", color-keys: (primary: "accent", secondary: "accent-lighter", tertiary: "primary"), ..args)
+#let hint(..args) = make-important-box("hint", color-keys: (primary: "warning", secondary: "warning-light", tertiary: "warning-dark"), ..args)
+#let solution(..args) = make-important-box("solution", color-keys: (primary: "accent", secondary: "accent-lighter", tertiary: "primary"), dotted: true, ..args)
+#let definition(..args) = make-important-box("definition", color-keys: (primary: "highlight", secondary: "highlight-light", tertiary: "highlight"), ..args)
+#let notice(..args) = make-important-box("notice", color-keys: (primary: "highlight", secondary: "highlight-light", tertiary: "highlight"), dotted: true, ..args)
+#let example(..args) = make-important-box("example", color-keys: (primary: "warning", secondary: "warning-light", tertiary: "warning-dark"), dotted: true, ..args)
 
 #let sentence-logic(body) = {
     show figure.where(kind: "example"): it => {
