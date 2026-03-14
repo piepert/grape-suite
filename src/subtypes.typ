@@ -3,23 +3,23 @@
 #import "todo.typ": todo
 
 #let essay(
-        title: [#todo[Title]],
-        university: [#todo[University]],
-        institute: [#todo[Institute]],
-        seminar: [#todo[Seminar]],
-        semester: [#todo[Semester]],
-        docent: [#todo[Docent]],
-        author: [#todo[Author]],
-        date: [#todo[Date]],
+    title: [#todo[Title]],
+    university: [#todo[University]],
+    institute: [#todo[Institute]],
+    seminar: [#todo[Seminar]],
+    semester: [#todo[Semester]],
+    docent: [#todo[Docent]],
+    author: [#todo[Author]],
+    date: [#todo[Date]],
 
-        ..args,
+    ..args,
 
-        body) = {
-
+    body,
+) = {
     let ifnn(b) = if b != none [#b\ ]
     show: exercise.project.with(
         ..args,
-        
+
         page-margins: (right: 4cm),
 
         title: none,
@@ -69,17 +69,17 @@
 
 
 #let protocol(
-        title: [#todo[Title]],
-        university: [#todo[University]],
-        institute: [#todo[Institute]],
-        seminar: [#todo[Seminar]],
-        semester: [#todo[Semester]],
-        docent: [#todo[Docent]],
-        author: [#todo[Author]],
-        date: [#todo[Date]],
-        ..args,
-        body) = {
-
+    title: [#todo[Title]],
+    university: [#todo[University]],
+    institute: [#todo[Institute]],
+    seminar: [#todo[Seminar]],
+    semester: [#todo[Semester]],
+    docent: [#todo[Docent]],
+    author: [#todo[Author]],
+    date: [#todo[Date]],
+    ..args,
+    body,
+) = {
     let ifnn(b) = if b != none [#b\ ]
     show: exercise.project.with(
         ..args,

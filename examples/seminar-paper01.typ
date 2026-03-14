@@ -1,5 +1,5 @@
-#import "/src/library.typ": seminar-paper, german-dates
-#import seminar-paper: todo, definition, sidenote
+#import "/src/library.typ": german-dates, seminar-paper
+#import seminar-paper: definition, sidenote, todo
 
 #let definition = definition.with(figured: true)
 

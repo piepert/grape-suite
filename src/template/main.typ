@@ -1,4 +1,4 @@
-#import "@preview/grape-suite:4.0.0": seminar-paper, german-dates
+#import "@preview/grape-suite:4.0.0": german-dates, seminar-paper
 
 #set text(lang: "de")
 
@@ -22,7 +22,7 @@
     address: [
         12345 Musterstadt \
         Musterstraße 67
-    ]
+    ],
 )
 
 = Einleitung

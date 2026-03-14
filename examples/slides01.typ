@@ -82,7 +82,9 @@
 
 #slide[
     #show: align.with(center + horizon)
-    #heading(outlined: false)[Nun eine kurze Demonstration, wo Sie die Medien finden.]
+    #heading(
+        outlined: false,
+    )[Nun eine kurze Demonstration, wo Sie die Medien finden.]
 ]
 
 

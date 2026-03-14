@@ -1,6 +1,8 @@
-#import "todo.typ": todo, list-todos, todo-state, hide-todos
+#import "todo.typ": hide-todos, list-todos, todo, todo-state
 #import "colors.typ" as colors: *
-#import "elements.typ": big-heading, format-heading-numbering, format-quotes, sentence-logic
+#import "elements.typ": (
+    big-heading, format-heading-numbering, format-quotes, sentence-logic,
+)
 #import "tasks.typ": *
 
 #let standard-box-translations = (
@@ -40,7 +42,7 @@
     show-namefield: false,
     namefield: [Name:],
     show-timefield: false,
-    timefield: (time) => [Time: #time min.],
+    timefield: time => [Time: #time min.],
 
     // if show-timefield is true, then the timefield(max-time) is generated in the header
     max-time: 0,
@@ -67,7 +69,9 @@
     author: none,
     date: datetime.today(),
 
-    date-format: (date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date },
+    date-format: date => if type(date) == type(datetime.today()) {
+        date.display("[day].[month].[year]")
+    } else { date },
 
     // if set, above attributes featuring automatic generation of the header are ignored
     header: none,
@@ -107,17 +111,25 @@
     distribution-header-point-value: [Point],
     distribution-header-point-grade: [Grade],
 
-    message: (points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #context box(line(stroke: get-colors().primary, length: 1cm)) out of #points-sum points.],
+    message: (
+        points-sum,
+        extrapoints-sum,
+    ) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #context box(line(stroke: get-colors().primary, length: 1cm)) out of #points-sum points.],
     grade-scale: (
         ([excellent], 0.9),
         ([very good], 0.8),
         ([good], 0.7),
         ([pass], 0.6),
-        ([fail], 0.49)),
+        ([fail], 0.49),
+    ),
 
     page-margins: none,
 
-    text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
+    text-font: (
+        "Atkinson Hyperlegible Next",
+        "Atkinson Hyperlegible",
+        "Libertinus Serif",
+    ),
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     fontsize: 11pt,
@@ -131,7 +143,7 @@
     colors-warning: yellow,
     colors-warning-dark: brown,
 
-    body
+    body,
 ) = {
     set-colors(
         primary: colors-primary,
@@ -143,7 +155,12 @@
     let ifnn-line(e) = if e != none [#e \ ]
 
     if title == none {
-        title = if type != none or no != none [ #type #no ] + if (type != none or no != none) and suffix-title != none [ --- ] + if suffix-title != none [#suffix-title]
+        title = (
+            if type != none or no != none [ #type #no ]
+                + if (type != none or no != none)
+                    and suffix-title != none [ --- ]
+                + if suffix-title != none [#suffix-title]
+        )
     }
 
     if document-title == none {
@@ -159,15 +176,26 @@
     set list(indent: 1em)
 
     show link: if format-links { (underline) } else { (e => e) }
-    show link: it => if format-links { context { set text(fill: get-colors().primary); it } } else { it }
+    show link: it => if format-links {
+        context {
+            set text(fill: get-colors().primary)
+            it
+        }
+    } else { it }
 
-    show heading: it => context { set text(fill: get-colors().primary); it }
+    show heading: it => context {
+        set text(fill: get-colors().primary)
+        it
+    }
     show heading: set par(justify: false)
     show: format-heading-numbering
 
     show: format-quotes
 
-    state("grape-suite-show-rules", ()).update(it => (show-solutions: show-solutions, show-hints: show-hints));
+    state("grape-suite-show-rules", ()).update(it => (
+        show-solutions: show-solutions,
+        show-hints: show-hints,
+    ))
 
     let ufi = ()
     if university != none { ufi.push(university) }
@@ -175,30 +203,41 @@
     if institute != none { ufi.push(institute) }
 
     set page(
-        margin: if page-margins != none {page-margins} else {
-            (top: if ufi.len() <= 2 or not show-namefield {
-                3.5cm
-            } else {
-                4cm
-            }, bottom: 3cm)
+        margin: if page-margins != none { page-margins } else {
+            (
+                top: if ufi.len() <= 2 or not show-namefield {
+                    3.5cm
+                } else {
+                    4cm
+                },
+                bottom: 3cm,
+            )
         },
 
         background: context {
-            let point-list = query(metadata).filter(e => if otype(e.value) == dictionary and "type" in e.value { e.value.type == "grape-suite-subtask-points" } else { false })
+            let point-list = query(metadata).filter(e => if otype(e.value)
+                == dictionary
+                and "type" in e.value {
+                e.value.type == "grape-suite-subtask-points"
+            } else { false })
 
             if otype(point-list) == array and point-list.len() > 0 {
                 for p in point-list {
                     if p.location().page() == here().page() {
-                        place(dx: 89.5%, dy: p.location().position().y, p.value.content)
+                        place(
+                            dx: 89.5%,
+                            dy: p.location().position().y,
+                            p.value.content,
+                        )
                     }
                 }
             }
         },
 
-        header: if header != none {header} else [
+        header: if header != none { header } else [
             #set text(size: 0.75em)
 
-            #let h-r = if header-left != none {header-left} else [
+            #let h-r = if header-left != none { header-left } else [
                 #let ufi = ufi.filter(e => e not in ("", none, []))
                 #if ufi.len() == 2 {
                     ufi.join(", ")
@@ -221,9 +260,11 @@
                 }
             ]
 
-            #let h-m = align(center, if header-middle != none {header-middle} else [])
+            #let h-m = align(center, if header-middle != none {
+                header-middle
+            } else [])
 
-            #let h-l = if header-right != none {header-right} else [
+            #let h-l = if header-right != none { header-right } else [
                 #show: align.with(top + right)
                 #ifnn-line(document-title)
                 #ifnn-line(author)
@@ -243,55 +284,58 @@
             #set par(justify: false)
 
             #if header-middle != none {
-                grid(columns: (auto, 1fr, auto),
+                grid(
+                    columns: (auto, 1fr, auto),
                     align: top,
                     column-gutter: header-gutter,
                     inset: 0pt,
 
-                    h-r,
-                    h-m,
-                    h-l
+                    h-r, h-m, h-l,
                 )
             } else {
-                grid(columns: (40%, 1fr, 40%),
+                grid(
+                    columns: (40%, 1fr, 40%),
                     align: top,
                     inset: 0pt,
 
-                    h-r,
-                    none,
-                    h-l
+                    h-r, none, h-l,
                 )
             }
-        ] + if show-header-line {
-            context v(-0.5em) + line(length: 100%, stroke: get-colors().primary)
-        },
+        ]
+            + if show-header-line {
+                context (
+                    v(-0.5em) + line(length: 100%, stroke: get-colors().primary)
+                )
+            },
 
         footer: if show-footer-line {
             context line(length: 100%, stroke: get-colors().primary) + v(-0.5em)
-        } + if footer != none {footer} else {
-            set text(size: 0.75em)
+        }
+            + if footer != none { footer } else {
+                set text(size: 0.75em)
 
-            table(columns: (1fr, auto, 1fr),
-                align: top,
-                stroke: none,
-                inset: 0pt,
+                table(
+                    columns: (1fr, auto, 1fr),
+                    align: top,
+                    stroke: none,
+                    inset: 0pt,
 
-                if footer-left != none {footer-left},
+                    if footer-left != none { footer-left },
 
-                align(center, context {
-                    str(counter(page).display())
-                    [ \/ ]
-                    str(counter(page).final().first())
-                }),
+                    align(center, context {
+                        str(counter(page).display())
+                        [ \/ ]
+                        str(counter(page).final().first())
+                    }),
 
-                if footer-right != none {footer-right}
-            )
-        },
+                    if footer-right != none { footer-right },
+                )
+            },
     )
 
     state("grape-suite-task-translations").update((
         "task-type": task-type,
-        "extra-task-type": extra-task-type
+        "extra-task-type": extra-task-type,
     ))
 
     state("grape-suite-box-translations").update((
@@ -319,14 +363,24 @@
         set par(spacing: 0em)
         show outline.entry: it => h(1em) + it
         set text(size: 0.75em)
-        pad(x: 1cm, top: if abstract != none {0.25cm} else {0cm}, outline(indent: 1.5em))
+        pad(
+            x: 1cm,
+            top: if abstract != none { 0.25cm } else { 0cm },
+            outline(indent: 1.5em),
+        )
     }
 
     if show-todolist {
         set text(size: 0.75em)
         context {
             if todo-state.final().len() > 0 {
-                pad(x: 1cm, top: if abstract != none or show-outline != none {0.25cm} else {0cm}, list-todos())
+                pad(
+                    x: 1cm,
+                    top: if abstract != none or show-outline != none {
+                        0.25cm
+                    } else { 0cm },
+                    list-todos(),
+                )
             }
         }
     }
@@ -339,26 +393,38 @@
     body
 
     if show-point-distribution-in-tasks {
-        context make-point-distribution(here(), message, grade-scale, distribution-header-point-value, distribution-header-point-grade)
+        context make-point-distribution(
+            here(),
+            message,
+            grade-scale,
+            distribution-header-point-value,
+            distribution-header-point-grade,
+        )
     }
 
     if show-solution-matrix {
-      set page(flipped: true, columns: 2, margin: (x: 1cm, top: 3cm, bottom: 2cm))
-      context {
-        let tasks = state("grape-suite-tasks", ()).at(here())
-        if tasks.any(e => e.solution-parts != none) {
-          big-heading[#solutions-title #if type != none or no != none [ -- ] #type #no]
-          set text(size: 0.75em)
-          make-solution-matrix(
-            show-comment-field: show-solution-matrix-comment-field,
-            comment-field-value: solution-matrix-comment-field-value,
-            here(),
-            solution-matrix-task-header,
-            task-type,
-            extra-task-type,
-            solution-matrix-achieved-points-header
-          )
+        set page(flipped: true, columns: 2, margin: (
+            x: 1cm,
+            top: 3cm,
+            bottom: 2cm,
+        ))
+        context {
+            let tasks = state("grape-suite-tasks", ()).at(here())
+            if tasks.any(e => e.solution-parts != none) {
+                big-heading[#solutions-title #if (
+                        type != none or no != none
+                    ) [ -- ] #type #no]
+                set text(size: 0.75em)
+                make-solution-matrix(
+                    show-comment-field: show-solution-matrix-comment-field,
+                    comment-field-value: solution-matrix-comment-field-value,
+                    here(),
+                    solution-matrix-task-header,
+                    task-type,
+                    extra-task-type,
+                    solution-matrix-achieved-points-header,
+                )
+            }
         }
-      }
     }
 }

@@ -65,77 +65,77 @@ For protocols and essays see [subtypes module](#subtypes).
 
 ### Documentation
 
-| `project`                                |                                                                                                                                                                                                                                                                                            |
-| :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `no`                                     | optional, number, default: `none`, number of the sheet in the series                                                                                                                                                                                                                       |
-| `type`                                   | optional, content, default: `[Exam]`, type of the series, eg. exam, homework, protocol, ...                                                                                                                                                                                                |
-| `title`                                  | optional, content, default: `none`, title of the document: if none, then generated from no, type and suffix-title                                                                                                                                                                          |
-| `suffix-title`                           | optional, content, default: `none`, used if title is none to generate the title of the document                                                                                                                                                                                            |
-| `show-outline`                           | optional, bool, default: `false`, show outline after title iff true                                                                                                                                                                                                                        |
-| `abstract`                               | optional, content, default: `none`, show abstract between outline and title                                                                                                                                                                                                                |
-| `document-title`                         | optional, content, default: `none`, shown in the upper right corner of the page header: if none, `title` is used                                                                                                                                                                           |
-| `show-namefield`                         | optional, bool, default: `false`, show namefield at the end of the left header iff true                                                                                                                                                                                                    |
-| `namefield`                              | optional, content, default: `[Name:]`, content shown iff `show-namefield`                                                                                                                                                                                                                  |
-| `show-timefield`                         | optional, bool, default: `false`, show timefield at the end of right header iff true                                                                                                                                                                                                       |
-| `timefield`                              | optional, function, default: `(time) => [Time: #time min.]`, to generate the content shown as the timefield iff `show-timefield` is true                                                                                                                                                   |
-| `max-time`                               | optional, number, default: `0`, time value used in the `timefield` function generator                                                                                                                                                                                                      |
-| `show-lines`                             | optional, bool, default: `false`, draw automatic lines for each task, if `lines` parameter of `task` is set                                                                                                                                                                                |
-| `show-solutions`                         | optional, bool, default: `false`, will not display solutions if false                                                                                                                                                                                                                      |
-| `show-hints`                             | optional, bool, default: `false`, will not display hints if false                                                                                                                                                                                                                          |
-| `show-point-distribution-in-tasks`       | optional, bool, default: `false`, show point distribution after tasks iff true                                                                                                                                                                                                             |
-| `show-solution-matrix`                   | optional, bool, default: `false`, show solutions as a matrix iff true - description of point distribution in each task can be provided through `solution-parts`                                                                                                                            |
-| `university`                             | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `faculty`                                | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `institute`                              | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `seminar`                                | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `semester`                               | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `docent`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `author`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                         |
-| `date`                                   | optional, datetime or content, default: `datetime.today()`                                                                                                                                                                                                                                 |
-| `date-format`                            | optional, function, default: `(date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date }`                                                                                                                                                    |
-| `header-gutter`                          | optional, length, default: `20%`, overwrite header gutter                                                                                                                                                                                                                                  |
-| `header`                                 | optional, content, default: `none`, overwrite page header                                                                                                                                                                                                                                  |
-| `header-right`                           | optional, content, default: `none`, overwrite right header part                                                                                                                                                                                                                            |
-| `header-middle`                          | optional, content, default: `none`, overwrite middle header part                                                                                                                                                                                                                           |
-| `header-left`                            | optional, content, default: `none`, overwrite left header part                                                                                                                                                                                                                             |
-| `show-header-line`                       | optional, bool, default: `true`, show `colors-primary` line in header                                                                                                                                                                                                                      |
-| `footer`                                 | optional, content, default: `none`, overwrite footer part                                                                                                                                                                                                                                  |
-| `footer-right`                           | optional, content, default: `none`, overwrite right footer part                                                                                                                                                                                                                            |
-| `footer-middle`                          | optional, content, default: `none`, overwrite middle footer part                                                                                                                                                                                                                           |
-| `footer-left`                            | optional, content, default: `none`, overwrite left footer part                                                                                                                                                                                                                             |
-| `show-footer-line`                       | optional, bool, default: `true`, show `colors-primary` line in footer                                                                                                                                                                                                                      |
-| `task-type`                              | optional, content, default: `[Task]`, content shown in task title box before numbering                                                                                                                                                                                                     |
-| `extra-task-type`                        | optional, content, default: `[Extra task]`, for tasks where the `extra` parameter is true, content shown in title box before numbering                                                                                                                                                     |
-| `box-task-title`                         | optional, content, default: `[Task]`, shown as the title of a task box used by the `slides` library                                                                                                                                                                                        |
-| `box-hint-title`                         | optional, content, default: `[Hint]`, shown as the title of a tasks colored hint box                                                                                                                                                                                                       |
-| `box-solution-title`                     | optional, content, default: `[Solution]`, shown as the title of a tasks colored solution box                                                                                                                                                                                               |
-| `box-definition-title`                   | optional, content, default: `[Definition]`, shown as the title of a definition box used by the `slides` library                                                                                                                                                                            |
-| `box-notice-title`                       | optional, content, default: `[Notice]`, shown as the title of a notice box used by the `slides` library                                                                                                                                                                                    |
-| `box-example-title`                      | optional, content, default: `[Example]`, shown as the title of a example box used by the `slides` library                                                                                                                                                                                  |
-| `hint-type`                              | optional, content, default: `[Hint]`, title of a tasks hint version                                                                                                                                                                                                                        |
-| `hints-title`                            | optional, content, default: `[Hints]`, title of the hints section                                                                                                                                                                                                                          |
-| `solution-type`                          | optional, content, default: `[Suggested solution]`, title of a tasks solution version                                                                                                                                                                                                      |
-| `solutions-title`                        | optional, content, default: `[Suggested solutions]`, title of the solutions section                                                                                                                                                                                                        |
-| `solution-matrix-task-header`            | optional, content, default: `[Tasks]`, first column header of solution matrix, column contains the reasons on how to achieve the points                                                                                                                                                    |
-| `solution-matrix-achieved-points-header` | optional, content, default: `[Points achieved]`, second column header of solution matrix, column contains the points the one achieved                                                                                                                                                      |
-| `show-solution-matrix-comment-field`     | optional, bool, default: `false`, show comment field in solution matrix                                                                                                                                                                                                                    |
-| `solution-matrix-comment-field-value`    | optional, content, default: `[*Note:* #v(0.5cm)]`, value of solution matrix comment fields                                                                                                                                                                                                 |
-| `distribution-header-point-value`        | optional, content, default: `[Point]`, first row of point distribution, used to indicate the points needed to get a specific grade                                                                                                                                                         |
-| `distribution-header-point-grade`        | optional, content, default: `[Grade]`, second row of point distribution                                                                                                                                                                                                                    |
-| `message`                                | optional, function, default: `(points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: colors-primary, length: 1cm)) out of #points-sum points.]`, used to generate the message part above the point distribution         |
-| `grade-scale`                            | optional, array, default: `(([excellent], 0.9), ([very good], 0.8), ([good], 0.7), ([pass], 0.6), ([fail], 0.49))`, list of grades and percentage of points to reach that grade                                                                                                            |
-| `page-margins`                           | optional, margins, default: `none`, overwrite page margins                                                                                                                                                                                                                                 |
-| `text-font`                              | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                                                                                                                                          |
-| `math-font`                              | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                                                                                                                                                      |
-| `fontsize`                               | optional, size, default: `11pt`, overwrite font size                                                                                                                                                                                                                                       |
-| `show-todolist`                          | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                                                                                                                                                              |
-| `format-links` | optional, bool, default: `true`, links are underlined and in primary color iff true |
-| `colors-primary` | optional, color, default: `purple`, primary color of the document |
-| `colors-accent` | optional, color, default: `blue`, accent color of the document |
-| `colors-highlight` | optional, color, default: `magenta`, highlight color of the document |
-| `colors-warning` | optional, color, default: `yellow`, warning color of the document |
-| `colors-warning-dark` | optional, color, default: `brown`, dark version of the warning color of the document |
-| `body`                                   | content, document content                                                                                                                                                                                                                                                                  |
+| `project`                                |                                                                                                                                                                                                                                                                                    |
+| :--------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `no`                                     | optional, number, default: `none`, number of the sheet in the series                                                                                                                                                                                                               |
+| `type`                                   | optional, content, default: `[Exam]`, type of the series, eg. exam, homework, protocol, ...                                                                                                                                                                                        |
+| `title`                                  | optional, content, default: `none`, title of the document: if none, then generated from no, type and suffix-title                                                                                                                                                                  |
+| `suffix-title`                           | optional, content, default: `none`, used if title is none to generate the title of the document                                                                                                                                                                                    |
+| `show-outline`                           | optional, bool, default: `false`, show outline after title iff true                                                                                                                                                                                                                |
+| `abstract`                               | optional, content, default: `none`, show abstract between outline and title                                                                                                                                                                                                        |
+| `document-title`                         | optional, content, default: `none`, shown in the upper right corner of the page header: if none, `title` is used                                                                                                                                                                   |
+| `show-namefield`                         | optional, bool, default: `false`, show namefield at the end of the left header iff true                                                                                                                                                                                            |
+| `namefield`                              | optional, content, default: `[Name:]`, content shown iff `show-namefield`                                                                                                                                                                                                          |
+| `show-timefield`                         | optional, bool, default: `false`, show timefield at the end of right header iff true                                                                                                                                                                                               |
+| `timefield`                              | optional, function, default: `(time) => [Time: #time min.]`, to generate the content shown as the timefield iff `show-timefield` is true                                                                                                                                           |
+| `max-time`                               | optional, number, default: `0`, time value used in the `timefield` function generator                                                                                                                                                                                              |
+| `show-lines`                             | optional, bool, default: `false`, draw automatic lines for each task, if `lines` parameter of `task` is set                                                                                                                                                                        |
+| `show-solutions`                         | optional, bool, default: `false`, will not display solutions if false                                                                                                                                                                                                              |
+| `show-hints`                             | optional, bool, default: `false`, will not display hints if false                                                                                                                                                                                                                  |
+| `show-point-distribution-in-tasks`       | optional, bool, default: `false`, show point distribution after tasks iff true                                                                                                                                                                                                     |
+| `show-solution-matrix`                   | optional, bool, default: `false`, show solutions as a matrix iff true - description of point distribution in each task can be provided through `solution-parts`                                                                                                                    |
+| `university`                             | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `faculty`                                | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `institute`                              | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `seminar`                                | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `semester`                               | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `docent`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `author`                                 | optional, content, default: `none`                                                                                                                                                                                                                                                 |
+| `date`                                   | optional, datetime or content, default: `datetime.today()`                                                                                                                                                                                                                         |
+| `date-format`                            | optional, function, default: `(date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date }`                                                                                                                                            |
+| `header-gutter`                          | optional, length, default: `20%`, overwrite header gutter                                                                                                                                                                                                                          |
+| `header`                                 | optional, content, default: `none`, overwrite page header                                                                                                                                                                                                                          |
+| `header-right`                           | optional, content, default: `none`, overwrite right header part                                                                                                                                                                                                                    |
+| `header-middle`                          | optional, content, default: `none`, overwrite middle header part                                                                                                                                                                                                                   |
+| `header-left`                            | optional, content, default: `none`, overwrite left header part                                                                                                                                                                                                                     |
+| `show-header-line`                       | optional, bool, default: `true`, show `colors-primary` line in header                                                                                                                                                                                                              |
+| `footer`                                 | optional, content, default: `none`, overwrite footer part                                                                                                                                                                                                                          |
+| `footer-right`                           | optional, content, default: `none`, overwrite right footer part                                                                                                                                                                                                                    |
+| `footer-middle`                          | optional, content, default: `none`, overwrite middle footer part                                                                                                                                                                                                                   |
+| `footer-left`                            | optional, content, default: `none`, overwrite left footer part                                                                                                                                                                                                                     |
+| `show-footer-line`                       | optional, bool, default: `true`, show `colors-primary` line in footer                                                                                                                                                                                                              |
+| `task-type`                              | optional, content, default: `[Task]`, content shown in task title box before numbering                                                                                                                                                                                             |
+| `extra-task-type`                        | optional, content, default: `[Extra task]`, for tasks where the `extra` parameter is true, content shown in title box before numbering                                                                                                                                             |
+| `box-task-title`                         | optional, content, default: `[Task]`, shown as the title of a task box used by the `slides` library                                                                                                                                                                                |
+| `box-hint-title`                         | optional, content, default: `[Hint]`, shown as the title of a tasks colored hint box                                                                                                                                                                                               |
+| `box-solution-title`                     | optional, content, default: `[Solution]`, shown as the title of a tasks colored solution box                                                                                                                                                                                       |
+| `box-definition-title`                   | optional, content, default: `[Definition]`, shown as the title of a definition box used by the `slides` library                                                                                                                                                                    |
+| `box-notice-title`                       | optional, content, default: `[Notice]`, shown as the title of a notice box used by the `slides` library                                                                                                                                                                            |
+| `box-example-title`                      | optional, content, default: `[Example]`, shown as the title of a example box used by the `slides` library                                                                                                                                                                          |
+| `hint-type`                              | optional, content, default: `[Hint]`, title of a tasks hint version                                                                                                                                                                                                                |
+| `hints-title`                            | optional, content, default: `[Hints]`, title of the hints section                                                                                                                                                                                                                  |
+| `solution-type`                          | optional, content, default: `[Suggested solution]`, title of a tasks solution version                                                                                                                                                                                              |
+| `solutions-title`                        | optional, content, default: `[Suggested solutions]`, title of the solutions section                                                                                                                                                                                                |
+| `solution-matrix-task-header`            | optional, content, default: `[Tasks]`, first column header of solution matrix, column contains the reasons on how to achieve the points                                                                                                                                            |
+| `solution-matrix-achieved-points-header` | optional, content, default: `[Points achieved]`, second column header of solution matrix, column contains the points the one achieved                                                                                                                                              |
+| `show-solution-matrix-comment-field`     | optional, bool, default: `false`, show comment field in solution matrix                                                                                                                                                                                                            |
+| `solution-matrix-comment-field-value`    | optional, content, default: `[*Note:* #v(0.5cm)]`, value of solution matrix comment fields                                                                                                                                                                                         |
+| `distribution-header-point-value`        | optional, content, default: `[Point]`, first row of point distribution, used to indicate the points needed to get a specific grade                                                                                                                                                 |
+| `distribution-header-point-grade`        | optional, content, default: `[Grade]`, second row of point distribution                                                                                                                                                                                                            |
+| `message`                                | optional, function, default: `(points-sum, extrapoints-sum) => [In sum #points-sum + #extrapoints-sum P. are achievable. You achieved #box(line(stroke: colors-primary, length: 1cm)) out of #points-sum points.]`, used to generate the message part above the point distribution |
+| `grade-scale`                            | optional, array, default: `(([excellent], 0.9), ([very good], 0.8), ([good], 0.7), ([pass], 0.6), ([fail], 0.49))`, list of grades and percentage of points to reach that grade                                                                                                    |
+| `page-margins`                           | optional, margins, default: `none`, overwrite page margins                                                                                                                                                                                                                         |
+| `text-font`                              | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                                                                                                                                  |
+| `math-font`                              | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                                                                                                                                              |
+| `fontsize`                               | optional, size, default: `11pt`, overwrite font size                                                                                                                                                                                                                               |
+| `show-todolist`                          | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                                                                                                                                                      |
+| `format-links`                           | optional, bool, default: `true`, links are underlined and in primary color iff true                                                                                                                                                                                                |
+| `colors-primary`                         | optional, color, default: `purple`, primary color of the document                                                                                                                                                                                                                  |
+| `colors-accent`                          | optional, color, default: `blue`, accent color of the document                                                                                                                                                                                                                     |
+| `colors-highlight`                       | optional, color, default: `magenta`, highlight color of the document                                                                                                                                                                                                               |
+| `colors-warning`                         | optional, color, default: `yellow`, warning color of the document                                                                                                                                                                                                                  |
+| `colors-warning-dark`                    | optional, color, default: `brown`, dark version of the warning color of the document                                                                                                                                                                                               |
+| `body`                                   | content, document content                                                                                                                                                                                                                                                          |
 
 `task` creates a task element in an exercise project.
 
@@ -150,16 +150,16 @@ For protocols and essays see [subtypes module](#subtypes).
 | `solution-parts`     | optional, list of tuples, default: `none`, first element has to be the number of points, second the description of what the points are for. sum of points here must be equal to the sum of task points. |
 | `title`              | content, title of the task                                                                                                                                                                              |
 | `instruction`        | content, instruction of the task, highlighted                                                                                                                                                           |
-| `..args`             | 1: content, body of the task |
+| `..args`             | 1: content, body of the task                                                                                                                                                                            |
 
 `solution` and `hint` create elements that can be toggled via `exercise`'s `show-solutions` and `show-hints` arguments.
 
-| `solution` | |
-| :--- | :---- |
-| `body` | content, body of the solution |
+| `solution` |                               |
+| :--------- | :---------------------------- |
+| `body`     | content, body of the solution |
 
-| `hint` | |
-| :--- | :---- |
+| `hint` |                           |
+| :----- | :------------------------ |
 | `hint` | content, body of the hint |
 
 `subtask` creates a part of a task. Its points are added to the parent task. **_Subtasks are to be use inside of the task's body or inside of another subtask's body._**
@@ -259,12 +259,12 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `header-right`                         | optional, content, default: `none`, overwrite right header part                                                                                   |
 | `header-middle`                        | optional, content, default: `none`, overwrite middle header part                                                                                  |
 | `header-left`                          | optional, content, default: `none`, overwrite left header part                                                                                    |
-| `show-header-line`                     | optional, bool, default: `true`, show `colors-primary` line in header                                                                                       |
+| `show-header-line`                     | optional, bool, default: `true`, show `colors-primary` line in header                                                                             |
 | `footer`                               | optional, content, default: `none`, overwrite footer part                                                                                         |
 | `footer-right`                         | optional, content, default: `none`, overwrite right footer part                                                                                   |
 | `footer-middle`                        | optional, content, default: `none`, overwrite middle footer part                                                                                  |
 | `footer-left`                          | optional, content, default: `none`, overwrite left footer part                                                                                    |
-| `show-footer-line`                     | optional, bool, default: `true`, show `colors-primary` line in footer                                                                                       |
+| `show-footer-line`                     | optional, bool, default: `true`, show `colors-primary` line in footer                                                                             |
 | `show-outline`                         | optional, bool, default: `true`, show outline                                                                                                     |
 | `show-declaration-of-independent-work` | optional, bool, default: `true`, show German declaration of independent work                                                                      |
 | `page-margins`                         | optional, margins, default: `none`, overwrite page margins                                                                                        |
@@ -272,18 +272,18 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `math-font`                            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                             |
 | `fontsize`                             | optional, size, default: `11pt`, overwrite fontsize                                                                                               |
 | `show-todolist`                        | optional, bool, default: `true`, show list of usages of the `todo` function after the outline                                                     |
-| `box-task-title`       | optional, content, default: `[Task]`, shown as the title of a slide's task box                                                                                   |
-| `box-hint-title`       | optional, content, default: `[Hint]`, shown as the title of a slide's tasks colored                                                                              |
-| `box-solution-title`   | optional, content, default: `[Solution]`, shown as the title of a slide's tasks colored                                                                          |
-| `box-definition-title` | optional, content, default: `[Definition]`, shown as the title of a slide's definition box                                                                       |
-| `box-notice-title`     | optional, content, default: `[Notice]`, shown as the title of a slide's notice box                                                                               |
-| `box-example-title`    | optional, content, default: `[Example]`, shown as the title of a slide's example box                                                                             |
-| `format-links` | optional, bool, default: `true`, links are underlined and in primary color iff true |
-| `colors-primary` | optional, color, default: `purple`, primary color of the document |
-| `colors-accent` | optional, color, default: `blue`, accent color of the document |
-| `colors-highlight` | optional, color, default: `magenta`, highlight color of the document |
-| `colors-warning` | optional, color, default: `yellow`, warning color of the document |
-| `colors-warning-dark` | optional, color, default: `brown`, dark version of the warning color of the document |
+| `box-task-title`                       | optional, content, default: `[Task]`, shown as the title of a slide's task box                                                                    |
+| `box-hint-title`                       | optional, content, default: `[Hint]`, shown as the title of a slide's tasks colored                                                               |
+| `box-solution-title`                   | optional, content, default: `[Solution]`, shown as the title of a slide's tasks colored                                                           |
+| `box-definition-title`                 | optional, content, default: `[Definition]`, shown as the title of a slide's definition box                                                        |
+| `box-notice-title`                     | optional, content, default: `[Notice]`, shown as the title of a slide's notice box                                                                |
+| `box-example-title`                    | optional, content, default: `[Example]`, shown as the title of a slide's example box                                                              |
+| `format-links`                         | optional, bool, default: `true`, links are underlined and in primary color iff true                                                               |
+| `colors-primary`                       | optional, color, default: `purple`, primary color of the document                                                                                 |
+| `colors-accent`                        | optional, color, default: `blue`, accent color of the document                                                                                    |
+| `colors-highlight`                     | optional, color, default: `magenta`, highlight color of the document                                                                              |
+| `colors-warning`                       | optional, color, default: `yellow`, warning color of the document                                                                                 |
+| `colors-warning-dark`                  | optional, color, default: `brown`, dark version of the warning color of the document                                                              |
 | `body`                                 | content, document content                                                                                                                         |
 
 | `sidenote` |                                                                                                         |
@@ -375,11 +375,11 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                                   |
 | `text-font`            | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                |
 | `math-font`            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                            |
-| `colors-primary` | optional, color, default: `purple`, primary color of the document |
-| `colors-accent` | optional, color, default: `blue`, accent color of the document |
-| `colors-highlight` | optional, color, default: `magenta`, highlight color of the document |
-| `colors-warning` | optional, color, default: `yellow`, warning color of the document |
-| `colors-warning-dark` | optional, color, default: `brown`, dark version of the warning color of the document |
+| `colors-primary`       | optional, color, default: `purple`, primary color of the document                                                                                                |
+| `colors-accent`        | optional, color, default: `blue`, accent color of the document                                                                                                   |
+| `colors-highlight`     | optional, color, default: `magenta`, highlight color of the document                                                                                             |
+| `colors-warning`       | optional, color, default: `yellow`, warning color of the document                                                                                                |
+| `colors-warning-dark`  | optional, color, default: `brown`, dark version of the warning color of the document                                                                             |
 | `body`                 | content, document content                                                                                                                                        |
 
 | `focus-slide` |                           |
@@ -507,22 +507,23 @@ All templates support customizable colors to match your institution's branding o
 
 ### Color Usage Map
 
-| Color | Used For |
-|-------|----------|
-| `primary` | Headings, links, header/footer lines, focus slides |
-| `primary-light` | Heading numbers, subtitle text |
-| `accent` | Task/solution boxes (border) |
-| `accent-light` | Task backgrounds, point distribution tables |
-| `accent-lighter` | Task/solution box backgrounds |
-| `highlight` | Definition/notice boxes, todo markers |
-| `highlight-light` | Definition/notice backgrounds, todo highlights |
-| `warning` | Hint/example boxes (border) |
-| `warning-light` | Hint/example backgrounds |
-| `warning-dark` | Hint/example title text |
+| Color             | Used For                                           |
+| ----------------- | -------------------------------------------------- |
+| `primary`         | Headings, links, header/footer lines, focus slides |
+| `primary-light`   | Heading numbers, subtitle text                     |
+| `accent`          | Task/solution boxes (border)                       |
+| `accent-light`    | Task backgrounds, point distribution tables        |
+| `accent-lighter`  | Task/solution box backgrounds                      |
+| `highlight`       | Definition/notice boxes, todo markers              |
+| `highlight-light` | Definition/notice backgrounds, todo highlights     |
+| `warning`         | Hint/example boxes (border)                        |
+| `warning-light`   | Hint/example backgrounds                           |
+| `warning-dark`    | Hint/example title text                            |
 
 ### Examples
 
 #### Exercise with Custom Colors
+
 ```typ
 #import "@preview/grape-suite:4.0.0": exercise
 #import exercise: project, task
@@ -546,6 +547,7 @@ All templates support customizable colors to match your institution's branding o
 ```
 
 #### Seminar Paper with Custom Colors
+
 ```typ
 #import "@preview/grape-suite:4.0.0": seminar-paper
 #import seminar-paper: project
@@ -561,6 +563,7 @@ All templates support customizable colors to match your institution's branding o
 ```
 
 #### Slides with Custom Colors
+
 ```typ
 #import "@preview/grape-suite:4.0.0": slides
 #import slides: *
@@ -620,14 +623,17 @@ With version 3.0.0, the versioning of grape-suite is based on [Semantic Versioni
 ## 4.0.0
 
 Fixes:
+
 - the `colors` module does not set `orange`, `red` and `green` to `none`
 
 New:
+
 - supports color themes via the `colors-*` parameters in `exercise`, `seminar-paper` and `slides`
 - `slides` now supports the arguments `outline-depth` and `heading-numbering`
 - `tasks` now has the arguments `instruction-format`, `title-format` and `solution-parts`
 
 Changes:
+
 - **(breaking)** `task`s and their solutions are now decoupled: the `task` syntax is different, hints and solutions are not generated separately but in place
 - **(breaking)** points for solution matrices is now provided by `task`'s `solution-parts` argument
 

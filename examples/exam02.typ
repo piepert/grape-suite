@@ -1,5 +1,5 @@
-#import "/src/library.typ": exercise, colors
-#import exercise: project, task, subtask
+#import "/src/library.typ": colors, exercise
+#import exercise: project, subtask, task
 #import colors: *
 
 #show: project.with(

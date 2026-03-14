@@ -1,4 +1,4 @@
-#import "/src/library.typ": subtype, citation
+#import "/src/library.typ": citation, subtype
 #import citation: *
 
 #show: grape-suite-citation

@@ -2,7 +2,7 @@
 
 #import "german-dates.typ": semester, weekday
 #import "colors.typ": *
-#import "todo.typ": todo, list-todos, todo-state, hide-todos
+#import "todo.typ": hide-todos, list-todos, todo, todo-state
 #import "elements.typ": *
 
 #let uncover = polylux.uncover
@@ -76,11 +76,20 @@
     heading-numbering: none,
 
     fontsize: 24pt,
-    text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
+    text-font: (
+        "Atkinson Hyperlegible Next",
+        "Atkinson Hyperlegible",
+        "Libertinus Serif",
+    ),
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     date: datetime.today(),
-    date-format: (date) => if type(date) == type(datetime.today()) [#weekday(date.weekday()), #date.display("[day].[month].[year]")] else { date },
+    date-format: date => if type(date)
+        == type(
+            datetime.today(),
+        ) [#weekday(date.weekday()), #date.display("[day].[month].[year]")] else {
+        date
+    },
 
     colors-primary: purple,
     colors-accent: blue,
@@ -88,7 +97,7 @@
     colors-warning: yellow,
     colors-warning-dark: brown,
 
-    body
+    body,
 ) = {
     set-colors(
         primary: colors-primary,
@@ -100,11 +109,16 @@
     let left-footer = if footer != none {
         footer
     } else {
-        text(size: 0.5em, (
-            if show-semester [#semester(short: true, date)],
-            [#series] + if no != none [ \##no],
-            title,
-            if show-author { author }).filter(e => e != none).join[ --- ]
+        text(
+            size: 0.5em,
+            (
+                if show-semester [#semester(short: true, date)],
+                [#series] + if no != none [ \##no],
+                title,
+                if show-author { author },
+            )
+                .filter(e => e != none)
+                .join[ --- ],
         )
     }
 
@@ -113,13 +127,15 @@
     set text(size: fontsize, font: text-font)
     show math.equation: set text(font: math-font, size: fontsize)
 
-    set page(paper: "presentation-16-9",
-        footer: {
-            let fs = state("grape-suite-slides", ())
+    set page(paper: "presentation-16-9", footer: {
+        let fs = state("grape-suite-slides", ())
 
-            (context if show-footer and (not show-title-slide or here().page() > 1) {
+        (
+            context if show-footer
+                and (not show-title-slide or here().page() > 1) {
                 let c = get-colors()
-                set text(fill: if fs.at(here()).last() != none and fs.at(here()).last() == "normal" {
+                set text(fill: if fs.at(here()).last() != none
+                    and fs.at(here()).last() == "normal" {
                     c.primary-light
                 } else {
                     c.accent.lighten(25%)
@@ -130,11 +146,14 @@
                 h(1fr)
 
                 if show-page-numbers {
-                    page-numbering(counter(page).at(here()), counter(page).final())
+                    page-numbering(
+                        counter(page).at(here()),
+                        counter(page).final(),
+                    )
                 }
-            })
-        }
-    )
+            }
+        )
+    })
 
     state("grape-suite-box-translations").update((
         "task": box-task-title,
@@ -152,11 +171,18 @@
         slide(align(horizon, [
             #block(inset: (left: 1cm, top: 3cm))[
                 #if head-replacement == none [
-                    #context text(fill: get-colors().primary, size: 2em, strong[#series ] + if no != none [\##no]) \
+                    #context text(
+                        fill: get-colors().primary,
+                        size: 2em,
+                        strong[#series ] + if no != none [\##no],
+                    ) \
                 ] else { head-replacement }
                 //
                 #if title-replacement == none [
-                   #context text(fill: get-colors().primary-light, strong(title))
+                    #context text(
+                        fill: get-colors().primary-light,
+                        strong(title),
+                    )
                 ] else { title-replacement }
 
                 #set text(size: 0.75em)
@@ -183,33 +209,33 @@
             slide[
                 #set text(fill: white)
 
-                #heading(outlined: false, text(fill: c.accent.lighten(25%), [#outline-title-text]))
+                #heading(outlined: false, text(
+                    fill: c.accent.lighten(25%),
+                    [#outline-title-text],
+                ))
 
-            #show outline.entry: it => link(
-                it.element.location(),
-                it.indented(it.prefix(), it.body())
-            )
+                #show outline.entry: it => link(
+                    it.element.location(),
+                    it.indented(it.prefix(), it.body()),
+                )
 
-            #outline(
-                depth: outline-depth,
-                title: none
-            )
-        ]
+                #outline(
+                    depth: outline-depth,
+                    title: none,
+                )
+            ]
         }
     }
 
-    set heading(numbering:
-        if heading-numbering == none {
-            (..nums) => {
-                let number = numbering("1. a", ..nums)
-                if not number.contains(".") {number + "."} else {number}
-            }
+    set heading(numbering: if heading-numbering == none {
+        (..nums) => {
+            let number = numbering("1. a", ..nums)
+            if not number.contains(".") { number + "." } else { number }
         }
-        else { heading-numbering }
-    )
+    } else { heading-numbering })
 
     show heading: it => context {
-        if heading-numbering == none {text(it.body)} else {it}
+        if heading-numbering == none { text(it.body) } else { it }
     }
 
     show heading: it => context {

@@ -1,5 +1,5 @@
 #import "colors.typ" as colors: *
-#import "todo.typ": todo, list-todos, hide-todos
+#import "todo.typ": hide-todos, list-todos, todo
 #import "elements.typ": *
 
 #let project(
@@ -35,7 +35,9 @@
     sentence-supplement: "Example",
 
     date: datetime.today(),
-    date-format: (date) => if type(date) == type(datetime.today()) { date.display("[day].[month].[year]") } else { date },
+    date-format: date => if type(date) == type(datetime.today()) {
+        date.display("[day].[month].[year]")
+    } else { date },
 
     header: none,
     header-right: none,
@@ -55,7 +57,11 @@
 
     page-margins: none,
 
-    text-font: ("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif"),
+    text-font: (
+        "Atkinson Hyperlegible Next",
+        "Atkinson Hyperlegible",
+        "Libertinus Serif",
+    ),
     math-font: ("STIX Two Math", "New Computer Modern Math"),
 
     fontsize: 11pt,
@@ -67,7 +73,7 @@
     colors-warning: yellow,
     colors-warning-dark: brown,
 
-    body
+    body,
 ) = {
     set-colors(
         primary: colors-primary,
@@ -95,7 +101,12 @@
     set list(indent: 1em)
 
     show link: if format-links { (underline) } else { (e => e) }
-    show link: it => if format-links { context { set text(fill: get-colors().primary); it } } else { it }
+    show link: it => if format-links {
+        context {
+            set text(fill: get-colors().primary)
+            it
+        }
+    } else { it }
 
     show: format-heading-numbering
     show: format-quotes
@@ -109,7 +120,11 @@
         #context text(size: 2.5em, fill: get-colors().primary, strong(title)) \
         #if subtitle != none {
             v(0em)
-            context text(size: 1.5em, fill: get-colors().primary-light, subtitle)
+            context text(
+                size: 1.5em,
+                fill: get-colors().primary-light,
+                subtitle,
+            )
         }
 
         #if title-page-part == none [
@@ -133,13 +148,15 @@
 
             #if title-page-part-submit-by == none {
                 ifnn-line(text(size: 0.6em, upper(strong(submit-by))))
-                ifnn-line(author + if student-number != none [ (#student-number)])
+                ifnn-line(
+                    author + if student-number != none [ (#student-number)],
+                )
                 ifnn-line(email)
                 ifnn-line(address)
             } else {
                 title-page-part-submit-by
             }
-         ] else {
+        ] else {
             title-page-part
         }
 
@@ -153,20 +170,35 @@
     if institute != none { ufi.push(institute) }
 
     set page(
-        margin: if page-margins != none {page-margins} else {
+        margin: if page-margins != none { page-margins } else {
             (top: 2.5cm, bottom: 2.5cm, right: 4cm)
         },
 
-        header: if header != none {header} else [
+        header: if header != none { header } else [
             #set text(size: 0.75em)
 
-            #table(columns: (1fr, auto, 1fr), align: bottom, stroke: none, inset: 0pt, if header-left != none {header-left} else [
-                #title
-            ], align(center, if header-middle != none {header-middle} else []), if header-right != none {header-right} else [
-                #show: align.with(top + right)
-                #author, #date-format(date)
-            ])
-        ] + if show-header-line { context v(-0.5em) + line(length: 100%, stroke: get-colors().primary) },
+            #table(
+                columns: (1fr, auto, 1fr),
+                align: bottom,
+                stroke: none,
+                inset: 0pt,
+                if header-left != none { header-left } else [
+                    #title
+                ],
+                align(center, if header-middle != none {
+                    header-middle
+                } else []),
+                if header-right != none { header-right } else [
+                    #show: align.with(top + right)
+                    #author, #date-format(date)
+                ],
+            )
+        ]
+            + if show-header-line {
+                context (
+                    v(-0.5em) + line(length: 100%, stroke: get-colors().primary)
+                )
+            },
     )
 
     state("grape-suite-element-sentence-supplement").update(sentence-supplement)
@@ -195,12 +227,21 @@
             .map(e => context {
                 if here().page() == e.loc.at(0) {
                     set par(justify: false, leading: 0.65em)
-                    place(top + right, align(left, text(fill: get-colors().primary, size: 0.75em, hyphenate: false, pad(x: 0.5cm, block(width: 3cm, strong(e.body))))), dy: e.loc.at(1).y)
-                } else {
-                }
-            }).join[],
+                    place(
+                        top + right,
+                        align(left, text(
+                            fill: get-colors().primary,
+                            size: 0.75em,
+                            hyphenate: false,
+                            pad(x: 0.5cm, block(width: 3cm, strong(e.body))),
+                        )),
+                        dy: e.loc.at(1).y,
+                    )
+                } else {}
+            })
+            .join[],
 
-        footer: if footer != none {footer} else {
+        footer: if footer != none { footer } else {
             set text(size: 0.75em)
 
             if show-footer-line {
@@ -208,12 +249,13 @@
                 v(-0.5em)
             }
 
-            table(columns: (1fr, auto, 1fr),
+            table(
+                columns: (1fr, auto, 1fr),
                 align: top,
                 stroke: none,
                 inset: 0pt,
 
-                if footer-left != none {footer-left},
+                if footer-left != none { footer-left },
 
                 align(center, context {
                     str(counter(page).display())
@@ -221,9 +263,9 @@
                     str(counter("grape-suite-last-page").final().first())
                 }),
 
-                if footer-right != none {footer-right}
+                if footer-right != none { footer-right },
             )
-        }
+        },
     )
 
     set heading(numbering: "1.")
@@ -247,16 +289,19 @@
 
         v(1cm)
 
-        table(columns: (auto, auto, auto, auto),
+        table(
+            columns: (auto, auto, auto, auto),
             stroke: white,
             inset: 0cm,
 
             strong([Ort:]) + h(0.5cm),
-            repeat("."+hide("'")),
+            repeat("." + hide("'")),
             h(0.5cm) + strong([Unterschrift:]) + h(0.5cm),
-            repeat("."+hide("'")),
+            repeat("." + hide("'")),
+
             v(0.75cm) + strong([Datum:]) + h(0.5cm),
-            v(0.75cm) + repeat("."+hide("'")),)
+            v(0.75cm) + repeat("." + hide("'")),
+        )
     }
 }
 
