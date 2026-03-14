@@ -15,7 +15,7 @@
     show-lines: true,
 
     show-solutions: true,
-    solutions-as-matrix: true,
+    show-solution-matrix: true,
 
     university: [Universität Musterstadt],
     institute: [Institut für Philosophie],
@@ -40,7 +40,7 @@
 
 #task(lines: 10, points: 3, [Grundbegriffe], [
     Erklären Sie, womit sich die Logik beschäftigt. Nennen Sie außerdem die zwei Gütekriterien von Argumenten.
-], [], (
+], solution-parts: (
     (1, [Bestimmung der Logik als Lehre vom gültigen, formalen Schließen.]),
     (2, [Benennen der Gütekriterien Gültigkeit und Schlüssigkeit.]),
 ))
@@ -68,7 +68,7 @@
         Alle Menschen sollten Fleisch essen.
     ]
 
-], (
+], solution-parts: (
     (2, [
         1. Das Argument wurde als schlüssig und gültig charakterisiert, da die Prämissen wahr und die Konklusion logisch aus den Prämissen folgt. Wurde es als unschlüssig beurteilt, so muss eine Begründung erfolgen.
     ]),
@@ -103,7 +103,7 @@
         #box(line(length: 5cm)) \
         ...
     ]
-], (
+], solution-parts: (
     (1, [
         Eines der folgenden:
         - "Alle Vögel können fliegen."
@@ -135,7 +135,7 @@
         Alle Chirurgen sind Ärzte. \
         #box(line(length: 5cm)) \
         Alle Chirurgen sind brilliant.
-], (
+], solution-parts: (
     (1, [Die Konklusion wurde verneint.]),
     (1, [Weitere Beweisschritte sind nachvollziehbar.]),
     (1, [Der Widerspruch wurde gefunden.]),
