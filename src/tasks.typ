@@ -209,7 +209,7 @@
     header-points: [Points],
     header-achieved: [Achieved],
 ) = {
-    let tasks = state("grape-suite-tasks").at(here())
+    let tasks = state("grape-suite-tasks").final()
     let tables = calc.ceil(tasks.len() / 10)
     let c = get-colors()
 
@@ -265,7 +265,7 @@
     header-point-value,
     header-point-grade,
 ) = {
-    let points = state("grape-suite-tasks").at(loc)
+    let points = state("grape-suite-tasks").final()
     let points-sum = points
         .filter(e => not e.extra and not e.ignore-points)
         .map(e => e.points)
