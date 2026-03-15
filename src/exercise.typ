@@ -55,7 +55,7 @@
 
     // show point distributions after tasks
     show-point-distribution: false,
-    show-points-table: true,
+    show-points-table: false,
 
     // show solution matrix; expects solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
     show-solution-matrix: false,
