@@ -204,6 +204,59 @@
     )
 }
 
+#let make-points-table(
+    header-task: [Task],
+    header-points: [Points],
+    header-achieved: [Achieved],
+) = {
+    let tasks = state("grape-suite-tasks").at(here())
+    let tables = calc.ceil(tasks.len() / 10)
+    let c = get-colors()
+
+    set table.vline(stroke: c.primary)
+    set table.hline(stroke: c.primary)
+    set line(stroke: c.primary)
+    set text(fill: c.primary)
+
+    show: block.with(
+        fill: c.accent-light,
+        breakable: false,
+        stroke: c.primary,
+        inset: 1em,
+        width: 100%,
+    )
+
+    set align(center)
+
+    for i in range(tables) {
+        let tasks = tasks.slice(10 * i, calc.min(tasks.len(), 10 * i + 10))
+
+        table(
+            columns: calc.min(10 + 1, tasks.len() + 1),
+            stroke: none,
+
+            table.hline(y: 1),
+            table.hline(y: 2),
+
+            table.cell(x: 0, y: 0, strong(header-task)),
+            table.cell(x: 0, y: 1, strong(header-points)),
+            table.cell(x: 0, y: 2, strong(header-achieved)),
+
+            ..tasks
+                .enumerate()
+                .map(((n, e)) => (
+                    table.vline(x: n + 1),
+                    table.cell(x: n + 1, y: 0)[#e.no],
+                    table.cell(x: n + 1, y: 1)[#e.points],
+                    table.cell(x: n + 1, y: 2)[#align(bottom, box(
+                        line(length: 2em),
+                    ))],
+                ))
+                .flatten()
+        )
+    }
+}
+
 #let make-point-distribution(
     loc,
     message,
@@ -224,7 +277,6 @@
     let points-sum-all = points-sum + extrapoints-sum
 
     if points-sum-all > 0 {
-        v(1fr)
         let c = get-colors()
         set text(fill: c.primary)
         block(

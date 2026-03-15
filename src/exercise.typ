@@ -50,8 +50,9 @@
     // if task has a defined amount of lines, draw the amount of lines below the task
     show-lines: false,
 
-    // show point distributions after tasks/at the end of the solutions
-    show-point-distribution-in-tasks: false,
+    // show point distributions after tasks
+    show-point-distribution: false,
+    show-points-table: true,
 
     // show solution matrix; expects solution argument of the tasks is now a list of 2-tuples, where the first element is always a number of points and the second element is the description of what these points are awarded for
     show-solution-matrix: false,
@@ -110,6 +111,10 @@
 
     distribution-header-point-value: [Point],
     distribution-header-point-grade: [Grade],
+
+    points-table-header-task: [Task],
+    points-table-header-points: [Points],
+    points-table-header-achieved: [Achieved],
 
     message: (
         points-sum,
@@ -392,7 +397,23 @@
 
     body
 
-    if show-point-distribution-in-tasks {
+    if (
+        show-point-distribution
+            or show-point-distribution
+            or show-solution-matrix
+    ) {
+        v(1fr)
+    }
+
+    if show-points-table {
+        context make-points-table(
+            header-task: points-table-header-task,
+            header-points: points-table-header-points,
+            header-achieved: points-table-header-achieved,
+        )
+    }
+
+    if show-point-distribution {
         context make-point-distribution(
             here(),
             message,
