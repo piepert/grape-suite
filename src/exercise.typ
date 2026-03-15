@@ -41,6 +41,7 @@
     // show name and time in header of first page
     show-namefield: false,
     namefield: [Name:],
+
     show-timefield: false,
     timefield: time => [Time: #time min.],
 
@@ -49,6 +50,8 @@
 
     // if task has a defined amount of lines, draw the amount of lines below the task
     show-lines: false,
+
+    show-titlepage: false,
 
     // show point distributions after tasks
     show-point-distribution: false,
@@ -157,7 +160,87 @@
         warning: colors-warning,
         warning-dark: colors-warning-dark,
     )
+
     let ifnn-line(e) = if e != none [#e \ ]
+
+    let point-tables() = {
+        if (
+            (
+                show-point-distribution
+                    or show-points-table
+                    or show-solution-matrix
+            )
+                and not show-titlepage
+        ) {
+            v(1fr)
+        }
+
+        if show-points-table {
+            context make-points-table(
+                header-task: points-table-header-task,
+                header-points: points-table-header-points,
+                header-achieved: points-table-header-achieved,
+            )
+        }
+
+        if show-point-distribution {
+            context make-point-distribution(
+                here(),
+                message,
+                grade-scale,
+                distribution-header-point-value,
+                distribution-header-point-grade,
+            )
+        }
+    }
+
+    let make-namefields() = {
+        assert(
+            not _type(namefield) == array or show-titlepage,
+            message: "namefield can only be an array iff show-titlepage is true.",
+        )
+        assert(
+            _type(namefield) in (array, content, str),
+            message: "namefield is required to either be an array, content or a string.",
+        )
+
+        if _type(namefield) == array {
+            table(
+                columns: 2,
+                column-gutter: 1em,
+                row-gutter: 1em,
+                align: right,
+                stroke: none,
+                ..namefield
+                    .map(e => (
+                        e,
+                        align(bottom, box(width: 1fr, box(line(length: 100%)))),
+                    ))
+                    .flatten()
+            )
+        } else {
+            namefield
+        }
+    }
+
+    let make-outline() = {
+        if show-outline {
+            show: pad.with(x: 1cm)
+            set par(spacing: 0em)
+            show outline.entry: it => h(1em) + it
+            pad(
+                y: 0.25cm,
+                outline(indent: 1.5em),
+            )
+        }
+    }
+
+    let make-abstract() = {
+        if abstract != none {
+            show: pad.with(x: 1cm, bottom: 0.25cm)
+            abstract
+        }
+    }
 
     if title == none {
         title = (
@@ -255,9 +338,12 @@
                 #ifnn-line(semester)
                 #ifnn-line(docent)
                 #context {
-                    if state("grape-suite-namefields").at(here()) != 1 {
+                    if (
+                        state("grape-suite-namefields").at(here()) != 1
+                            and not show-titlepage
+                    ) {
                         if show-namefield {
-                            namefield
+                            make-namefields()
                         }
 
                         state("grape-suite-namefields").update(1)
@@ -355,24 +441,34 @@
     state("grape-suite-element-sentence-supplement").update(sentence-supplement)
     show: sentence-logic
 
+    if show-titlepage {
+        v(0.2fr)
+    }
+
     if title != none {
         big-heading(title)
     }
 
-    if abstract != none {
-        set text(size: 0.85em)
-        pad(x: 1cm, abstract)
+    {
+        if not show-titlepage {
+            set text(size: 0.85em)
+            make-outline()
+            make-abstract()
+        } else {
+            make-outline()
+            make-abstract()
+        }
+
+        if show-titlepage {
+            show: pad.with(x: 1cm)
+            make-namefields()
+            v(0.5cm)
+            point-tables()
+        }
     }
 
-    if show-outline {
-        set par(spacing: 0em)
-        show outline.entry: it => h(1em) + it
-        set text(size: 0.75em)
-        pad(
-            x: 1cm,
-            top: if abstract != none { 0.25cm } else { 0cm },
-            outline(indent: 1.5em),
-        )
+    if show-titlepage {
+        v(0.8fr)
     }
 
     if show-todolist {
@@ -390,6 +486,10 @@
         }
     }
 
+    if show-titlepage {
+        pagebreak()
+    }
+
     set heading(numbering: "1.")
 
     state("grape-suite-tasks").update(())
@@ -397,30 +497,8 @@
 
     body
 
-    if (
-        show-point-distribution
-            or show-point-distribution
-            or show-solution-matrix
-    ) {
-        v(1fr)
-    }
-
-    if show-points-table {
-        context make-points-table(
-            header-task: points-table-header-task,
-            header-points: points-table-header-points,
-            header-achieved: points-table-header-achieved,
-        )
-    }
-
-    if show-point-distribution {
-        context make-point-distribution(
-            here(),
-            message,
-            grade-scale,
-            distribution-header-point-value,
-            distribution-header-point-grade,
-        )
+    if not show-titlepage {
+        point-tables()
     }
 
     if show-solution-matrix {
