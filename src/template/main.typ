@@ -1,55 +1,52 @@
-#import "@preview/grape-suite:4.0.0": german-dates, seminar-paper
-
-#set text(lang: "de")
+#import "@preview/grape-suite:4.0.0": seminar-paper
 
 #show: seminar-paper.project.with(
-    title: "Die Intensionalität von dass-Sätzen",
-    subtitle: "Intensionale Kontexte in philosophischen Argumenten",
+    title: [Intensionality of That-#sym.wj;Clauses],
+    subtitle: [Intensional Contexts in Philosophical Arguments],
 
-    university: [Universität Musterstadt],
-    faculty: [Exemplarische Fakultät],
-    institute: [Institut für Philosophie],
-    docent: [Dr. phil. Berta Beispielprüferin],
-    seminar: [Beispielseminar],
+    university: [Example University],
+    faculty: [Example Faculty],
+    institute: [Institute for Philosophy],
+    docent: [Dr. phil. Edgar Example-Examiner],
+    seminar: [Example Seminar],
 
-    submit-to: [Eingereicht bei],
-    submit-by: [Eingereicht durch],
+    date: [14#super[th] June 2023],
+    semester: none,
 
-    semester: german-dates.semester(datetime.today()),
-
-    author: "Max Muster",
-    email: "max.muster@uni-musterstadt.uni",
+    author: "John Doe",
+    student-number: "0123456789",
+    email: "john.doe@university.uni",
     address: [
         12345 Musterstadt \
         Musterstraße 67
     ],
 )
 
-= Einleitung
+= Introduction
 #lorem(100)
 
 
 #lorem(100)
 
-= Hauptteil
+= Main part
 #lorem(100)
 
 #lorem(100)
 
-== These
+== Thesis
 #lorem(200)
 
-== Antithese
-#lorem(100)
-
-#lorem(200)
-
-== Synthese
+== Antithesis
 #lorem(100)
 
 #lorem(200)
 
-= Fazit
+== Synthesis
+#lorem(100)
+
+#lorem(200)
+
+= Conclusion
 
 #lorem(100)
 

@@ -3,26 +3,22 @@
 
 #let definition = definition.with(figured: true)
 
-#set text(lang: "de")
-
 #show: seminar-paper.project.with(
-    title: "Die Intensionalität von dass-Sätzen",
-    subtitle: "Intensionale Kontexte in philosophischen Argumenten",
+    title: [Intensionality of That-#sym.wj;Clauses],
+    subtitle: [Intensional Contexts in Philosophical Arguments],
 
-    university: [Universität Musterstadt],
-    faculty: [Exemplarische Fakultät],
-    institute: [Institut für Philosophie],
+    university: [Example University],
+    faculty: [Example Faculty],
+    institute: [Institute for Philosophy],
     docent: [Dr. phil. Berta Beispielprüferin],
-    seminar: [Beispielseminar],
+    seminar: [Example Seminar],
 
-    submit-to: [Eingereicht bei],
-    submit-by: [Eingereicht durch],
+    date: [14#super[th] June 2023],
+    semester: none,
 
-    semester: german-dates.semester(datetime.today()),
-
-    author: "Max Muster",
+    author: "John Doe",
     student-number: "0123456789",
-    email: "max.muster@uni-musterstadt.uni",
+    email: "john.doe@university.uni",
     address: [
         12345 Musterstadt \
         Musterstraße 67
@@ -35,11 +31,11 @@
 #lorem(100)
 
 #quote(attribution: [@schlick_wende_2008[S. 213 ff.]])[
-    #sidenote[Logischer Empirismus] Ich bin nämlich überzeugt, daß wir in einer durchaus endgültigen Wendung der Philosophie mitten darin stehen und daß wir sachlich berechtigt sind, den unfruchtbaren Streit der Systeme als beendigt anzusehen. Die Gegenwart ist, so behaupte ich, bereits im Besitz der Mittel, die jeden derartigen Streit im Prinzip unnötig machen; es kommt nur darauf an, sie entschlossen anzuwenden.
+    #sidenote[Logischer Empirismus] For I am convinced that we are in the midst of a truly definitive turning point in philosophy, and that we are objectively justified in regarding the fruitless dispute between systems as over. The present, I maintain, already possesses the means that render any such dispute unnecessary in principle; it is only a matter of applying them resolutely.
 
-    Diese Mittel sind in aller Stille, unbemerkt von der Mehrzahl der philosophischen Lehrer und Schriftsteller, geschaffen worden, und so hat sich eine Lage gebildet, die mit allen früheren unvergleichbar ist. Daß die Lage wirklich einzigartig und die eingetretene Wendung wirklich endgültig ist, kann nur eingesehen werden, indem man sich mit den neuen Wegen bekannt macht und von dem Standpunkte, zu dem sie führen, auf alle die Bestrebungen zurückschaut, die je als ”philosophische“ gegolten haben.
+    These means have been created quietly, unnoticed by the majority of philosophical teachers and writers, and thus a situation has arisen that is incomparable to any previous one. That the situation is truly unique and the turn of events truly definitive can only be understood by familiarizing oneself with the new paths and, from the vantage point to which they lead, looking back upon all the endeavors that have ever been regarded as "philosophical."
 
-    Die Wege gehen von der _Logik_ aus.
+    The paths proceed from _logic_.
 ]
 
 #definition[

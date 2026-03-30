@@ -6,24 +6,12 @@
 
 #show: project.with(
     no: 1,
-    type: "Aufgabenblatt",
-    suffix-title: "Darstellungen des Pegasus in der antiken griechischen Literatur",
+    type: "Exercise",
+    suffix-title: "Depictions of Pegasus in Ancient Greek Literature",
     show-hints: true,
     show-solutions: true,
 
     show-solution-matrix: true,
-    task-type: [Aufgabe],
-    extra-task-type: [Zusatzaufgabe],
-
-    solution-type: [Lösungsvorschlag],
-    solutions-title: [Lösungsvorschläge],
-
-    hint-type: [Hinweis],
-    hints-title: [Hinweise],
-
-    box-task-title: [Aufgabe],
-    box-hint-title: [Hinweis],
-    box-solution-title: [Lösung],
 
     university: [Universität Musterstadt],
     institute: [Historisches Institut],
@@ -34,15 +22,15 @@
 
 #task(
     solution-parts: ((1, lorem(20)), (3, lorem(23))),
-    [Pegasus in der Mythologie],
+    [Pegasus in mythology],
     none,
     [
         #subtask(points: 3)[
-            Beschreiben Sie die Entstehungsgeschichte des Pegasus in der griechischen Mythologie. Gehen Sie dabei auf seine Herkunft und die wichtigsten Figuren ein, die mit ihm verbunden sind.
+            Describe the origin story of Pegasus in Greek mythology. Discuss his origins and the key figures associated with him.
         ]
 
         #subtask(points: 1)[
-            Analysieren Sie die Rolle des Pegasus im Mythos von Bellerophon. Welche Bedeutung hat Pegasus für den Verlauf und den Ausgang der Geschichte?
+            Analyze the role of Pegasus in the myth of Bellerophon. What significance does Pegasus have for the course and outcome of the story?
         ]
 
         #solution[
@@ -63,16 +51,16 @@
     ],
 )
 
-#task(points: 5)[Pegasus in literarischen Quellen][
-    Vergleichen Sie die Darstellung des Pegasus in zwei antiken griechischen Quellen (z.B. in Hesiods Theogonie und Pindars Oden). Gehen Sie auf Unterschiede und Gemeinsamkeiten in der Symbolik und Charakterisierung des Pegasus ein.
+#task(points: 5)[Pegasus in literary sources][
+    Compare the depiction of Pegasus in two ancient Greek sources (e.g., Hesiod’s Theogony and Pindar’s Odes). Discuss the differences and similarities in the symbolism and characterization of Pegasus.
 ]
 
 #task(points: 6, solution-parts: (
     (1, lorem(20)),
     (3, lorem(23)),
     (2, lorem(30)),
-))[Pegasus als kulturelles Symbol][
-    Diskutieren Sie die Bedeutung des Pegasus als Symbol in der antiken griechischen Kultur. Welche Werte oder Konzepte verkörpert er? Beziehen Sie sich dabei auch auf seine spätere Rezeption in Kunst und Literatur.
+))[Pegasus as a cultural symbol][
+    Discuss the significance of Pegasus as a symbol in ancient Greek culture. What values or concepts does it embody? In your discussion, also refer to its later portrayal in art and literature.
 ][
     #solution[
         #lorem(50)

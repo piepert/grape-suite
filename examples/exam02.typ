@@ -6,7 +6,7 @@
     title: [History Exam],
     type: "Exam",
 
-    show-point-distribution-in-tasks: true,
+    show-point-distribution: true,
     show-namefield: true,
     show-timefield: true,
 
