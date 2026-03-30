@@ -75,7 +75,7 @@ For protocols and essays see [subtypes module](#subtypes).
 | `abstract`                               | optional, content, default: `none`, show abstract between outline and title                                                                                                                                                                                                        |
 | `document-title`                         | optional, content, default: `none`, shown in the upper right corner of the page header: if none, `title` is used                                                                                                                                                                   |
 | `show-namefield`                         | optional, bool, default: `false`, show namefield at the end of the left header iff true                                                                                                                                                                                            |
-| `namefield`                              | optional, content, default: `[Name:]`, content shown iff `show-namefield`                                                                                                                                                                                                          |
+| `namefield`                              | optional, content/array, default: `[Name:]`, content shown iff `show-namefield`; can take an array of strings/content iff `show-titlepage` is true that will be shown on the titlepage                                                                                             |
 | `show-timefield`                         | optional, bool, default: `false`, show timefield at the end of right header iff true                                                                                                                                                                                               |
 | `timefield`                              | optional, function, default: `(time) => [Time: #time min.]`, to generate the content shown as the timefield iff `show-timefield` is true                                                                                                                                           |
 | `max-time`                               | optional, number, default: `0`, time value used in the `timefield` function generator                                                                                                                                                                                              |
@@ -83,7 +83,7 @@ For protocols and essays see [subtypes module](#subtypes).
 | `show-lines`                             | optional, bool, default: `false`, draw automatic lines for each task, if `lines` parameter of `task` is set                                                                                                                                                                        |
 | `show-solutions`                         | optional, bool, default: `false`, will not display solutions iff false                                                                                                                                                                                                             |
 | `show-hints`                             | optional, bool, default: `false`, will not display hints iff false                                                                                                                                                                                                                 |
-| `show-point-distribution-in-tasks`       | optional, bool, default: `false`, show point distribution after tasks iff true                                                                                                                                                                                                     |
+| `show-point-distribution`                | optional, bool, default: `false`, show point distribution after tasks iff true                                                                                                                                                                                                     |
 | `show-points-table`                      | optional, bool, default: `false`, show a table of all tasks and their points at the end of the document                                                                                                                                                                            |
 | `show-solution-matrix`                   | optional, bool, default: `false`, show solutions as a matrix iff true - description of point distribution in each task can be provided through `solution-parts`                                                                                                                    |
 | `university`                             | optional, content, default: `none`                                                                                                                                                                                                                                                 |
@@ -636,16 +636,18 @@ New:
 - supports color themes via the `colors-*` parameters in `exercise`, `seminar-paper` and `slides`
 - `slides` now supports the arguments `outline-depth` and `heading-numbering`
 - `tasks` now has the arguments `instruction-format`, `title-format` and `solution-parts`
+- `exercise`
 - `exercise` can generate a per-task point table via `show-points-per-task-table`, translation via:
   - `point-table-header-task`
   - `point-table-header-points`
   - `point-table-header-achieved`
+- `exericse`: added argument `show-titlepage`, adusted `namefield` for this purpose
 - `elements`, `tasks` and `todo` can be imported the package for internals
 - translated all examples into English
 
 Changes:
 
-- **(breaking)** `task`s and their solutions are now decoupled: the `task` syntax is different, hints and solutions are not generated separately but in place
+- **(breaking)** `task`s and their solutions are now decoupled: the `task` syntax is different, hints and solutions are not generated separately but in place, this affects `show-point-distribution-in-tasks` and `show-point-distribution-in-solutions`, which are renamed to `show-point-distribution`
 - **(breaking)** points for solution matrices is now provided by `task`'s `solution-parts` argument
 - **(breaking)** internal functions are now guarded and can't be imported from templates
 
