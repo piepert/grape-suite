@@ -640,11 +640,14 @@ New:
   - `point-table-header-task`
   - `point-table-header-points`
   - `point-table-header-achieved`
+- `elements`, `tasks` and `todo` can be imported the package for internals
+- translated all examples into English
 
 Changes:
 
 - **(breaking)** `task`s and their solutions are now decoupled: the `task` syntax is different, hints and solutions are not generated separately but in place
 - **(breaking)** points for solution matrices is now provided by `task`'s `solution-parts` argument
+- **(breaking)** internal functions are now guarded and can't be imported from templates
 
 ## 3.1.0
 
