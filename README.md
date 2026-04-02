@@ -12,7 +12,7 @@ The grape suite is a suite consisting of following templates:
 
 ## Exercises
 
-Usable as an exercise sheet:
+Use the `exercise` module to create exercise sheets or exams (or hand in your homework):
 
 <table>
     <tr>
@@ -36,6 +36,33 @@ Usable as an exercise sheet:
         <td>Tasks</td>
         <td>Hints</td>
         <td>Solutions</td>
+    </tr>
+</table>
+
+The `exercise` module also supports exams with a titlepage, point distributions and transparent grading rubrics/solution matrices:
+
+<table>
+    <tr>
+        <td>
+            <a href="examples/exam03.typ">
+                <img src="img/exam03-1.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/exam03.typ">
+                <img src="img/exam03-2.png" width="250px">
+            </a>
+        </td>
+        <td>
+            <a href="examples/exam03.typ">
+                <img src="img/exam03-5.png" width="250px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>Title page</td>
+        <td>Tasks</td>
+        <td>Rubrics Grade</td>
     </tr>
 </table>
 
@@ -636,12 +663,11 @@ New:
 - supports color themes via the `colors-*` parameters in `exercise`, `seminar-paper` and `slides`
 - `slides` now supports the arguments `outline-depth` and `heading-numbering`
 - `tasks` now has the arguments `instruction-format`, `title-format` and `solution-parts`
-- `exercise`
 - `exercise` can generate a per-task point table via `show-points-per-task-table`, translation via:
   - `point-table-header-task`
   - `point-table-header-points`
   - `point-table-header-achieved`
-- `exericse`: added argument `show-titlepage`, adusted `namefield` for this purpose
+- `exericse`: added argument `show-titlepage`, adjusted `namefield` for this purpose
 - `elements`, `tasks` and `todo` can be imported the package for internals
 - translated all examples into English
 
