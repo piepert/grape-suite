@@ -18,17 +18,17 @@ Use the `exercise` module to create exercise sheets or exams (or hand in your ho
     <tr>
         <td>
             <a href="examples/homework01.typ">
-                <img src="img/homework01-1.png" width="250px">
+                <img alt="screenshot of a document that represents an exercise sheet with multiple tasks" src="img/homework01-1.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/homework01.typ">
-                <img src="img/homework01-1-hints.png" width="250px">
+                <img alt="screenshot of a document that represents an exercise sheet with tasks and a highlighted hint for a specific subtask" src="img/homework01-1-hints.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/homework01.typ">
-                <img src="img/homework01-1-solutions.png" width="250px">
+                <img alt="screenshot of a document that represents an exercise sheet with tasks and solutions for two tasks" src="img/homework01-1-solutions.png" width="250px">
             </a>
         </td>
     </tr>
@@ -45,17 +45,17 @@ The `exercise` module also supports exams with a titlepage, point distributions 
     <tr>
         <td>
             <a href="examples/exam03.typ">
-                <img src="img/exam03-1.png" width="250px">
+                <img alt="screenshot of a document that represents the title page of an exam sheet" src="img/exam03-1.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/exam03.typ">
-                <img src="img/exam03-2.png" width="250px">
+                <img alt="screenshot of a document that represents an exercise sheet with lines for students to write on" src="img/exam03-2.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/exam03.typ">
-                <img src="img/exam03-5.png" width="250px">
+                <img alt="screenshot of a document that represents an exercise sheet with a table of criteria that allow transparent grading" src="img/exam03-5.png" width="250px">
             </a>
         </td>
     </tr>
@@ -211,17 +211,17 @@ For protocols and essays see [subtypes module](#subtypes).
     <tr>
         <td>
             <a href="examples/seminar-paper01.typ">
-                <img src="img/seminar-paper01-1.png" width="250px">
+                <img alt="screenshot of a document that represents the title page of a paper or essay" src="img/seminar-paper01-1.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/seminar-paper01.typ">
-                <img src="img/seminar-paper01-2.png" width="250px">
+                <img alt="screenshot of a document which shows the outline of a paper or essay" src="img/seminar-paper01-2.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/seminar-paper01.typ">
-                <img src="img/seminar-paper01-3.png" width="250px">
+                <img alt="screenshot of a document that shows formatted text the package can produce" src="img/seminar-paper01-3.png" width="250px">
             </a>
         </td>
     </tr>
@@ -328,29 +328,29 @@ _Note:_ The template generates a German statement of authorship as the last page
     <tr>
         <td>
             <a href="examples/slides01.typ">
-                <img src="img/slides01-01.png" width="250px">
+                <img alt="screenshot of a document that represents the title slide of a series of presentation slides" src="img/slides01-01.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/slides01.typ">
-                <img src="img/slides01-02.png" width="250px">
+                <img alt="screenshot of the second slide which shows the outline of the presentation" src="img/slides01-02.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/slides01.typ">
-                <img src="img/slides01-03.png" width="250px">
+                <img alt="screenshot of a content slide with a heading" src="img/slides01-03.png" width="250px">
             </a>
         </td>
     </tr>
     <tr>
         <td>
             <a href="examples/slides01.typ">
-                <img src="img/slides01-04.png" width="250px">
+                <img alt="screenshot of a content slide with a task box" src="img/slides01-04.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/slides01.typ">
-                <img src="img/slides01-12.png" width="250px">
+                <img alt="screenshot of a content slide with an example box" src="img/slides01-12.png" width="250px">
             </a>
         </td>
     </tr>
@@ -428,34 +428,34 @@ The `subtypes` module contains templates for essays and protocols based on the `
     <tr>
         <td>
             <a href="examples/essay01.typ">
-                <img src="img/essay01-1.png" width="250px">
+                <img alt="screenshot of document that represents the first page of an essay" src="img/essay01-1.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/essay01.typ">
-                <img src="img/essay01-2.png" width="250px">
+                <img alt="screenshot that shows the second page of the essay" src="img/essay01-2.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/essay01.typ">
-                <img src="img/essay01-3.png" width="250px">
+                <img alt="screenshot that shows the third page of the essay" src="img/essay01-3.png" width="250px">
             </a>
         </td>
     </tr>
     <tr>
         <td>
             <a href="examples/protocol01.typ">
-                <img src="img/protocol01-1.png" width="250px">
+                <img alt="screenshot of a document that represents the minutes of a meeting" src="img/protocol01-1.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/protocol01.typ">
-                <img src="img/protocol01-2.png" width="250px">
+                <img alt="screenshot of the second page of the minutes" src="img/protocol01-2.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/protocol01.typ">
-                <img src="img/protocol01-3.png" width="250px">
+                <img alt="screenshot of the third page of the minutes" src="img/protocol01-3.png" width="250px">
             </a>
         </td>
     </tr>
