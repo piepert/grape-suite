@@ -36,7 +36,6 @@ The following color parameters are available:
 = Task Demonstrations
 
 #task(
-    points: 10,
     title: [Task Box Colors],
     [Solve the following problem.],
 )[
