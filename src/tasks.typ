@@ -232,7 +232,7 @@
         let tasks = tasks.slice(10 * i, calc.min(tasks.len(), 10 * i + 10))
 
         table(
-            columns: calc.min(10 + 1, tasks.len() + 1),
+            columns: calc.min(10 + 1, tasks.len() + 2),
             stroke: none,
 
             table.hline(y: 1),
@@ -242,17 +242,25 @@
             table.cell(x: 0, y: 1, strong(header-points)),
             table.cell(x: 0, y: 2, strong(header-achieved)),
 
-            ..tasks
-                .enumerate()
-                .map(((n, e)) => (
-                    table.vline(x: n + 1),
-                    table.cell(x: n + 1, y: 0)[#e.no],
-                    table.cell(x: n + 1, y: 1)[#e.points],
-                    table.cell(x: n + 1, y: 2)[#align(bottom, box(
-                        line(length: 2em),
-                    ))],
-                ))
-                .flatten()
+            ..(
+                tasks
+                    .enumerate()
+                    .map(((n, e)) => (
+                        table.vline(x: n + 1),
+                        table.cell(x: n + 1, y: 0)[#e.no],
+                        table.cell(x: n + 1, y: 1)[#e.points],
+                        table.cell(x: n + 1, y: 2)[#align(bottom, box(
+                            line(length: 2em),
+                        ))],
+                    )),
+
+                table.vline(x: tasks.len() + 1),
+                table.cell(y: 0, $sum$),
+                table.cell(y: 1)[],
+                table.cell(y: 2)[#align(bottom, box(
+                    line(length: 2em),
+                ))],
+            ).flatten()
         )
     }
 }
