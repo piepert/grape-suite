@@ -15,7 +15,7 @@ jobs:
       - name: Download Fonts
         run: |
           mkdir -p ~/.fonts
-          cp -r tests/_fonts/* ~/.fonts
+          cp -r tests/.fonts/* ~/.fonts
 
       # - name: Install tytanic
       #   uses: taiki-e/cache-cargo-install-action@v3
