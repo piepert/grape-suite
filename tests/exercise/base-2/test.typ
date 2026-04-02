@@ -1,5 +1,5 @@
 #import "/src/library.typ": colors, exercise
-#import exercise: project, subtask, task
+#import exercise: project, solution, subtask, task
 #import colors: *
 
 #show: project.with(
@@ -14,7 +14,7 @@
     show-lines: true,
 
     show-solutions: true,
-    show-solution-matrix: true,
+    show-grading-rubric: true,
 
     university: [],
     institute: [],
@@ -44,4 +44,8 @@ For each of the following tasks, choose either A or B!
     #task(numbering-format: (..) => "3B")[Hey][
         #lorem(20)
     ]
+]
+
+#solution[
+    #lorem(50)
 ]
