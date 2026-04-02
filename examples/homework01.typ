@@ -8,8 +8,8 @@
     no: 1,
     type: "Exercise",
     suffix-title: "Depictions of Pegasus in Ancient Greek Literature",
-    show-hints: true,
-    show-solutions: true,
+    show-hints: sys.inputs.at("hints", default: "false") == "true",
+    show-solutions: sys.inputs.at("solutions", default: "false") == "true",
 
     show-solution-matrix: true,
 

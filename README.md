@@ -23,12 +23,12 @@ Usable as an exercise sheet:
         </td>
         <td>
             <a href="examples/homework01.typ">
-                <img src="img/homework01-2.png" width="250px">
+                <img src="img/homework01-1-hints.png" width="250px">
             </a>
         </td>
         <td>
             <a href="examples/homework01.typ">
-                <img src="img/homework01-3.png" width="250px">
+                <img src="img/homework01-1-solutions.png" width="250px">
             </a>
         </td>
     </tr>
