@@ -380,6 +380,19 @@
 
 #let solution(body) = {
     context {
+        // Store solution
+        let last-task = state("grape-suite-tasks", ()).at(here()).at(-1)
+        let s = (
+            no: last-task.no,
+            title: last-task.title,
+            task-type: last-task.task-type,
+            body: body,
+        )
+        state("grape-suite-solutions", ()).update(k => {
+                k.push(s)
+                return k
+            })
+
         let (show-solutions,) = state("grape-suite-show-rules").at(here())
         if (not show-solutions) { return }
 
