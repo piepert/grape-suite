@@ -5,7 +5,7 @@
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
 
-#let make-element(no, title, instruction, body, points, lines, element-type) = {
+#let make-element(no, title, instruction, body, points, lines, element-type, title-block-options: none, body-options: none) = {
     let title = (
         if title != none [ --- #title] + h(1fr) + if points > 0 [#points P.]
     )
@@ -14,12 +14,13 @@
         inset: 7pt,
         stroke: (bottom: (paint: c.primary, dash: "dashed")),
         fill: c.accent-light,
+        ..title-block-options,
         {
             text(fill: c.primary, strong[#element-type #no] + title)
         },
     )
 
-    block(width: 100%, {
+    block(width: 100%, ..body-options, {
         state("grape-suite-subtask-indent").update((0,))
 
         if instruction != none and instruction not in ([], [ ]) {
@@ -424,6 +425,9 @@
 
     // optional: body (and optional legacy arguments: solution, hint)
     ..body,
+
+    // optional: args for the body-box
+    body-options: none
 ) = (
     counter(if extra { "tasks" } else { "extra-tasks" }).step()
         + context {
@@ -501,6 +505,7 @@
                     t.body,
                     t.points,
                     lines,
+                    body-options: body-options,
                     if type != none { type } else if t.extra {
                         extra-task-type
                     } else { task-type },
