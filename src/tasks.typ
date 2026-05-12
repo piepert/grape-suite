@@ -425,7 +425,7 @@
     // optional: body (and optional legacy arguments: solution, hint)
     ..body,
 ) = (
-    counter(if extra { "tasks" } else { "extra-tasks" }).step()
+    counter(if extra { "extra-tasks" } else { "tasks" }).step()
         + context {
             let task-translation-state = state(
                 "grape-suite-task-translations",
@@ -452,7 +452,7 @@
             }
 
             let no = numbering-format(
-                ..counter(if extra { "tasks" } else { "extra-tasks" }).at(
+                ..counter(if extra { "extra-tasks" } else { "tasks" }).at(
                     here(),
                 ),
             )
