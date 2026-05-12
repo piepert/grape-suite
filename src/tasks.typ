@@ -5,7 +5,7 @@
 #let nobreak(body) = block(breakable: false, body)
 #let center-block(body) = align(center, block(align(left, body)))
 
-#let make-element(no, title, instruction, body, points, lines, element-type, body-options: none) = {
+#let make-element(no, title, instruction, body, points, lines, element-type, title-block-options: none, body-options: none) = {
     let title = (
         if title != none [ --- #title] + h(1fr) + if points > 0 [#points P.]
     )
@@ -14,6 +14,7 @@
         inset: 7pt,
         stroke: (bottom: (paint: c.primary, dash: "dashed")),
         fill: c.accent-light,
+        ..title-block-options,
         {
             text(fill: c.primary, strong[#element-type #no] + title)
         },
