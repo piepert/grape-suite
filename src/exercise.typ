@@ -64,6 +64,7 @@
         show-lines: false,
 
         show-titlepage: false,
+        titlepage: auto,
 
         // show point distributions after tasks
         show-point-distribution: false,
@@ -460,6 +461,7 @@
         )
         show: sentence-logic
 
+        if titlepage == auto {
         if show-titlepage {
             v(0.2fr)
         }
@@ -508,6 +510,7 @@
         if show-titlepage {
             pagebreak()
         }
+        } else { titlepage } // titlepage == auto
 
         set heading(numbering: "1.")
 
