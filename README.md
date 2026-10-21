@@ -405,6 +405,7 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `show-footer`          | optional, bool, default: `true`, show footer on slides                                                                                                           |
 | `show-page-numbers`    | optional, bool, default: `true`, show page numbering                                                                                                             |
 | `outline-title-text`   | optional, content, default: `"Outline"`, title for the outline                                                                                                   |
+| `align-outline`        | optional, bool, default: `false`, whether to align the outline similar to `aligned-slide`                                                                        |
 | `text-font`            | optional, content, default: `("Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "Libertinus Serif")`, overwrite font family for text content                |
 | `math-font`            | optional, content, default: `("STIX Two Math", "New Computer Modern Math")`, overwrite font family for math equations                                            |
 | `colors-primary`       | optional, color, default: `purple`, primary color of the document                                                                                                |
@@ -417,6 +418,11 @@ _Note:_ The template generates a German statement of authorship as the last page
 | `focus-slide` |                           |
 | :------------ | :------------------------ |
 | `body`        | content, document content |
+
+| `aligned-slide` |                           |
+| :-------------- | :------------------------ |
+| `title`         | content, title content    |
+| `body`          | content, document content |
 
 - `slide`, `later`, `only`, `uncover`: imported from polylux
 
