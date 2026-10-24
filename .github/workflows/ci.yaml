@@ -24,7 +24,7 @@ jobs:
 
       - name: Download tytanic binary
         run: |
-          wget https://github.com/typst-community/tytanic/releases/download/v0.3.3/tytanic-x86_64-unknown-linux-musl.tar.xz  -O tt.tar.xz
+          wget https://github.com/typst-community/tytanic/releases/download/v0.4.1/tytanic-x86_64-unknown-linux-musl.tar.xz  -O tt.tar.xz
           tar -xf tt.tar.xz
           mv tytanic-x86_64-unknown-linux-musl/tt .
 

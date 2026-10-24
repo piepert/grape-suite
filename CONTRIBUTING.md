@@ -16,6 +16,14 @@ Please ensure that each pull requests follows the following points:
 2. Use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 3. If you introduce new features or change or remove old features:
    - Update `README.md` for documentation.
-   - Write tests using [tytanic](https://github.com/typst-community/tytanic/).
+   - Write tests using [Tytanic](https://github.com/typst-community/tytanic/).
 4. The example files are not documentation. Ask the maintainer before you add new example files.
 5. Use [prek](https://github.com/j178/prek) or [pre-commit](https://pre-commit.com/) to ensure consistent code formatting.
+
+## Tests
+
+This project includes tests using [Tytanic](https://github.com/typst-community/tytanic/).
+The tests can be found in the [`tests`](tests) directory and executed by running the command `tt run --font-path tests/.fonts/` from the repository's root directory, using the fonts included in the `tests` directory.
+When running the tests, ensure you are using the expected version of Tytanic.
+The Tytanic version dictates the Typst version used under the hood.
+The tests in this repository were compiled with Tytanic version 0.4.1, using Typst version 0.15.1.
